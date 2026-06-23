@@ -285,10 +285,8 @@
 </head>
 <body>
 <div class="head">
-  <div class="kick"><span>●</span> Stable Money · Step 4 · v3 — the 90-day return, made real</div>
   <h1>How a first-time investor actually comes back</h1>
   <p>The whole solution hinges on the return moment. This version shows it end to end: the push that reaches a user who'd otherwise forget, the comparison that makes the second deposit a real choice, and honest after-tax numbers, commission disclosure, and partial-withdraw so a cautious investor can trust it. Use the time machine to jump from first booking to maturity day.</p>
-  <div class="law"><span class="dot"></span> Design law: coach, don't command — and never hide the tax, the fee, or the exit</div>
 </div>
 
 <div class="deck">
@@ -315,13 +313,7 @@
     </div>
   </div>
   <div class="spacer"></div>
-  <div class="grp">
-    <span class="gl">Review mode</span>
-    <div class="toggle" id="annoToggle" onclick="toggleAnno()"><span>UX heuristics &amp; laws</span><span class="switch"></span></div>
-  </div>
-  <div class="legend" id="legend">
-    <span><span class="lg-h">● purple</span> = Nielsen heuristic</span>
-    <span><span class="lg-l">● lime</span> = UX law</span>
+  <div class="legend show" id="legend">
     <span class="taxnote">Tax figures use FY25-26 rules: FD interest is taxed at your slab; TDS applies above ₹50k interest/bank/yr (₹1L for seniors). Illustrative, pre-final-ITR.</span>
   </div>
 </div>
@@ -653,7 +645,6 @@
   </div>
 </div>
 
-<p class="hint">Every screen is real and clickable. <b>Start at the left phone</b> — the time machine (top) sets the day; at Day 361 the push fires, the thing that brings a forgetful investor back. Tap it → <b>Flow 1</b> (middle) runs the guided reinvestment with after-tax numbers, commission disclosure, partial-withdraw, and the maturity-gap answer. <b>Flow 2</b> (right) shows how a ladder auto-generates future return moments. Change your <b>tax profile</b> up top and watch every rupee recompute; toggle <b>UX heuristics &amp; laws</b> to see the reasoning.</p>
 <script>
   // ===== global state =====
   var SLAB=0.2, AGE=0, DAY=361;
@@ -798,9 +789,6 @@
   function renderLad(){var st=ladState();document.getElementById('ladTot').textContent=inr(st.total);document.getElementById('rungN').textContent=st.n+' rungs';document.getElementById('bld').textContent=st.bld+'%';document.getElementById('cad').textContent='Something matures every '+st.cad+' months.';var mx=Math.max.apply(null,st.rungs.map(function(r){return r.amt;}));document.getElementById('rungL').innerHTML=st.rungs.map(function(r){return '<div class="rung"><div class="st">'+r.i+'</div><div class="br"><div class="t">'+r.m+'-month FD \u00b7 '+r.rate+'%</div><div class="tr"><div class="fl" style="width:'+Math.round(r.amt/mx*100)+'%"></div></div></div><div><div class="am">'+inr(r.amt)+'</div><div class="wn">+'+r.m+'mo</div></div></div>';}).join('');}
   function renderReview(){var st=ladState();document.getElementById('rvN').textContent=st.n;document.getElementById('rvTot').textContent=inr(st.total);document.getElementById('rvCad').textContent='A maturity every '+st.cad+' months';document.getElementById('rvList').innerHTML=st.rungs.map(function(r){return '<div class="fr"><span class="k">Rung '+r.i+' \u00b7 '+r.m+'mo \u00b7 '+r.rate+'%</span><span class="v">'+inr(r.amt)+'</span></div>';}).join('');var mx=Math.max.apply(null,st.rungs.map(function(r){return r.amt;}));document.getElementById('rvVis').innerHTML=st.rungs.map(function(r){return '<div class="c"><div class="stk" style="height:'+Math.round(30+r.amt/mx*66)+'%"></div><div class="mo">'+r.m+'mo</div></div>';}).join('');}
   function renderBSucc(){var st=ladState();document.getElementById('bSucc').textContent=st.n+' deposits booked. Your first rung matures in '+st.cad+' months \u2014 we\u2019ll bring you the decision then.';document.getElementById('bSuccList').innerHTML=st.rungs.map(function(r,idx){return '<div class="rung'+(idx===0?' fire':'')+'"><div class="st">'+(idx===0?'\ud83d\udd14':r.i)+'</div><div class="br"><div class="t">Return nudge \u00b7 '+DATES[r.m===3?0:r.m===6?1:r.m===9?2:r.m===12?3:4]+'</div><div class="wn" style="text-align:left;margin-top:2px;">'+inr(r.amt)+' rung matures</div></div><div class="wn">+'+r.m+'mo</div></div>';}).join('');}
-
-  // ===== annotations =====
-  function toggleAnno(){document.body.classList.toggle('show-anno');document.getElementById('annoToggle').classList.toggle('on');document.getElementById('legend').classList.toggle('show');}
 
   // init
   renderBanks();renderCalc();renderLad();updateDetail();renderSplit();setDay(361,document.querySelector('#timeSeg [data-day="361"]'));

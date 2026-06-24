@@ -1,0 +1,47 @@
+{
+  "summary": "Frontend-only Expo web prototype tested at 390x844 mobile viewport. Home, Allocation, Compare, Confirm, Success, Rate-Alert, Tools (Calculator/Ladder/Liquidity), bottom tabs (Home/Passbook/Explore/Profile), banner dismiss, and Source Modal all render and navigate correctly. Slider propagation verified end-to-end via pointer drag: setting safe split to 60% correctly carries ₹60,000 into /compare and /confirm, and the arithmetic is mathematically correct (₹60,000 × 8.10% = ₹4,860 interest, − ₹972 tax = ₹3,888 net). Banks on /compare sort by rate / safety / tax with Unity (current bank) always pinned last. Booking with default 70% adds ₹70,000 → Home invested updates from ₹25,000 → ₹95,000 (₹25k + ₹70k). One real bug found: tapping the source chip inside the notification dropdown navigates to /rate-alert instead of opening the source modal (nested Pressable click bubbles to parent). Several React-Native-Web console warnings present (shadow*, pointerEvents, transform-origin) — non-blocking but worth main agent's attention.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "Notification dropdown source chip",
+        "issue": "Tapping the 'RBI MPC statement' source chip inside the notification item (testID 'notif-source') does NOT open the Source Modal. The tap is captured by the parent Pressable (testID 'notif-item') whose onPress closes the dropdown and routes to /rate-alert. As a result, the source modal never appears for this chip — the user has no way to inspect the RBI source from the notification. Reference: /app/frontend/app/(tabs)/index.tsx:71-101 (SourceChip nested inside Pressable with router.push).",
+        "testID": "notif-source",
+        "priority": "HIGH"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {
+        "screen": "Global (react-native-web warnings)",
+        "issues": [
+          "Console warning: '\"shadow*\" style props are deprecated. Use \"boxShadow\".' — coming from theme.ts shadow.soft / shadow.card used across all cards.",
+          "Console warning: 'props.pointerEvents is deprecated. Use style.pointerEvents' — likely from the Slider track/thumb.",
+          "Console error: 'Invalid DOM property transform-origin. Did you mean transformOrigin' — likely from the Donut/SVG component on /allocation."
+        ]
+      }
+    ],
+    "react_native_issues": []
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Fix notification source chip swallowing: stop click propagation when the SourceChip inside the notif-item is pressed, or restructure so the Pressable is not a child of another Pressable. E.g. in /app/frontend/app/(tabs)/index.tsx, replace the outer Pressable with a TouchableOpacity that has a non-pressable inner View around the chip, and put the chevron/navigate action on a separate button.",
+    "Migrate StyleSheet shadow* props to boxShadow (or wrap in Platform.select) in /app/frontend/src/theme.ts to silence the react-native-web deprecation warning.",
+    "Migrate `pointerEvents` prop to `style.pointerEvents` wherever used.",
+    "In /app/frontend/src/Donut.tsx, use camelCase `transformOrigin` instead of `transform-origin` (likely an SVG-style attribute issue).",
+    "Optional: also add explicit `testID=\"source-modal-backdrop\"` tap behavior test passes already, no change needed."
+  ],
+  "critical_code_review_comments": [
+    "store.tsx is in-memory only (Context + useState) — state resets on full reload. Acceptable for a prototype but worth flagging.",
+    "Slider (react-native-community/slider) on web renders as role=\"slider\" div without an inner <input type=range>, so it does not respond to keyboard arrow keys or programmatic value injection. UX works (pointer drag), but accessibility is limited.",
+    "Nested <Pressable> inside another <Pressable> is used in (tabs)/index.tsx notif dropdown — same pattern works elsewhere because SourceChips are not inside another tap target, but here it causes the bug above.",
+    "Banner dismiss state lives in StableMoneyContext and persists for the session only (no AsyncStorage) — matches spec ('stays dismissed for the session')."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A", "frontend": "~95%"},
+  "seed_data_creation": "None — fully self-contained seeded prototype (no backend, no MongoDB).",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Mobile viewport 390x844. Slider is a div with role=slider; only pointer drag works (use bounding_box → mouse.down/move/up). Bottom tabs are reachable via page.get_by_role('tab', name='<Label>'). After the notif-source bug is fixed, re-verify that (a) tapping 'notif-source' opens the Source Modal (testID 'source-modal') with title 'RBI Monetary Policy statement' or similar, and (b) tapping the rest of the notif-item still navigates to /rate-alert. All other flows passed and do not need re-test unless related code is touched.",
+  "rca_of_issue": "Reproduction: Open app → tap bell (testID notif-bell) → tap 'RBI MPC statement' chip (testID notif-source). Expected: Source Modal opens. Actual: dropdown closes and app navigates to /rate-alert. Root cause: The SourceChip is rendered as a <Pressable> child of the notif-item <Pressable> in /app/frontend/app/(tabs)/index.tsx. In react-native-web (and RN), Pressable does not stop event propagation by default, so the parent's onPress (setNotifOpen(false); router.push('/rate-alert')) fires regardless of which inner child was actually tapped, overriding the inner openSource() call (or racing with the navigation that unmounts the dropdown before the modal can show). Mitigation: (1) Replace the parent Pressable with a tappable surface that has a dedicated chevron button on the right, and leave the source chip independent; or (2) intercept the chip's onPress with a stopPropagation handler in web, or use TouchableWithoutFeedback wrapping. The cleanest fix is option (1)."
+}

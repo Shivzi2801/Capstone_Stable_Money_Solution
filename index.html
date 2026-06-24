@@ -11,7 +11,7 @@
     --pri:#5A31F4;--pri-d:#4422C8;--pri-wash:#F0ECFE;--pri-wash2:#E7E0FD;
     --neon:#C8F560;--neon-d:#9BD317;
     --ink:#1A1626;--ink-2:#4A4458;--slate:#6B6577;--slate-l:#9A94A6;
-    --bg:#F6F5FB;--surface:#FFFFFF;--line:#ECEAF3;--line-2:#DEDAEC;
+    --bg:#F6F5FB;--surface:#FFFFFF;--line:#ECEAF3;--line-2:#0e013d;
     --ok:#1F9D6B;--ok-wash:#E6F6EF;--warn:#C8841F;--warn-wash:#FCF3E2;--warn-line:#F0DDB0;
     --fact:#0F6E56;--fact-wash:#E6F6EF;
     --r:16px;--r-sm:11px;
@@ -307,13 +307,13 @@
         <div class="ab"><div class="bk" onclick="go('home')">←</div><span class="ti">Why we're telling you this</span></div>
         <div class="body">
           <div class="pgt">FD rates just got more attractive</div>
-          <div class="pgs">The RBI raised the repo rate. When that happens, banks usually raise FD rates within a few weeks to attract deposits. We flag it so you can act while rates are high — that's it. No pressure.</div>
+          <div class="pgs">The RBI raised the repo rate. When that happens, banks usually raise FD rates within a few weeks to attract deposits.</div>
           <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>This is a public event you can verify: <span class="src" onclick="showSrc('rbi')">RBI Monetary Policy statement, Jun 2026 →</span>. We're relaying a fact, not making a forecast.</p></div>
           <div class="card pad">
             <div class="fr"><span class="k">Repo rate</span><span class="v">↑ +0.25%</span></div>
             <div class="fr"><span class="k">Top insured FD (then vs now)</span><span class="v">7.85% → <span style="color:var(--ok)">8.10%</span></span></div>
           </div>
-          <div class="fact" style="background:var(--warn-wash);border-color:var(--warn-line);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--warn)"><path d="M12 8v5M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg><p style="color:#946011">We'd tell you if rates <b>fell</b>, too — then the honest message would be "your current FD looks good, sit tight." Telling you both ways is the point.</p></div>
+          <div class="fact" style="background:var(--warn-wash);border-color:var(--warn-line);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--warn)"><path d="M12 8v5M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg><p style="color:#946011">When rates fall, this alert says so too — usually with no action needed.</p></div>
         </div>
         <div class="foot"><button class="btn btn-pri" onclick="go('alloc')">Show me where to put more</button></div>
       </div>
@@ -324,7 +324,7 @@
         <div class="ab"><div class="bk" onclick="go('home')">←</div><span class="ti">A suggested split</span></div>
         <div class="body">
           <div class="pgt">For ₹1,00,000, a balanced way to start</div>
-          <div class="pgs">This is how many cautious investors structure it — most in a top-safety bank, a portion laddered so cash frees up. It's a starting point, not a rule. Drag to change it.</div>
+          <div class="pgs">This is how many cautious investors structure it — most in a top-safety bank, a portion laddered so cash frees up. Drag to change it.</div>
           <div class="card pad">
             <div class="alloc-wrap">
               <div class="donut">
@@ -345,7 +345,7 @@
             </div>
           </div>
           <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>The "split across tenures and safety" idea isn't ours — it's <b>standard FD laddering</b>, described by banks and the RBI alike. <span class="src" onclick="showSrc('ladder')">See the principle →</span> We just make it one tap instead of a spreadsheet.</p></div>
-          <p class="reass">You decide the numbers. The suggestion is only a starting point you can ignore.</p>
+          <p class="reass">Adjust the split anytime — these are suggestions, not fixed amounts.</p>
         </div>
         <div class="foot"><button class="btn btn-pri" onclick="go('compare')">See banks for this split</button></div>
       </div>
@@ -356,10 +356,10 @@
         <div class="ab"><div class="bk" onclick="go('alloc')">←</div><span class="ti">Where to put it</span></div>
         <div class="body">
           <div class="pgt">Insured banks, compared honestly</div>
-          <div class="pgs" id="cmpSub">Live rates for the top-safety portion (₹70,000). Your current bank is shown too. You choose — we just lay out the facts.</div>
+          <div class="pgs" id="cmpSub">Live rates for the top-safety portion (₹70,000), sorted. Your current bank is shown for comparison.</div>
           <div class="sortbar"><div class="sc on" data-s="rate" onclick="sortB('rate',this)">Highest rate</div><div class="sc" data-s="safety" onclick="sortB('safety',this)">Safest rating</div><div class="sc" data-s="aftertax" onclick="sortB('aftertax',this)">Most after tax</div></div>
           <div id="bankList" style="display:flex;flex-direction:column;gap:10px;"></div>
-          <div class="disclose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><p><b>How we earn:</b> Stable Money gets a commission from the bank on any booking — the same on whichever you pick — so we've no reason to steer you. The rate you see is the rate you'd get direct.</p></div>
+          <div class="disclose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><p><b>How we earn:</b> Stable Money receives a commission from the bank on any booking. The rate you see is the same you'd get directly.</p></div>
           <p class="reass">Every rating links to its agency; every rate is checkable. Tap a bank to choose it.</p>
         </div>
       </div>
@@ -370,7 +370,7 @@
         <div class="ab"><div class="bk" onclick="go('compare')">←</div><span class="ti">Confirm — and check the math</span></div>
         <div class="body">
           <div class="pgt" id="confTitle">New FD · Suryoday Small Finance</div>
-          <div class="pgs">Nothing hidden. Here's exactly what you'll earn and keep — numbers you can re-derive yourself.</div>
+          <div class="pgs">Here's exactly what you'll earn and keep, after tax.</div>
           <div class="card pad">
             <div class="fr"><span class="k">Amount</span><span class="v num" id="cAmt">₹70,000</span></div>
             <div class="fr"><span class="k">Rate (1 year)</span><span class="v pos num" id="cRate">8.10%</span></div>
@@ -378,13 +378,13 @@
             <div class="fr"><span class="k" id="cTaxK">Less ~20% tax on interest</span><span class="v num" id="cTax">−₹1,134</span></div>
             <div class="fr big"><span class="k">You keep, after tax</span><span class="v pos num" id="cKeep">₹4,536</span></div>
           </div>
-          <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>It's just arithmetic: ₹70,000 × 8.10% = ₹5,670, taxed at your slab. <span class="src" onclick="showSrc('tax')">FD interest is taxed at your slab — source →</span> Redo it yourself any time.</p></div>
+          <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>₹70,000 × 8.10% = ₹5,670 interest, taxed at your slab. <span class="src" onclick="showSrc('tax')">FD interest is taxed at your slab →</span></p></div>
           <div class="card pad">
             <div class="trust"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="t"><h5>Insured by DICGC to ₹5,00,000</h5><p>A government guarantee, per bank. <span class="src" onclick="showSrc('dicgc')" style="color:var(--fact);font-weight:700;cursor:pointer;">Verify at dicgc.org.in →</span></p></div></div>
             <div class="trust"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="t"><h5 id="cSafety">Suryoday · ICRA A (Adequate safety)</h5><p>RBI-licensed small finance bank. <span class="src" onclick="showSrc('rating')" style="color:var(--fact);font-weight:700;cursor:pointer;">Check the rating →</span></p></div></div>
             <div class="trust"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="t"><h5>Break or switch anytime</h5><p>Principal stays safe; only a small rate trim if you exit early.</p></div></div>
           </div>
-          <p class="reass">You're choosing this. We just made every number — and its source — easy to see.</p>
+          <p class="reass">Every number above, and its source, is shown before you commit.</p>
         </div>
         <div class="foot"><button class="btn btn-pri" onclick="go('success')">Confirm — this is my choice</button><button class="btn btn-gh" onclick="go('compare')">Compare other banks</button></div>
       </div>
@@ -395,8 +395,8 @@
         <div class="succ">
           <div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></div>
           <h2>Your second FD is booked</h2>
-          <span class="youdid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px"><path d="M5 13l4 4L19 7"/></svg> A decision you made</span>
-          <p id="succMsg">You moved money off a 3% savings account into an 8.10% insured FD — and you checked the facts yourself. That's the difference between being sold to and being informed.</p>
+          <span class="youdid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px"><path d="M5 13l4 4L19 7"/></svg> Booked</span>
+          <p id="succMsg">Your ₹70,000 is now in an 8.10% insured FD, up from 3% in savings. The laddered portion frees up every 3 months.</p>
           <div class="card pad"><div class="fr"><span class="k">New FD</span><span class="v" id="succBank">Suryoday · 8.10%</span></div><div class="fr"><span class="k">Laddered portion</span><span class="v">set up · frees up every 3 mo</span></div><div class="fr"><span class="k">Future decisions</span><span class="v" style="color:var(--pri)">we'll bring them to you</span></div></div>
           <button class="restart" onclick="go('home')">↺ Back to home</button>
         </div>
@@ -463,8 +463,8 @@
         <div class="ai-hero">
           <div class="ab" style="padding:4px 0 10px;"><div class="bk" onclick="go('home')" style="background:rgba(255,255,255,.16);border:none;color:#fff;">←</div><span class="ti" style="color:#fff;">AI Guidance</span></div>
           <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg> AI-GENERATED · FACT-BACKED</div>
-          <h2>Guidance that explains, never commands</h2>
-          <p>Tell us the situation. The AI composes a plain-language plan with every number sourced — you keep the decision.</p>
+          <h2>A plain-language plan for your money</h2>
+          <p>Tell us the situation. We'll suggest a sensible split, with every number sourced.</p>
         </div>
         <div class="body">
           <div class="card pad">
@@ -480,7 +480,7 @@
           </div>
           <div class="seclbl">Generated guidance</div>
           <div class="ai-out" id="aiOut"><div class="ai-placeholder">Set the situation above and tap <b>Generate</b>.<br>The AI composes a sourced, plain-language plan — the way a good advisor frames a mutual-fund split, but for FDs, every number checkable.</div></div>
-          <div class="fact" style="margin-top:11px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>Every figure here is grounded in a named source, and the choice stays yours — we explain the logic, we don't make the call. <span class="src" onclick="showSrc('ladder')">How this works →</span></p></div>
+          <div class="fact" style="margin-top:11px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>Every figure here is grounded in a named source you can open. <span class="src" onclick="showSrc('ladder')">How this works →</span></p></div></div>
         </div>
       </div>
 
@@ -543,7 +543,7 @@
   function sortB(s,el){curSort=s;document.querySelectorAll('#screen [data-view=compare] .sortbar .sc').forEach(function(x){x.classList.remove('on');});el.classList.add('on');renderBanks();}
   function renderBanks(){
     var amt=TOTAL*splitSafe; var cur=BANKS.find(function(b){return b.current;});
-    document.getElementById('cmpSub').textContent='Live rates for the top-safety portion ('+inr(amt)+'). Your current bank is shown too. You choose — we just lay out the facts.';
+    document.getElementById('cmpSub').textContent='Live rates for the top-safety portion ('+inr(amt)+'), sorted. Your current bank is shown for comparison.';
     var list=BANKS.filter(function(b){return !b.current;}).slice();
     if(curSort==='rate')list.sort(function(a,b){return b.rate-a.rate;});
     if(curSort==='safety')list.sort(function(a,b){return b.safety-a.safety||b.rate-a.rate;});
@@ -575,7 +575,7 @@
     document.getElementById('cKeep').textContent=inr(keep);
     document.getElementById('cSafety').textContent=nm.split(' ')[0]+' · '+rating+' ('+mean.split(' · ')[0]+')';
     document.getElementById('succBank').textContent=nm.split(' ')[0]+' · '+rate.toFixed(2)+'%';
-    document.getElementById('succMsg').textContent='You moved money off a 3% savings account into a '+rate.toFixed(2)+'% insured FD — and you checked the facts yourself. That\u2019s the difference between being sold to and being informed.';
+    document.getElementById('succMsg').textContent='Your '+inr(TOTAL*splitSafe)+' is now in a '+rate.toFixed(2)+'% insured FD, up from 3% in savings. The laddered portion frees up every 3 months.';
     go('confirm');
   }
 
@@ -658,8 +658,8 @@
     document.getElementById('aiOut').innerHTML=head;
     var script=goalLine+seniorLine+'\n\n'+
       'On the top-safety portion of '+inr(safeAmt)+' at '+topRate.toFixed(2)+'%, that\u2019s about '+inr(interest)+' interest \u2014 you keep \u2248'+inr(net)+' after tax. '+taxLine+'\n\n'+
-      'Suggested issuers (you choose \u2014 we never pick for you): Suryoday '+(8.10+uplift).toFixed(2)+'% [ICRA A], Utkarsh '+(8.10+uplift).toFixed(2)+'% [CRISIL A+], Shivalik '+(7.80+uplift).toFixed(2)+'% [CRISIL A].\n\n'+
-      'This is a starting point, not an instruction \u2014 adjust the split freely.';
+      'Suggested issuers to compare: Suryoday '+(8.10+uplift).toFixed(2)+'% [ICRA A], Utkarsh '+(8.10+uplift).toFixed(2)+'% [CRISIL A+], Shivalik '+(7.80+uplift).toFixed(2)+'% [CRISIL A].\n\n'+
+      'Adjust the split anytime to fit your plan.';
     var el=document.getElementById('aiTyped'); var cur=document.createElement('span'); cur.className='ai-cursor'; el.appendChild(cur);
     var i=0;
     aiTimer=setInterval(function(){

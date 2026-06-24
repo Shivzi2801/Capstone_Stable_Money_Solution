@@ -67,38 +67,6 @@ export default function Home() {
             </Text>
           </View>
         </SafeAreaView>
-
-        {notifOpen && (
-          <Pressable
-            style={styles.notifDropdown}
-            onPress={() => {
-              setNotifOpen(false);
-              router.push("/rate-alert");
-            }}
-            testID="notif-item"
-          >
-            <View style={styles.notifIcon}>
-              <Ionicons name="trending-up" size={16} color={colors.warning} />
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text style={styles.notifTitle}>
-                RBI raised the repo rate by 0.25%
-              </Text>
-              <Text style={styles.notifBody}>
-                Banks usually lift FD rates within weeks.
-              </Text>
-              <View style={{ marginTop: 6 }}>
-                <SourceChip
-                  source="rbi_mpc"
-                  label="RBI MPC statement"
-                  variant="chip"
-                  testID="notif-source"
-                />
-              </View>
-            </View>
-            <Ionicons name="chevron-forward" size={18} color={colors.slate} />
-          </Pressable>
-        )}
       </LinearGradient>
 
       <ScrollView
@@ -234,6 +202,40 @@ export default function Home() {
 
         <View style={{ height: 60 }} />
       </ScrollView>
+
+      {notifOpen && (
+        <View style={styles.notifDropdown} testID="notif-card">
+          <Pressable
+            style={styles.notifNavRow}
+            onPress={() => {
+              setNotifOpen(false);
+              router.push("/rate-alert");
+            }}
+            testID="notif-item"
+          >
+            <View style={styles.notifIcon}>
+              <Ionicons name="trending-up" size={16} color={colors.warning} />
+            </View>
+            <View style={{ flex: 1 }}>
+              <Text style={styles.notifTitle}>
+                RBI raised the repo rate by 0.25%
+              </Text>
+              <Text style={styles.notifBody}>
+                Banks usually lift FD rates within weeks.
+              </Text>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color={colors.slate} />
+          </Pressable>
+          <View style={styles.notifSourceRow}>
+            <SourceChip
+              source="rbi_mpc"
+              label="RBI MPC statement"
+              variant="chip"
+              testID="notif-source"
+            />
+          </View>
+        </View>
+      )}
     </View>
   );
 }
@@ -295,10 +297,13 @@ const styles = StyleSheet.create({
 
   notifDropdown: {
     position: "absolute", top: 110, right: spacing.lg, left: spacing.lg,
-    backgroundColor: "#fff", borderRadius: radius.lg, padding: spacing.md,
-    flexDirection: "row", alignItems: "flex-start", gap: spacing.sm,
+    backgroundColor: "#fff", borderRadius: radius.lg,
+    paddingHorizontal: spacing.md, paddingTop: spacing.md, paddingBottom: spacing.sm,
+    zIndex: 1000, elevation: 16,
     ...shadow.card,
   },
+  notifNavRow: { flexDirection: "row", alignItems: "flex-start", gap: spacing.sm },
+  notifSourceRow: { marginTop: spacing.sm, marginLeft: 40 },
   notifIcon: {
     width: 32, height: 32, borderRadius: 8,
     backgroundColor: colors.warningBg, justifyContent: "center", alignItems: "center",

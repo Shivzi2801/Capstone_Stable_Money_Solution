@@ -57,7 +57,7 @@ export const Donut: React.FC<Props> = ({
         </G>
       </Svg>
       {(centerLabel || centerSub) && (
-        <View style={styles.center} pointerEvents="none">
+        <View style={[styles.center, { pointerEvents: 'none' }]}>
           {centerLabel && <Text style={styles.label}>{centerLabel}</Text>}
           {centerSub && <Text style={styles.sub}>{centerSub}</Text>}
         </View>

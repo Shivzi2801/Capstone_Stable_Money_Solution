@@ -1,0 +1,193 @@
+{
+  "app_name": "Stable Money",
+  "personality": "1 iOS-Native Clean",
+  "personality_one_liner": "Earn trust with facts the user can verify, not assertions they must believe, using generous spacing, verifiable chips, and a clean, reliable aesthetic.",
+  "color": {
+    "surface": "#FFFFFF",
+    "onSurface": "#1A1626",
+    "surfaceSecondary": "#F6F5FB",
+    "onSurfaceSecondary": "#6B6577",
+    "surfaceTertiary": "#E6F6EF",
+    "onSurfaceTertiary": "#0F6E56",
+    "surfaceInverse": "#1A1626",
+    "onSurfaceInverse": "#FFFFFF",
+    "brand": "#5A31F4",
+    "brandPrimary": "#5A31F4",
+    "onBrandPrimary": "#FFFFFF",
+    "brandSecondary": "#4422C8",
+    "onBrandSecondary": "#FFFFFF",
+    "brandTertiary": "#C8F560",
+    "onBrandTertiary": "#1A1626",
+    "success": "#1F9D6B",
+    "onSuccess": "#FFFFFF",
+    "warning": "#C8841F",
+    "onWarning": "#FFFFFF",
+    "error": "#D93A3A",
+    "onError": "#FFFFFF",
+    "info": "#E6F6EF",
+    "onInfo": "#0F6E56",
+    "border": "#E0DFE5",
+    "borderStrong": "#5A31F4",
+    "divider": "#F0EFF4"
+  },
+  "typography": {
+    "displayFontFamily": "Plus Jakarta Sans",
+    "textFontFamily": "Plus Jakarta Sans",
+    "scale": {
+      "sm": 12,
+      "base": 14,
+      "lg": 16,
+      "xl": 20,
+      "2xl": 24
+    }
+  },
+  "spacing": {
+    "rule": "Generous spacing creates trust. Use xl/2xl between main sections to avoid a cluttered dashboard feel. Touch targets must be at least 44x44pt.",
+    "xs": 4,
+    "sm": 8,
+    "md": 12,
+    "lg": 16,
+    "xl": 24,
+    "2xl": 32,
+    "3xl": 48
+  },
+  "radius_tokens": {
+    "sm": 6,
+    "md": 12,
+    "lg": 16,
+    "pill": 999
+  },
+  "shadow_tier": "1",
+  "navigation": "bottom_tabs",
+  "icon_set": "Phosphor",
+  "glassmorphism": {
+    "enabled": "true",
+    "do's": [
+      "Use subtle glass effect for the sticky tab bar if content scrolls underneath.",
+      "Use glassmorphism for bottom sheet headers (e.g., the Source Modal)."
+    ],
+    "dont's": [
+      "Do not use glass for primary information cards like the Math Breakdown. Trust requires solid readability."
+    ]
+  },
+  "platform_libraries": {
+    "glass": {
+      "ios": "expo-glass-effect",
+      "android": "expo-blur",
+      "low_end_android_fallback": "solid surfaceSecondary"
+    },
+    "image": "expo-image",
+    "blur": "expo-blur",
+    "bottom_sheet": "@gorhom/bottom-sheet",
+    "animation": "react-native-reanimated",
+    "gesture": "react-native-gesture-handler"
+  },
+  "screens": [
+    {
+      "name": "Home Dashboard",
+      "purpose": "Provide an immediate, transparent view of the value of fixed deposits vs savings, and a clear entry point into tools and investments.",
+      "states": {
+        "loading": "Skeleton loaders for cards.",
+        "empty": "N/A - educational content is always visible.",
+        "error": "Failed to load latest rates, tap to retry."
+      },
+      "layout": "Deep purple header containing the user profile and notification bell. An overlapping 'Idle Cash Hero' card sits half on the header and half on the surface below. The card contrasts Savings 3% vs Insured FD 8.1%, with a tappable 'DICGC deposit insurance' source chip. Below this are Passbook and Tools row (scrollable horizontally if needed)."
+    },
+    {
+      "name": "Rate-Event Alert",
+      "purpose": "A contextual alert about macroeconomic changes affecting users.",
+      "states": {
+        "loading": "Spinner.",
+        "empty": "N/A",
+        "error": "Could not fetch alert."
+      },
+      "layout": "Bottom sheet or full-screen overlay displaying the RBI repo rate change with large numbers, warning/info colors, and a clear CTA to secure current rates."
+    },
+    {
+      "name": "Guided Allocation",
+      "purpose": "Help users decide how much to lock away.",
+      "states": {
+        "loading": "Spinner.",
+        "empty": "N/A",
+        "error": "Error calculating allocation."
+      },
+      "layout": "Top half contains a clean Donut chart (e.g. 70/30 split) with a large slider below. Throughout the screen, embed 'fact chips' in info color (#E6F6EF bg, #0F6E56 text) indicating where the logic comes from."
+    },
+    {
+      "name": "Neutral Bank Comparison",
+      "purpose": "Display all banks neutrally to let the user make an informed decision.",
+      "states": {
+        "loading": "Skeleton rows.",
+        "empty": "No banks match the filters.",
+        "error": "Failed to fetch bank list."
+      },
+      "layout": "Sticky sortable tabs at the top. List of banks using individual cards with real logos. Current bank shown greyed out. Includes a commission disclosure card at the bottom to build trust."
+    },
+    {
+      "name": "Confirm/Math Breakdown",
+      "purpose": "Transparently show exactly what the user will earn, including taxes.",
+      "states": {
+        "loading": "Spinner.",
+        "empty": "N/A",
+        "error": "Math calculation failed."
+      },
+      "layout": "Receipt-like structure showing Principal x Rate = Returns, minus Tax. A Trust Card with verify links sits beneath the breakdown. Primary CTA pinned to bottom."
+    },
+    {
+      "name": "Success Screen",
+      "purpose": "Celebrate the user's informed choice.",
+      "states": {
+        "loading": "N/A",
+        "empty": "N/A",
+        "error": "N/A"
+      },
+      "layout": "Centered success checkmark illustration, with a pill reading 'A decision you made'. Primary CTA to return home."
+    },
+    {
+      "name": "Tools (Calculator, Liquidity, Ladder)",
+      "purpose": "Self-serve utilities to understand FDs better.",
+      "states": {
+        "loading": "Spinner.",
+        "empty": "Show empty state illustration for 'Build a ladder'.",
+        "error": "Error loading tool."
+      },
+      "layout": "Forms with labels above inputs. Sliders for duration/amount. Real-time chart or value update below the inputs."
+    },
+    {
+      "name": "Source Modal",
+      "purpose": "Display the origin of a presented fact to enforce the 'verify, not believe' thesis.",
+      "states": {
+        "loading": "N/A",
+        "empty": "N/A",
+        "error": "N/A"
+      },
+      "layout": "Centered modal or half-sheet detailing the source (e.g., 'RBI Monetary Policy statement'), with external verify link."
+    }
+  ],
+  "images": {
+    "hdfc_bank_logo": {
+      "url": "https://images.pexels.com/photos/11251720/pexels-photo-11251720.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "HDFC bank logo png transparent"
+    },
+    "sbi_bank_logo": {
+      "url": "https://images.pexels.com/photos/8363135/pexels-photo-8363135.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "State bank of india sbi logo png transparent"
+    },
+    "hero_abstract_background": {
+      "url": "https://images.unsplash.com/photo-1625014618427-fbc980b974f5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTJ8MHwxfHNlYXJjaHwxfHxkYXJrJTIwbW9kZSUyMGFic3RyYWN0JTIwM2QlMjBmaW5hbmNlJTIwY29pbiUyMGdyYXBofGVufDB8fHx8MTc4MjA4MjE3N3ww&ixlib=rb-4.1.0&q=85",
+      "alt": "Clean 3d coin graph finance UI background"
+    },
+    "tools_empty_illustration": {
+      "url": "https://images.pexels.com/photos/6289031/pexels-photo-6289031.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "alt": "Coins growing on tree branches representing funds concept"
+    }
+  },
+  "instructions_to_main_agent": [
+    "Follow '1 iOS-Native Clean' personality closely. Use generous padding (xl/2xl) and 16px radius for the cards to make them feel friendly but reliable.",
+    "Implement the 'Source Modal' logic globally. Any rate, rating, or tax figure MUST have a small tappable chip next to it. Use the 'info' color (#E6F6EF) for the chip background and 'onInfo' (#0F6E56) for its text.",
+    "On the Home Dashboard, use the 'brandPrimary' (#5A31F4) for a deep header, and overlap the 'Idle Cash Hero' card over the boundary between the header and the 'surfaceSecondary' (#F6F5FB) background.",
+    "Do NOT use any blue variants anywhere. Strictly adhere to the primary purple and lime accent provided.",
+    "Ensure 'Confirm/Math Breakdown' acts like a receipt with full transparency. No hidden fees. Emphasize trust.",
+    "For bank logos, use real image PNGs. If the exact logo URL provided fails, fallback to initials using the brand color."
+  ]
+}

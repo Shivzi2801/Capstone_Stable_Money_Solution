@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Stable Money — The 90-Day Return Prototype</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<title>Stable Money — The Fact-Backed Second FD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --pri:#5A31F4;--pri-d:#4422C8;--pri-700:#3A1CA8;--pri-wash:#F0ECFE;--pri-wash2:#E7E0FD;
+    --pri:#5A31F4;--pri-d:#4422C8;--pri-wash:#F0ECFE;--pri-wash2:#E7E0FD;
     --neon:#C8F560;--neon-d:#9BD317;
     --ink:#1A1626;--ink-2:#4A4458;--slate:#6B6577;--slate-l:#9A94A6;
     --bg:#F6F5FB;--surface:#FFFFFF;--line:#ECEAF3;--line-2:#DEDAEC;
-    --ok:#1F9D6B;--ok-wash:#E6F6EF;--warn:#C8841F;--warn-wash:#FCF3E2;--warn-line:#F0DDB0;--danger:#C8413B;
-    --r:16px;--r-sm:11px;--r-xs:9px;
+    --ok:#1F9D6B;--ok-wash:#E6F6EF;--warn:#C8841F;--warn-wash:#FCF3E2;--warn-line:#F0DDB0;
+    --fact:#0F6E56;--fact-wash:#E6F6EF;
+    --r:16px;--r-sm:11px;
     --sh:0 1px 2px rgba(26,22,38,.04),0 6px 18px rgba(26,22,38,.05);
     --sh-lg:0 8px 30px rgba(90,49,244,.12);
   }
@@ -22,776 +22,705 @@
   body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;color:var(--ink);
     background:radial-gradient(1100px 500px at 12% -8%,#EFEAFD 0,transparent 55%),radial-gradient(900px 460px at 100% 0,#F2FCE0 0,transparent 48%),var(--bg);
     min-height:100vh;padding:34px 18px 90px;-webkit-font-smoothing:antialiased;}
-  .head{max-width:1040px;margin:0 auto 22px;}
-  .kick{display:inline-flex;align-items:center;gap:8px;font:600 12px/1 inherit;letter-spacing:.12em;text-transform:uppercase;color:var(--pri);background:var(--pri-wash);padding:7px 13px;border-radius:999px;margin-bottom:15px;}
-  .head h1{font-size:33px;line-height:1.12;font-weight:800;letter-spacing:-.02em;margin-bottom:11px;color:var(--ink);}
-  .head p{font-size:15px;line-height:1.62;color:var(--slate);max-width:700px;}
-  .head .law{display:inline-flex;align-items:center;gap:9px;margin-top:16px;background:var(--ink);color:#fff;font-size:12.5px;font-weight:600;padding:8px 15px;border-radius:999px;}
-  .head .law .dot{width:7px;height:7px;border-radius:50%;background:var(--neon);}
-  /* control deck */
-  .deck{max-width:1040px;margin:0 auto 24px;background:var(--surface);border:1px solid var(--line-2);border-radius:var(--r);box-shadow:var(--sh);padding:14px 16px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;}
-  .deck .grp{display:flex;flex-direction:column;gap:7px;}
-  .deck .gl{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--slate-l);}
-  .seg{display:inline-flex;background:var(--bg);border:1px solid var(--line-2);border-radius:10px;padding:3px;gap:2px;}
-  .seg button{border:none;background:transparent;font-family:inherit;font-size:12px;font-weight:700;color:var(--slate);padding:6px 11px;border-radius:7px;cursor:pointer;transition:.15s;}
-  .seg button.on{background:var(--pri);color:#fff;}
-  .seg.tl button.on{background:var(--ink);}
-  .deck .toggle{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:700;color:var(--ink);cursor:pointer;}
-  .switch{width:42px;height:24px;border-radius:999px;background:var(--line-2);position:relative;transition:.2s;flex:0 0 42px;}
-  .switch::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2);}
-  .toggle.on .switch{background:var(--pri);}
-  .toggle.on .switch::after{left:21px;}
-  .deck .legend{font-size:11.5px;color:var(--slate);display:none;gap:12px;flex-wrap:wrap;width:100%;border-top:1px solid var(--line);padding-top:12px;margin-top:2px;}
-  .deck .legend.show{display:flex;}
-  .lg-h{color:var(--pri);font-weight:700;}.lg-l{color:var(--neon-d);font-weight:700;}
-  .deck .spacer{flex:1;}
-  .taxnote{font-size:11px;color:var(--slate-l);max-width:230px;line-height:1.4;}
-  .stage{display:flex;gap:42px;justify-content:center;align-items:flex-start;flex-wrap:wrap;max-width:1040px;margin:0 auto;}
-  .phone-col{display:flex;flex-direction:column;align-items:center;gap:14px;}
-  .phone-label{font-size:12px;font-weight:700;color:var(--ink);letter-spacing:.04em;text-transform:uppercase;text-align:center;}
-  .phone-label span{color:var(--slate-l);font-weight:600;display:block;margin-top:3px;letter-spacing:0;text-transform:none;font-size:11.5px;}
-  .phone{width:340px;height:730px;background:#15101F;border-radius:46px;padding:11px;position:relative;
-    box-shadow:0 36px 70px -24px rgba(40,20,90,.5),0 0 0 1px rgba(40,20,90,.07);}
-  .screen{width:100%;height:100%;background:var(--bg);border-radius:35px;overflow:hidden;position:relative;display:flex;flex-direction:column;}
-  .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:122px;height:27px;background:#15101F;border-radius:0 0 17px 17px;z-index:80;}
-  .sb{height:44px;flex:0 0 44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;font-size:12.5px;font-weight:700;color:var(--ink);z-index:5;}
+  .num{font-variant-numeric:tabular-nums;}
+  .head{max-width:760px;margin:0 auto 22px;}
+  .head h1{font-size:31px;line-height:1.12;font-weight:800;letter-spacing:-.02em;margin-bottom:11px;}
+  .head p{font-size:15px;line-height:1.62;color:var(--slate);max-width:640px;}
+  /* how-to + seeded-data note */
+  .howto{max-width:760px;margin:0 auto 14px;background:var(--surface);border:1px solid var(--line-2);border-radius:var(--r);box-shadow:var(--sh);padding:13px 16px;display:flex;gap:12px;align-items:flex-start;}
+  .howto .ic{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:var(--pri);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;padding-left:2px;}
+  .howto p{font-size:12.5px;line-height:1.55;color:var(--slate);}
+  .howto b{color:var(--ink);font-weight:700;}
+  .seeded{max-width:760px;margin:0 auto 24px;display:flex;gap:9px;align-items:flex-start;background:#FBFAFE;border:1px dashed var(--line-2);border-radius:12px;padding:10px 14px;}
+  .seeded svg{width:15px;height:15px;flex:0 0 15px;color:var(--fact);margin-top:1px;}
+  .seeded p{font-size:11.5px;line-height:1.5;color:var(--slate);}
+  .seeded b{color:var(--fact);font-weight:700;}
+  .stage{display:flex;justify-content:center;}
+  /* phone */
+  .phone{width:380px;height:760px;background:#15101F;border-radius:48px;padding:11px;position:relative;box-shadow:0 36px 70px -24px rgba(40,20,90,.5),0 0 0 1px rgba(40,20,90,.07);}
+  .screen{width:100%;height:100%;background:var(--bg);border-radius:37px;overflow:hidden;position:relative;display:flex;flex-direction:column;}
+  .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:128px;height:28px;background:#15101F;border-radius:0 0 17px 17px;z-index:80;}
+  .sb{height:46px;flex:0 0 46px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;font-size:13px;font-weight:700;z-index:5;}
   .sb.dk{color:#fff;}
-  .sb .r{display:flex;gap:6px;font-size:11px;align-items:center;}
   .view{flex:1;overflow-y:auto;overflow-x:hidden;display:none;flex-direction:column;}
   .view.active{display:flex;}
   .view::-webkit-scrollbar{width:0;}
   .ab{display:flex;align-items:center;gap:11px;padding:4px 18px 12px;}
-  .ab .bk{width:32px;height:32px;border-radius:10px;border:1px solid var(--line-2);background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:17px;color:var(--ink);cursor:pointer;}
-  .ab .ti{font-size:15.5px;font-weight:700;letter-spacing:-.01em;}
-  .ab .sp{flex:1;}
+  .ab .bk{width:32px;height:32px;border-radius:10px;border:1px solid var(--line-2);background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer;}
+  .ab .ti{font-size:15.5px;font-weight:700;}
   .body{padding:2px 18px 24px;display:flex;flex-direction:column;gap:13px;}
   .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);}
   .pad{padding:16px;}
-  .sm-hero{background:linear-gradient(150deg,var(--pri) 0%,var(--pri-d) 100%);margin:0;padding:8px 18px 64px;position:relative;}
+  /* hero */
+  .sm-hero{background:linear-gradient(150deg,var(--pri) 0%,var(--pri-d) 100%);padding:8px 18px 22px;}
   .sm-top{display:flex;align-items:center;gap:10px;}
-  .sm-logo{font-size:17px;font-weight:800;color:#fff;letter-spacing:-.02em;display:flex;align-items:center;gap:7px;}
+  .sm-logo{font-size:17px;font-weight:800;color:#fff;display:flex;align-items:center;gap:7px;}
   .sm-logo .mk{width:22px;height:22px;border-radius:7px;background:var(--neon);display:flex;align-items:center;justify-content:center;}
   .sm-logo .mk svg{width:13px;height:13px;color:var(--pri-d);}
   .sm-top .sp{flex:1;}
-  .sm-top .av{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;border:1px solid rgba(255,255,255,.25);}
-  .sm-bell{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;position:relative;}
+  .sm-bell{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;}
   .sm-bell svg{width:17px;height:17px;color:#fff;}
-  .sm-bell .pip{position:absolute;top:7px;right:8px;width:8px;height:8px;border-radius:50%;background:var(--neon);border:1.5px solid var(--pri);display:none;}
-  .sm-bell.has .pip{display:block;}
-  .sm-port{margin-top:18px;color:#fff;}
-  .sm-port .lbl{font-size:12px;opacity:.8;font-weight:500;}
-  .sm-port .val{font-size:30px;font-weight:800;letter-spacing:-.02em;margin-top:3px;}
-  .sm-port .delta{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;margin-top:7px;background:rgba(200,245,96,.2);color:#EAFBC6;padding:4px 10px;border-radius:999px;}
-  .lift{margin:-48px 18px 0;position:relative;z-index:3;}
-  .nudge{background:var(--surface);border:1px solid var(--warn-line);border-radius:var(--r);padding:15px;box-shadow:var(--sh-lg);cursor:pointer;position:relative;overflow:hidden;}
-  .nudge::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--warn);}
-  .nudge .fl{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#9A6612;margin-bottom:9px;}
-  .nudge .fl .rg{width:8px;height:8px;border-radius:50%;background:var(--warn);box-shadow:0 0 0 4px rgba(200,132,31,.18);}
-  .nudge h3{font-size:15px;font-weight:700;line-height:1.34;margin-bottom:4px;}
-  .nudge p{font-size:12.5px;color:var(--ink-2);line-height:1.5;}
-  .nudge .go{margin-top:13px;display:flex;align-items:center;justify-content:space-between;background:var(--pri);color:#fff;font-size:13px;font-weight:700;padding:12px 15px;border-radius:11px;}
-  .nudge .sec{margin-top:8px;display:flex;gap:8px;}
-  .nudge .sec button{flex:1;background:var(--bg);border:1px solid var(--line-2);color:var(--slate);font-family:inherit;font-size:11.5px;font-weight:700;padding:8px;border-radius:9px;cursor:pointer;}
-  .calm-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;box-shadow:var(--sh);}
-  .calm-card .fl{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--ok);margin-bottom:7px;display:flex;align-items:center;gap:6px;}
-  .calm-card h3{font-size:14px;font-weight:700;line-height:1.35;}
-  .calm-card p{font-size:12px;color:var(--slate);line-height:1.5;margin-top:4px;}
+  .sm-bell .pip{position:absolute;top:7px;right:8px;width:8px;height:8px;border-radius:50%;background:var(--neon);border:1.5px solid var(--pri);}
+  .sm-bell.off .pip{display:none;}
+  .sm-av{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.18);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;}
+  .sm-port{margin-top:16px;color:#fff;}
+  .sm-port .l{font-size:12px;opacity:.8;font-weight:500;}
+  .sm-port .v{font-size:27px;font-weight:800;letter-spacing:-.02em;margin-top:3px;}
+  /* idle-cash prompt */
+  .lift{margin:-14px 18px 0;position:relative;z-index:3;}
+  .idle{background:var(--surface);border:1px solid var(--warn-line);border-radius:var(--r);padding:15px;box-shadow:var(--sh-lg);position:relative;overflow:hidden;}
+  .idle::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--warn);}
+  .idle .fl{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#9A6612;margin-bottom:9px;}
+  .idle h3{font-size:15.5px;font-weight:700;line-height:1.34;}
+  .idle .barwrap{margin:13px 0 6px;}
+  .idle .barrow{display:flex;align-items:center;gap:9px;margin-bottom:7px;font-size:12px;}
+  .idle .barrow .lab{width:74px;flex:0 0 74px;color:var(--slate);font-weight:600;}
+  .idle .bar{flex:1;height:18px;border-radius:6px;position:relative;background:var(--bg);overflow:hidden;}
+  .idle .bar .fillb{height:100%;border-radius:6px;}
+  .idle .barrow .pct{width:42px;flex:0 0 42px;text-align:right;font-weight:800;}
+  .idle .go{margin-top:12px;display:flex;align-items:center;justify-content:space-between;background:var(--pri);color:#fff;font-size:13.5px;font-weight:700;padding:13px 15px;border-radius:11px;cursor:pointer;}
+  /* fact chip */
+  .fact{display:flex;gap:8px;align-items:flex-start;background:var(--fact-wash);border:1px solid #C2E8D5;border-radius:10px;padding:9px 11px;}
+  .fact svg{width:14px;height:14px;flex:0 0 14px;color:var(--fact);margin-top:1px;}
+  .fact p{font-size:11px;line-height:1.45;color:#0E5A47;}
+  .fact a,.fact .src{color:var(--fact);font-weight:700;text-decoration:underline;cursor:pointer;}
   .seclbl{font-size:11.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--slate-l);margin:6px 2px -2px;}
   .seclbl.row{display:flex;justify-content:space-between;align-items:center;}
-  .seclbl .more{color:var(--pri);font-weight:700;text-transform:none;letter-spacing:0;font-size:12px;cursor:pointer;}
-  .pb{display:flex;align-items:center;gap:12px;padding:14px 15px;cursor:pointer;}
-  .pb+.pb{border-top:1px solid var(--line);}
+  .aibadge{background:linear-gradient(90deg,var(--pri),#7C5CF6);color:#fff;font-size:10px;font-weight:800;letter-spacing:.04em;padding:3px 9px;border-radius:999px;text-transform:none;}
+  .aientry{display:flex;align-items:center;gap:12px;padding:14px;border-radius:var(--r);cursor:pointer;background:linear-gradient(135deg,#2A1D5E 0%,#4422C8 60%,#5A31F4 100%);box-shadow:var(--sh-lg);position:relative;overflow:hidden;}
+  .aientry::after{content:"";position:absolute;right:-30px;top:-30px;width:120px;height:120px;border-radius:50%;background:rgba(200,245,96,.16);}
+  .aientry-ic{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;flex:0 0 40px;}
+  .aientry-ic svg{width:22px;height:22px;color:var(--neon);}
+  .aientry-tx{flex:1;z-index:1;}
+  .aientry-tx h4{font-size:14px;font-weight:700;color:#fff;}
+  .aientry-tx p{font-size:11px;color:#D8D2EC;line-height:1.4;margin-top:3px;}
+  .aientry-go{color:#fff;font-size:18px;font-weight:700;z-index:1;}
+  .ai-hero{background:linear-gradient(135deg,#2A1D5E,#4422C8);padding:6px 18px 20px;}
+  .ai-hero .badge{display:inline-flex;align-items:center;gap:6px;background:rgba(200,245,96,.18);color:var(--neon);font-size:11px;font-weight:800;padding:5px 11px;border-radius:999px;margin-bottom:8px;}
+  .ai-hero h2{color:#fff;font-size:19px;font-weight:800;line-height:1.25;}
+  .ai-hero p{color:#D8D2EC;font-size:12px;line-height:1.5;margin-top:6px;}
+  .ai-field{margin-bottom:13px;}
+  .ai-field .lb{font-size:12px;font-weight:700;color:var(--slate);margin-bottom:7px;display:flex;justify-content:space-between;}
+  .ai-field .lb .v{color:var(--pri-d);font-weight:800;}
+  .ai-seg{display:flex;gap:6px;flex-wrap:wrap;}
+  .ai-seg button{flex:1;min-width:54px;font-family:inherit;font-size:11.5px;font-weight:700;color:var(--slate);background:var(--surface);border:1px solid var(--line-2);border-radius:9px;padding:9px 5px;cursor:pointer;}
+  .ai-seg button.on{background:var(--pri);color:#fff;border-color:var(--pri);}
+  .ai-out{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh);padding:15px;min-height:140px;}
+  .ai-placeholder{color:var(--slate-l);font-size:12.5px;line-height:1.6;text-align:center;padding:34px 12px;}
+  .ai-typed{font-size:12.5px;line-height:1.7;color:var(--ink-2);white-space:pre-wrap;}
+  .ai-typed b{color:var(--ink);font-weight:700;}
+  .ai-cursor{display:inline-block;width:6px;height:13px;background:var(--pri);margin-left:1px;animation:aiblink 1s steps(2) infinite;vertical-align:middle;}
+  @keyframes aiblink{50%{opacity:0;}}
+  .ai-alloc{display:flex;gap:13px;align-items:center;margin-bottom:12px;padding:12px;background:var(--bg);border-radius:12px;}
+  .ai-donut{width:74px;height:74px;flex:0 0 74px;position:relative;}
+  .ai-donut svg{transform:rotate(-90deg);}
+  .ai-donut .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .ai-donut .c .a{font-size:15px;font-weight:800;}.ai-donut .c .b{font-size:8.5px;color:var(--slate);}
+  .ai-legrow{display:flex;align-items:center;gap:7px;font-size:11.5px;margin:3px 0;}
+  .ai-legrow .sw{width:10px;height:10px;border-radius:3px;flex:0 0 10px;}
+  .ai-legrow .amt{margin-left:auto;font-weight:800;}
+  /* demo hover tooltip — explains production sourcing on hover (presenter cue) */
+  #tip{position:fixed;z-index:300;max-width:250px;background:#15101F;color:#fff;font-size:11px;line-height:1.45;padding:9px 11px;border-radius:9px;box-shadow:0 10px 30px rgba(0,0,0,.3);pointer-events:none;opacity:0;transition:opacity .12s;display:none;}
+  #tip b{color:var(--neon);font-weight:700;}
+  #tip::after{content:"";position:absolute;bottom:-5px;left:14px;width:10px;height:10px;background:#15101F;transform:rotate(45deg);}
+  .src,.fact{cursor:pointer;}
+  .pb{display:flex;align-items:center;gap:12px;padding:14px 15px;}
   .pb .ic{width:40px;height:40px;border-radius:11px;background:var(--pri-wash);color:var(--pri-d);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12.5px;flex:0 0 40px;}
-  .pb .m{flex:1;min-width:0;}
-  .pb .m .n{font-size:13.5px;font-weight:700;}
-  .pb .m .s{font-size:11.5px;color:var(--slate);margin-top:2px;}
-  .pb .a{text-align:right;}
-  .pb .a .v{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums;}
-  .pb .a .d{font-size:10.5px;margin-top:2px;}
-  .pb .a .d.warn{color:var(--warn);font-weight:700;}.pb .a .d.ok{color:var(--slate-l);}
+  .pb .m{flex:1;}.pb .m .n{font-size:13.5px;font-weight:700;}.pb .m .s{font-size:11.5px;color:var(--slate);margin-top:2px;}
+  .pb .a .v{font-size:14px;font-weight:700;}.pb .a{text-align:right;}.pb .a .d{font-size:10.5px;color:var(--slate-l);margin-top:2px;}
   .tools{display:flex;gap:9px;}
-  .tool{flex:1;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:13px 11px;text-align:center;cursor:pointer;box-shadow:var(--sh);}
-  .tool .ic{width:36px;height:36px;border-radius:10px;background:var(--pri-wash);color:var(--pri-d);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;}
-  .tool .ic svg{width:19px;height:19px;}
-  .tool .t{font-size:11.5px;font-weight:700;line-height:1.3;}
-  .tb{flex:0 0 62px;display:flex;border-top:1px solid var(--line);background:var(--surface);}
+  .tool{flex:1;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:12px 10px;text-align:center;cursor:pointer;box-shadow:var(--sh);}
+  .tool .ic{width:34px;height:34px;border-radius:10px;background:var(--pri-wash);color:var(--pri-d);display:flex;align-items:center;justify-content:center;margin:0 auto 7px;}
+  .tool .ic svg{width:18px;height:18px;}.tool .t{font-size:11px;font-weight:700;line-height:1.3;}
+  .tb{flex:0 0 60px;display:flex;border-top:1px solid var(--line);background:var(--surface);}
   .tb .t{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:10px;color:var(--slate-l);font-weight:600;}
-  .tb .t svg{width:21px;height:21px;}
-  .tb .t.on{color:var(--pri);}
-  .hero-amt{text-align:center;padding:8px 0 2px;}
-  .hero-amt .l{font-size:12px;color:var(--slate);font-weight:600;}
-  .hero-amt .b{font-size:37px;font-weight:800;letter-spacing:-.025em;margin-top:3px;font-variant-numeric:tabular-nums;}
-  .hero-amt .grew{display:inline-flex;align-items:center;gap:6px;margin-top:9px;background:var(--ok-wash);color:var(--ok);font-size:12px;font-weight:700;padding:5px 12px;border-radius:999px;}
-  .fr{display:flex;justify-content:space-between;align-items:center;padding:11px 0;font-size:13px;}
-  .fr+.fr{border-top:1px solid var(--line);}
-  .fr .k{color:var(--slate);font-weight:500;}
-  .fr .v{font-weight:700;font-variant-numeric:tabular-nums;}
-  .fr .v.pos{color:var(--ok);}
-  .callout{display:flex;gap:10px;border-radius:var(--r-sm);padding:12px 13px;}
-  .callout svg{width:18px;height:18px;flex:0 0 18px;margin-top:1px;}
-  .callout p{font-size:12px;line-height:1.5;}
-  .callout.warn{background:var(--warn-wash);border:1px solid var(--warn-line);}
-  .callout.warn svg,.callout.warn p{color:#946011;}.callout.warn b{color:#7A4E0C;}
-  .callout.ok{background:var(--ok-wash);border:1px solid #C2E8D5;}
-  .callout.ok svg,.callout.ok p{color:var(--ok);}
-  .callout.info{background:var(--pri-wash);border:1px solid var(--pri-wash2);}
-  .callout.info svg,.callout.info p{color:var(--pri-d);}
-  .chead{font-size:18px;font-weight:800;letter-spacing:-.01em;margin:6px 2px 0;}
-  .csub{font-size:12.5px;color:var(--slate);margin:4px 2px 3px;line-height:1.5;}
-  .choice{display:flex;gap:12px;align-items:flex-start;padding:14px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);cursor:pointer;transition:.16s;box-shadow:var(--sh);}
-  .choice:active{transform:scale(.992);}
-  .choice.sel{border-color:var(--pri);box-shadow:0 0 0 2px var(--pri-wash2);}
-  .choice .ic{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex:0 0 38px;background:var(--pri-wash);color:var(--pri-d);}
-  .choice .ic svg{width:19px;height:19px;}
-  .choice.rec .ic{background:var(--ok-wash);color:var(--ok);}
-  .choice .tx{flex:1;}
-  .choice .tx .tp{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-  .choice .tx h4{font-size:14px;font-weight:700;}
-  .choice .tx .tag{font-size:10px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--ok);background:var(--ok-wash);padding:2px 7px;border-radius:6px;}
-  .choice .tx p{font-size:12px;color:var(--slate);line-height:1.5;margin-top:4px;}
-  .choice .pk{width:21px;height:21px;border-radius:50%;border:2px solid var(--line-2);flex:0 0 21px;display:flex;align-items:center;justify-content:center;margin-top:2px;}
-  .choice.sel .pk{border-color:var(--pri);background:var(--pri);}
-  .choice .pk svg{display:none;width:11px;height:11px;color:#fff;}
-  .choice.sel .pk svg{display:block;}
-  .reass{font-size:11.5px;color:var(--slate);text-align:center;line-height:1.5;padding:2px 6px;}
-  .reass a{color:var(--pri);font-weight:700;border-bottom:1px solid var(--pri-wash2);cursor:pointer;}
-  .foot{padding:11px 18px 16px;background:linear-gradient(180deg,rgba(246,245,251,0),var(--bg) 28%);}
-  .btn{width:100%;border:none;border-radius:13px;font-family:inherit;font-size:14.5px;font-weight:700;padding:15px;cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center;gap:8px;}
-  .btn-pri{background:var(--pri);color:#fff;}.btn-pri:active{transform:scale(.99);background:var(--pri-d);}
-  .btn-pri:disabled{background:var(--line-2);color:#fff;cursor:not-allowed;}
-  .btn-gh{background:transparent;color:var(--slate);font-weight:600;padding:11px;font-size:13px;}
-  .cmp-head{margin:4px 2px 2px;}
-  .cmp-head h3{font-size:17px;font-weight:800;letter-spacing:-.01em;}
-  .cmp-head p{font-size:12px;color:var(--slate);line-height:1.5;margin-top:4px;}
+  .tb .t svg{width:20px;height:20px;}.tb .t.on{color:var(--pri);}
+  /* page title in flows */
+  .pgt{font-size:19px;font-weight:800;letter-spacing:-.01em;margin:2px 2px 0;}
+  .pgs{font-size:12.5px;color:var(--slate);line-height:1.5;margin:5px 2px 2px;}
+  /* allocation donut */
+  .alloc-wrap{display:flex;align-items:center;gap:16px;justify-content:center;padding:6px 0;}
+  .donut{position:relative;width:120px;height:120px;flex:0 0 120px;}
+  .donut svg{transform:rotate(-90deg);}
+  .donut .ctr{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  .donut .ctr .a{font-size:18px;font-weight:800;}.donut .ctr .b{font-size:10px;color:var(--slate);}
+  .alloc-leg{display:flex;flex-direction:column;gap:10px;}
+  .alloc-leg .row{display:flex;align-items:flex-start;gap:9px;}
+  .alloc-leg .row .sw{width:13px;height:13px;border-radius:4px;flex:0 0 13px;margin-top:2px;}
+  .alloc-leg .row .tx h5{font-size:13px;font-weight:700;}
+  .alloc-leg .row .tx p{font-size:11px;color:var(--slate);line-height:1.4;margin-top:1px;}
+  .alloc-leg .row .tx .amt{font-size:11.5px;font-weight:800;color:var(--pri-d);margin-top:2px;}
+  .field{margin:4px 2px;}
+  .field .lb{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:8px;}
+  .field .lb .k{color:var(--slate);font-weight:600;}.field .lb .v{font-weight:800;color:var(--pri-d);}
+  input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:6px;background:var(--line-2);outline:none;}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:23px;height:23px;border-radius:50%;background:var(--pri);border:4px solid #fff;box-shadow:0 1px 5px rgba(90,49,244,.4);cursor:pointer;}
+  /* comparison */
   .sortbar{display:flex;gap:7px;padding:2px;}
   .sortbar .sc{flex:1;font-size:11.5px;font-weight:700;color:var(--slate);background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:8px 4px;text-align:center;cursor:pointer;}
   .sortbar .sc.on{background:var(--ink);color:#fff;border-color:var(--ink);}
-  .bankrow{display:flex;align-items:center;gap:12px;padding:13px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);box-shadow:var(--sh);cursor:pointer;transition:.15s;position:relative;}
-  .bankrow:active{transform:scale(.993);}
+  .bankrow{display:flex;align-items:center;gap:12px;padding:13px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);box-shadow:var(--sh);cursor:pointer;position:relative;}
   .bankrow.best{border-color:var(--neon-d);box-shadow:0 0 0 2px rgba(155,211,23,.22);}
   .bankrow.current{border-style:dashed;border-color:var(--line-2);background:#FBFAFE;box-shadow:none;}
   .bankrow .logo{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex:0 0 42px;color:#fff;}
   .bankrow .info{flex:1;min-width:0;}
   .bankrow .info .nm{font-size:13.5px;font-weight:700;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
   .bankrow .info .meaning{font-size:10.5px;color:var(--slate);margin-top:3px;line-height:1.35;}
-  .bankrow .info .badges{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap;}
-  .pill{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:6px;letter-spacing:.01em;display:inline-flex;align-items:center;gap:3px;}
-  .pill svg{width:9px;height:9px;}
-  .pill.dicgc{background:var(--ok-wash);color:var(--ok);}
-  .pill.rating{background:var(--pri-wash);color:var(--pri-d);}
-  .pill.best{background:#F2FCD9;color:var(--neon-d);}
-  .pill.cur{background:#EFEDF4;color:var(--slate);}
+  .bankrow .info .srcline{font-size:9.5px;color:var(--fact);font-weight:700;margin-top:4px;display:flex;align-items:center;gap:4px;}
+  .bankrow .info .srcline svg{width:10px;height:10px;}
   .bankrow .rate{text-align:right;flex:0 0 auto;}
-  .bankrow .rate .pct{font-size:18px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em;}
-  .bankrow .rate .pct.up{color:var(--ok);}
-  .bankrow .rate .mat{font-size:10px;color:var(--slate-l);margin-top:1px;font-variant-numeric:tabular-nums;}
+  .bankrow .rate .pct{font-size:18px;font-weight:800;color:var(--ok);letter-spacing:-.02em;}
   .bankrow .rate .gain{font-size:10px;color:var(--ok);font-weight:700;margin-top:2px;}
-  .ratechip{display:inline-flex;align-items:center;gap:6px;background:var(--warn-wash);border:1px solid var(--warn-line);color:#946011;font-size:11.5px;font-weight:600;padding:8px 12px;border-radius:10px;line-height:1.4;}
-  .ratechip svg{width:15px;height:15px;flex:0 0 15px;}
+  .pill{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:6px;display:inline-flex;align-items:center;gap:3px;}
+  .pill.best{background:#F2FCD9;color:var(--neon-d);}.pill.cur{background:#EFEDF4;color:var(--slate);}
+  .pill.rating{background:var(--pri-wash);color:var(--pri-d);}
   .disclose{display:flex;gap:8px;align-items:flex-start;background:var(--bg);border:1px dashed var(--line-2);border-radius:10px;padding:10px 12px;}
   .disclose svg{width:15px;height:15px;flex:0 0 15px;color:var(--slate);margin-top:1px;}
-  .disclose p{font-size:11px;color:var(--slate);line-height:1.45;}
-  .disclose b{color:var(--ink-2);font-weight:700;}
-  .calc-result{background:linear-gradient(150deg,var(--pri),var(--pri-d));border-radius:var(--r);padding:18px;color:#fff;text-align:center;box-shadow:var(--sh-lg);}
-  .calc-result .l{font-size:12px;opacity:.85;font-weight:600;}
-  .calc-result .v{font-size:34px;font-weight:800;letter-spacing:-.025em;margin-top:3px;font-variant-numeric:tabular-nums;}
-  .calc-result .split{display:flex;margin-top:14px;border-top:1px solid rgba(255,255,255,.18);padding-top:13px;}
-  .calc-result .split .c{flex:1;}
-  .calc-result .split .c .cl{font-size:10.5px;opacity:.8;}
-  .calc-result .split .c .cv{font-size:15px;font-weight:700;margin-top:2px;font-variant-numeric:tabular-nums;}
-  .calc-result .split .c.gain .cv{color:var(--neon);}
-  .sl{padding:3px 2px 2px;}
-  .sl .lb{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:9px;}
-  .sl .lb .k{color:var(--slate);font-weight:600;}
-  .sl .lb .v{font-weight:800;font-variant-numeric:tabular-nums;color:var(--pri-d);}
-  input[type=range]{-webkit-appearance:none;width:100%;height:6px;border-radius:6px;background:var(--line-2);outline:none;}
-  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:23px;height:23px;border-radius:50%;background:var(--pri);border:4px solid #fff;box-shadow:0 1px 5px rgba(90,49,244,.4);cursor:pointer;}
-  input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--pri);border:4px solid #fff;cursor:pointer;}
-  .tenpick,.paysel{display:flex;gap:6px;flex-wrap:wrap;}
-  .tenpick .tp,.paysel .ps{flex:1;min-width:54px;font-size:12px;font-weight:700;color:var(--slate);background:var(--surface);border:1px solid var(--line-2);border-radius:9px;padding:9px 4px;text-align:center;cursor:pointer;}
-  .tenpick .tp.on,.paysel .ps.on{background:var(--pri);color:#fff;border-color:var(--pri);}
-  .bankmini{display:flex;gap:6px;}
-  .bankmini .bm{flex:1;font-size:11px;font-weight:700;color:var(--slate);background:var(--surface);border:1px solid var(--line-2);border-radius:9px;padding:9px 4px;text-align:center;cursor:pointer;line-height:1.3;}
-  .bankmini .bm .r{font-size:10px;color:var(--slate-l);font-weight:600;margin-top:2px;}
-  .bankmini .bm.on{background:var(--pri-wash);border-color:var(--pri);color:var(--pri-d);}
-  .bankmini .bm.on .r{color:var(--pri);}
-  .splitctl{display:flex;flex-direction:column;gap:9px;}
-  .splitrow{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;}
-  .splitrow .k{color:var(--slate);font-weight:600;}
-  .splitrow .v{font-weight:800;font-variant-numeric:tabular-nums;}
-  .splitrow .v.re{color:var(--pri-d);}.splitrow .v.wd{color:var(--warn);}
+  .disclose p{font-size:11px;color:var(--slate);line-height:1.45;}.disclose b{color:var(--ink-2);}
+  .fr{display:flex;justify-content:space-between;align-items:center;padding:11px 0;font-size:13.5px;}
+  .fr+.fr{border-top:1px solid var(--line);}
+  .fr .k{color:var(--slate);font-weight:500;}.fr .v{font-weight:700;}.fr .v.pos{color:var(--ok);}
+  .fr.big .v{font-size:15px;}
   .trust{display:flex;gap:11px;align-items:flex-start;padding:12px 0;}
   .trust+.trust{border-top:1px solid var(--line);}
   .trust .ck{width:23px;height:23px;border-radius:50%;background:var(--ok-wash);color:var(--ok);flex:0 0 23px;display:flex;align-items:center;justify-content:center;}
   .trust .ck svg{width:13px;height:13px;}
-  .trust .t h5{font-size:13px;font-weight:700;}
-  .trust .t p{font-size:11.5px;color:var(--slate);line-height:1.5;margin-top:2px;}
-  .ladvis{display:flex;align-items:flex-end;gap:7px;height:92px;padding:12px 4px 0;}
-  .ladvis .c{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;}
-  .ladvis .c .stk{width:100%;border-radius:6px 6px 0 0;background:var(--pri);transition:.4s;}
-  .ladvis .c .mo{font-size:9.5px;color:var(--slate);font-weight:700;}
-  .rungs{display:flex;flex-direction:column;gap:9px;}
-  .rung{display:flex;align-items:center;gap:11px;padding:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);box-shadow:var(--sh);}
-  .rung .st{width:27px;height:27px;border-radius:8px;background:var(--pri);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:0 0 27px;}
-  .rung .br{flex:1;}
-  .rung .br .t{font-size:12.5px;font-weight:700;}
-  .rung .br .tr{height:6px;border-radius:6px;background:var(--pri-wash);margin-top:6px;overflow:hidden;}
-  .rung .br .tr .fl{height:100%;background:var(--pri);border-radius:6px;}
-  .rung .am{font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums;text-align:right;}
-  .rung .wn{font-size:10px;color:var(--slate);text-align:right;margin-top:2px;}
-  .rung.fire{border-color:var(--warn-line);background:var(--warn-wash);}
-  .rung.fire .st{background:var(--warn);}
+  .trust .t h5{font-size:13px;font-weight:700;}.trust .t p{font-size:11.5px;color:var(--slate);line-height:1.5;margin-top:2px;}
+  .reass{font-size:11.5px;color:var(--slate);text-align:center;line-height:1.5;padding:2px 6px;}
+  .reass a{color:var(--pri);font-weight:700;cursor:pointer;}
+  .foot{padding:11px 18px 16px;background:linear-gradient(180deg,rgba(246,245,251,0),var(--bg) 28%);}
+  .btn{width:100%;border:none;border-radius:13px;font-family:inherit;font-size:14.5px;font-weight:700;padding:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
+  .btn-pri{background:var(--pri);color:#fff;}.btn-pri:active{background:var(--pri-d);}
+  .btn-gh{background:transparent;color:var(--slate);font-weight:600;padding:11px;font-size:13px;}
+  /* success */
   .succ{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;gap:6px;}
   .succ .ring{width:78px;height:78px;border-radius:50%;background:var(--ok-wash);display:flex;align-items:center;justify-content:center;margin-bottom:5px;animation:pop .4s ease;}
   @keyframes pop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
   .succ .ring svg{width:35px;height:35px;color:var(--ok);}
-  .succ h2{font-size:23px;font-weight:800;letter-spacing:-.01em;}
-  .succ p{font-size:13px;color:var(--slate);line-height:1.55;max-width:240px;}
+  .succ h2{font-size:22px;font-weight:800;}.succ p{font-size:13px;color:var(--slate);line-height:1.55;max-width:250px;}
   .youdid{display:inline-flex;align-items:center;gap:7px;background:var(--ok-wash);color:var(--ok);font-size:12px;font-weight:700;padding:7px 13px;border-radius:999px;margin-top:3px;}
   .succ .card{width:100%;margin-top:10px;text-align:left;}
-  .restart{margin:16px auto 0;background:var(--surface);border:1px solid var(--line-2);color:var(--ink);font-size:12.5px;font-weight:700;padding:9px 18px;border-radius:10px;cursor:pointer;}
-  /* lock screen / push */
-  .lockwrap{flex:1;position:relative;background:linear-gradient(165deg,#2A1B5E,#4422C8 60%,#5A31F4);display:flex;flex-direction:column;}
-  .lock-time{text-align:center;color:#fff;margin-top:30px;}
-  .lock-time .d{font-size:13px;opacity:.85;font-weight:600;}
-  .lock-time .t{font-size:54px;font-weight:800;letter-spacing:-.03em;line-height:1;margin-top:2px;}
-  .push{margin:auto 14px 18px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-radius:18px;padding:13px 14px;box-shadow:0 12px 30px rgba(0,0,0,.25);cursor:pointer;animation:slidein .5s ease;}
-  @keyframes slidein{0%{transform:translateY(30px);opacity:0}100%{transform:translateY(0);opacity:1}}
-  .push .ph{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
-  .push .ph .ai{width:20px;height:20px;border-radius:6px;background:var(--pri);display:flex;align-items:center;justify-content:center;}
-  .push .ph .ai svg{width:12px;height:12px;color:var(--neon);}
-  .push .ph .an{font-size:11px;font-weight:700;color:var(--ink);}
-  .push .ph .at{font-size:10px;color:var(--slate-l);margin-left:auto;}
-  .push .pt{font-size:13px;font-weight:700;color:var(--ink);line-height:1.3;}
-  .push .pb2{font-size:12px;color:var(--ink-2);line-height:1.4;margin-top:3px;}
-  .push .tap{font-size:10.5px;color:var(--pri);font-weight:700;margin-top:8px;}
-  .lock-hint{text-align:center;color:rgba(255,255,255,.6);font-size:10.5px;padding-bottom:14px;}
-  .daytag{position:absolute;top:150px;left:50%;transform:translateX(-50%);z-index:6;background:rgba(255,255,255,.16);color:#fff;font-size:10.5px;font-weight:700;padding:4px 11px;border-radius:999px;letter-spacing:.03em;}
-  /* annotations */
-  .anno{position:absolute;z-index:70;background:var(--ink);color:#fff;border-radius:9px;padding:7px 9px;font-size:10px;line-height:1.4;font-weight:600;max-width:172px;box-shadow:0 6px 20px rgba(0,0,0,.3);display:none;pointer-events:none;}
-  .anno::before{display:inline-block;font-size:8.5px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;padding:1px 5px;border-radius:4px;margin-bottom:3px;}
-  .anno.h::before{content:attr(data-tag);background:var(--pri);color:#fff;}
-  .anno.l::before{content:attr(data-tag);background:var(--neon);color:var(--pri-d);}
-  .anno.arr::after{content:"";position:absolute;width:9px;height:9px;background:var(--ink);transform:rotate(45deg);}
-  .anno.arr.top::after{top:-4px;left:14px;}
-  body.show-anno .anno{display:block;}
-  .num{position:absolute;z-index:71;width:19px;height:19px;border-radius:50%;color:#fff;font-size:10px;font-weight:800;display:none;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,.3);}
-  .num.h{background:var(--pri);}.num.l{background:var(--neon-d);}
-  body.show-anno .num{display:flex;}
-  .hint{max-width:1040px;margin:24px auto 0;font-size:12.5px;color:var(--slate);text-align:center;line-height:1.6;}
+  .restart{margin:14px auto 0;background:var(--surface);border:1px solid var(--line-2);color:var(--ink);font-size:12.5px;font-weight:700;padding:9px 18px;border-radius:10px;cursor:pointer;}
+  /* notif dropdown */
+  .notif{position:absolute;top:84px;right:16px;width:300px;background:var(--surface);border:1px solid var(--line-2);border-radius:14px;box-shadow:var(--sh-lg);padding:8px;z-index:60;display:none;}
+  .notif.show{display:block;}
+  .notif .item{display:flex;gap:9px;padding:11px 10px;border-radius:10px;cursor:pointer;}
+  .notif .item:hover{background:var(--bg);}
+  .notif .item .ic{width:28px;height:28px;border-radius:8px;background:var(--pri-wash);color:var(--pri-d);display:flex;align-items:center;justify-content:center;flex:0 0 28px;}
+  .notif .item .ic svg{width:15px;height:15px;}
+  .notif .item h5{font-size:12px;font-weight:700;line-height:1.3;}
+  .notif .item p{font-size:10.5px;color:var(--slate);line-height:1.4;margin-top:2px;}
+  .notif .item .src{font-size:9.5px;color:var(--fact);font-weight:700;margin-top:4px;}
+  .ladvis{display:flex;align-items:flex-end;gap:8px;height:90px;padding:10px 4px 0;}
+  .ladvis .c{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;}
+  .ladvis .c .stk{width:100%;border-radius:6px 6px 0 0;background:var(--pri);}
+  .ladvis .c .mo{font-size:9.5px;color:var(--slate);font-weight:700;}
+  .rung{display:flex;align-items:center;gap:11px;padding:12px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);box-shadow:var(--sh);}
+  .rung+.rung{margin-top:9px;}
+  .rung .st{width:27px;height:27px;border-radius:8px;background:var(--pri);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:0 0 27px;}
+  .rung.fire .st{background:var(--warn);}.rung.fire{border-color:var(--warn-line);background:var(--warn-wash);}
+  .rung .br{flex:1;}.rung .br .t{font-size:12.5px;font-weight:700;}.rung .br .wn{font-size:10px;color:var(--slate);margin-top:2px;}
+  .rung .am{font-size:12.5px;font-weight:800;text-align:right;}
+  .hint{max-width:760px;margin:22px auto 0;font-size:12.5px;color:var(--slate);text-align:center;line-height:1.6;}
   .hint b{color:var(--ink);}
-  @media(max-width:780px){.head h1{font-size:25px}.phone{transform:scale(.95)}}
 </style>
 </head>
 <body>
 <div class="head">
-  <h1>How a first-time investor actually comes back</h1>
-  <p>The whole solution hinges on the return moment. This version shows it end to end: the push that reaches a user who'd otherwise forget, the comparison that makes the second deposit a real choice, and honest after-tax numbers, commission disclosure, and partial-withdraw so a cautious investor can trust it. Use the time machine to jump from first booking to maturity day.</p>
+  <h1>How a cautious first-timer comes back — within 90 days</h1>
+  <p>The first FD is a small trial. What converts it into a real second deposit isn't a louder nudge — it's an experience that earns trust with facts the user can verify for themselves. Every screen below carries a checkable fact and its source. The app guides the logic; the user always owns the choice.</p>
 </div>
 
-<div class="deck">
-  <div class="grp">
-    <span class="gl">⏱ Time machine — see the 90-day arc</span>
-    <div class="seg tl" id="timeSeg">
-      <button class="" data-day="0" onclick="setDay(0,this)">Day 0 · first booking</button>
-      <button class="on" data-day="361" onclick="setDay(361,this)">Day 361 · push arrives</button>
-      <button class="" data-day="365" onclick="setDay(365,this)">Day 365 · maturity</button>
-    </div>
-  </div>
-  <div class="grp">
-    <span class="gl">👤 Your tax profile (recomputes every ₹)</span>
-    <div style="display:flex;gap:8px;">
-      <div class="seg" id="slabSeg">
-        <button data-slab="0" onclick="setSlab(0,this)">No tax</button>
-        <button class="on" data-slab="0.2" onclick="setSlab(0.2,this)">20% slab</button>
-        <button data-slab="0.3" onclick="setSlab(0.3,this)">30% slab</button>
-      </div>
-      <div class="seg" id="ageSeg">
-        <button class="on" data-age="0" onclick="setAge(0,this)">Under 60</button>
-        <button data-age="1" onclick="setAge(1,this)">Senior +0.5%</button>
-      </div>
-    </div>
-  </div>
-  <div class="spacer"></div>
-  <div class="legend show" id="legend">
-    <span class="taxnote">Tax figures use FY25-26 rules: FD interest is taxed at your slab; TDS applies above ₹50k interest/bank/yr (₹1L for seniors). Illustrative, pre-final-ITR.</span>
-  </div>
+<div class="howto">
+  <span class="ic">▶</span>
+  <p>This is the Stable Money app. It opens on the home dashboard, where idle savings earning ~3% are shown against insured FD rates. Follow it through: <b>guided split → compare banks (you pick) → see the math → done</b>. <b>Hover any green fact chip</b> to see how that data is sourced in production.</p>
 </div>
 
 <div class="stage">
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="screen" id="screen">
 
-  <!-- ===== PHONE 0: THE RETURN JOURNEY (lock screen + push) ===== -->
-  <div class="phone-col">
-    <div class="phone-label">The return mechanism<span>how we bring the user back at all</span></div>
-    <div class="phone" id="phoneR">
-      <div class="notch"></div>
-      <div class="screen" id="screenR">
-        <span class="daytag" id="rDayTag">Day 361 of 365</span>
-        <!-- LOCK / PUSH -->
-        <div class="view active" data-view="r-lock">
-          <div class="lockwrap">
-            <div class="lock-time"><div class="d" id="lockDate">Sat 21 June</div><div class="t">9:41</div></div>
-            <div class="push" id="pushCard" onclick="openFromPush()">
-              <div class="ph"><span class="ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span><span class="an">Stable Money</span><span class="at">now</span></div>
-              <div class="pt" id="pushTitle">Your ₹1,00,000 FD matures in 4 days 🔔</div>
-              <div class="pb2" id="pushBody">Rates moved since you booked — some insured banks now pay more. Tap to see your options before it auto-renews.</div>
-              <div class="tap">Tap to review &amp; reinvest →</div>
-            </div>
-            <div class="lock-hint" id="lockHint">This is the message that prevents the leak. Tap it.</div>
+      <!-- HOME -->
+      <div class="view active" data-view="home">
+        <div class="sb dk"><span>9:41</span><span>5G 100%</span></div>
+        <div class="sm-hero">
+          <div class="sm-top">
+            <div class="sm-logo"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span> Stable Money</div>
+            <span class="sp"></span>
+            <div class="sm-bell" id="bell" onclick="toggleNotif()"><span class="pip"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg></div>
+            <div class="sm-av">P</div>
+          </div>
+          <div class="sm-port"><div class="l">Invested with Stable Money</div><div class="v num">₹26,750</div><div class="l" style="margin-top:4px;">1 fixed deposit · your first</div></div>
+        </div>
+        <div class="notif" id="notif">
+          <div class="item" onclick="openRateAlert()">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8M14 7h7v7"/></svg></div>
+            <div><h5>RBI raised the repo rate by 0.25%</h5><p>Banks usually lift FD rates within weeks. Here's what it means for you.</p><div class="src">⌗ Source: RBI MPC statement →</div></div>
           </div>
         </div>
-        <!-- DAY 0 booking confirmation state -->
-        <div class="view" data-view="r-day0">
-          <div class="sm-hero" style="padding-bottom:30px;">
-            <div class="sm-top"><div class="sm-logo"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span> Stable Money</div></div>
+        <div class="lift">
+          <div class="idle">
+            <div class="fl"><span>●</span> Your money that isn't working yet</div>
+            <h3>You have about ₹1,00,000 in savings earning ~3%. The same amount in an insured FD earns far more.</h3>
+            <div class="barwrap">
+              <div class="barrow"><span class="lab">Savings a/c</span><span class="bar"><span class="fillb" style="width:33%;background:var(--slate-l)"></span></span><span class="pct">3.0%</span></div>
+              <div class="barrow"><span class="lab">Insured FD</span><span class="bar"><span class="fillb" style="width:89%;background:var(--ok)"></span></span><span class="pct" style="color:var(--ok)">8.1%</span></div>
+            </div>
+            <div class="fact" style="margin-top:4px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
+              <p>Both rates are real and checkable: savings ~3% (your bank), top insured FD 8.10% (<span class="src" onclick="showSrc('rate')">partner rate, Jun 2026</span>). We don't set either.</p>
+            </div>
+            <div class="go" onclick="go('alloc')"><span>Put it to work — see how</span><span>→</span></div>
           </div>
-          <div class="body" style="padding-top:18px;">
-            <div class="succ" style="padding:10px 4px;">
-              <div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></div>
-              <h2>First FD booked 🎉</h2>
-              <p>₹1,00,000 with Unity Small Finance at 7.25%, maturing 25 Jun 2027.</p>
-            </div>
-            <div class="calm-card">
-              <div class="fl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/></svg> We've set your return reminder</div>
-              <h3>You won't have to remember this date.</h3>
-              <p>Most people forget money in an FD until it matures. We'll reach out 4 days before — with the rates that apply <b>then</b>, not now — so the next decision is easy and on time.</p>
-            </div>
-            <div class="callout info">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
-              <p>This single promise — a well-timed, honest reminder — is what turns a one-time booker into a repeat investor. Jump to <b>Day 361</b> to see it fire.</p>
-            </div>
-          </div>
-          <div class="foot"><button class="btn btn-pri" onclick="setDay(361,document.querySelector('#timeSeg [data-day=\'361\']'))">Fast-forward 361 days →</button></div>
         </div>
-        <!-- handoff -->
-        <div class="view" data-view="r-handoff">
-          <div class="body" style="padding-top:60px;text-align:center;gap:16px;">
-            <div style="font-size:40px;">👉</div>
-            <div class="chead" style="text-align:center;">Tapped the push.</div>
-            <div class="csub" style="text-align:center;">The user now lands inside the app, at the maturity decision. Follow it on the middle phone — <b>Flow 1</b>.</div>
-            <div class="callout info" style="text-align:left;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg><p>The push deep-links straight to "What's about to happen" — no hunting through menus. One tap from lock screen to decision.</p></div>
+        <div class="body" style="padding-top:16px;">
+          <div class="seclbl">Your passbook</div>
+          <div class="card"><div class="pb"><div class="ic">UN</div><div class="m"><div class="n">Unity Small Finance</div><div class="s">7.25% · ₹25,000 · your first FD</div></div><div class="a"><div class="v num">₹26,750</div><div class="d">on track</div></div></div></div>
+          <div class="seclbl row"><span>Smart help</span><span class="aibadge">⚡ AI</span></div>
+          <div class="aientry" onclick="openAI()">
+            <div class="aientry-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.7 1.8L21.5 17l-1.8.7L19 19.5l-.7-1.8L16.5 17l1.8-.5z"/></svg></div>
+            <div class="aientry-tx">
+              <h4>Get fact-backed guidance</h4>
+              <p>Tell us your situation — our AI explains a sensible split in plain language, with every number sourced. You decide.</p>
+            </div>
+            <div class="aientry-go">→</div>
           </div>
-          <div class="foot"><button class="btn btn-gh" onclick="goR('r-lock')">← Back to the push</button></div>
+          <div class="seclbl">Tools</div>
+          <div class="tools">
+            <div class="tool" onclick="openCalc()"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/></svg></div><div class="t">Returns<br>calculator</div></div>
+            <div class="tool" onclick="go('ladder')"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 21V5M11 21V9M17 21V13M3 5h4M9 9h4M15 13h4"/></svg></div><div class="t">Build a<br>ladder</div></div>
+            <div class="tool" onclick="go('liquidity')"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><div class="t">Can I break<br>an FD?</div></div>
+          </div>
+        </div>
+        <div class="tb">
+          <div class="t on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</div>
+          <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v4H4zM4 10h16v10H4z"/></svg>Passbook</div>
+          <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>Explore</div>
+          <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Profile</div>
         </div>
       </div>
-    </div>
-  </div>
-  <!-- ===== PHONE A: FLOW 1 ===== -->
-  <div class="phone-col">
-    <div class="phone-label">Flow 1 <span>maturity → guided reinvestment</span></div>
-    <div class="phone" id="phoneA">
-      <div class="notch"></div>
-      <div class="screen" id="screenA">
-        <div class="sb"><span>9:41</span><span class="r">5G 100%</span></div>
-        <!-- HOME -->
-        <div class="view active" data-view="a-home">
-          <div class="sm-hero">
-            <div class="sm-top">
-              <div class="sm-logo"><span class="mk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M4 12l5 5L20 6"/></svg></span> Stable Money</div>
-              <span class="sp"></span>
-              <div class="sm-bell has"><span class="pip"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/></svg></div>
-              <div class="av">P</div>
-            </div>
-            <div class="sm-port">
-              <div class="lbl">Total invested value</div>
-              <div class="val">₹1,58,790</div>
-              <div class="delta">▲ ₹8,790 earned across your FDs</div>
-            </div>
+
+      <!-- RATE ALERT -->
+      <div class="view" data-view="ratealert">
+        <div class="sb"><span>9:41</span><span>5G 100%</span></div>
+        <div class="ab"><div class="bk" onclick="go('home')">←</div><span class="ti">Why we're telling you this</span></div>
+        <div class="body">
+          <div class="pgt">FD rates just got more attractive</div>
+          <div class="pgs">The RBI raised the repo rate. When that happens, banks usually raise FD rates within a few weeks to attract deposits. We flag it so you can act while rates are high — that's it. No pressure.</div>
+          <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>This is a public event you can verify: <span class="src" onclick="showSrc('rbi')">RBI Monetary Policy statement, Jun 2026 →</span>. We're relaying a fact, not making a forecast.</p></div>
+          <div class="card pad">
+            <div class="fr"><span class="k">Repo rate</span><span class="v">↑ +0.25%</span></div>
+            <div class="fr"><span class="k">Top insured FD (then vs now)</span><span class="v">7.85% → <span style="color:var(--ok)">8.10%</span></span></div>
           </div>
-          <div class="lift">
-            <div class="nudge">
-              <div onclick="goA('a-detail')">
-                <div class="fl"><span class="rg"></span> Action needed · matures in 4 days</div>
-                <h3>Your ₹1,00,000 FD with Unity Small Finance matures on 25 Jun</h3>
-                <p>Rates have shifted in the 12 months since you booked. Let's see where your money does best now — before it auto-renews on its own.</p>
-                <div class="go"><span>Review &amp; reinvest</span><span>→</span></div>
+          <div class="fact" style="background:var(--warn-wash);border-color:var(--warn-line);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--warn)"><path d="M12 8v5M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg><p style="color:#946011">We'd tell you if rates <b>fell</b>, too — then the honest message would be "your current FD looks good, sit tight." Telling you both ways is the point.</p></div>
+        </div>
+        <div class="foot"><button class="btn btn-pri" onclick="go('alloc')">Show me where to put more</button></div>
+      </div>
+
+      <!-- ALLOCATION -->
+      <div class="view" data-view="alloc">
+        <div class="sb"><span>9:41</span><span>5G 100%</span></div>
+        <div class="ab"><div class="bk" onclick="go('home')">←</div><span class="ti">A suggested split</span></div>
+        <div class="body">
+          <div class="pgt">For ₹1,00,000, a balanced way to start</div>
+          <div class="pgs">This is how many cautious investors structure it — most in a top-safety bank, a portion laddered so cash frees up. It's a starting point, not a rule. Drag to change it.</div>
+          <div class="card pad">
+            <div class="alloc-wrap">
+              <div class="donut">
+                <svg width="120" height="120" viewBox="0 0 120 120">
+                  <circle cx="60" cy="60" r="48" fill="none" stroke="var(--neon)" stroke-width="20"/>
+                  <circle id="donutArc" cx="60" cy="60" r="48" fill="none" stroke="var(--pri)" stroke-width="20" stroke-dasharray="211 301" />
+                </svg>
+                <div class="ctr"><div class="a num" id="dPct">70%</div><div class="b">top-safety</div></div>
               </div>
-              <div class="sec"><button onclick="remindLater()">Remind me in 2 days</button><button onclick="goA('a-detail')">See details</button></div>
-            </div>
-          </div>
-          <div class="body" style="padding-top:16px;">
-            <div class="seclbl row"><span>Passbook</span><span class="more">View all</span></div>
-            <div class="card">
-              <div class="pb" onclick="goA('a-detail')"><div class="ic">UN</div><div class="m"><div class="n">Unity Small Finance</div><div class="s">7.25% · 1 yr · matures 25 Jun</div></div><div class="a"><div class="v">₹1,07,250</div><div class="d warn">4 days left</div></div></div>
-              <div class="pb"><div class="ic">SU</div><div class="m"><div class="n">Suryoday Small Finance</div><div class="s">8.10% · 2 yr · matures 14 Nov</div></div><div class="a"><div class="v">₹51,540</div><div class="d ok">on track</div></div></div>
-            </div>
-            <div class="seclbl">Tools</div>
-            <div class="tools">
-              <div class="tool" onclick="openCalc()"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 12h2M14 12h2M8 16h2M14 16h2"/></svg></div><div class="t">FD maturity<br>calculator</div></div>
-              <div class="tool" onclick="document.getElementById('phoneB').scrollIntoView({behavior:'smooth'})"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 21V5M11 21V9M17 21V13M3 5h4M9 9h4M15 13h4"/></svg></div><div class="t">Build an<br>FD ladder</div></div>
-              <div class="tool" onclick="goA('a-compare')"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/><circle cx="8" cy="6" r="2" fill="currentColor"/><circle cx="16" cy="12" r="2" fill="currentColor"/><circle cx="10" cy="18" r="2" fill="currentColor"/></svg></div><div class="t">Compare<br>200+ FDs</div></div>
-            </div>
-          </div>
-          <div class="tb">
-            <div class="t on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</div>
-            <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v4H4zM4 10h16v10H4zM9 14h6"/></svg>Passbook</div>
-            <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>Explore</div>
-            <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Profile</div>
-          </div>
-          <span class="num l" style="top:222px;left:24px;">2</span>
-          <div class="anno l arr top" data-tag="Von Restorff + Postel" style="top:250px;left:22px;">Nudge isolated by colour/elevation; "remind me in 2 days" respects users who open but aren't ready.</div>
-        </div>
-        <!-- DETAIL -->
-        <div class="view" data-view="a-detail">
-          <div class="ab"><div class="bk" onclick="goA('a-home')">←</div><span class="ti">What's about to happen</span></div>
-          <div class="body">
-            <div class="hero-amt"><div class="l">Unity Small Finance FD · matures 25 Jun</div><div class="b">₹1,07,250</div><div class="grew"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px"><path d="M3 17l6-6 4 4 8-8"/></svg> You earned ₹7,250 this year</div></div>
-            <div class="card pad">
-              <div class="fr"><span class="k">You invested</span><span class="v">₹1,00,000</span></div>
-              <div class="fr"><span class="k">Interest earned (7.25%)</span><span class="v">₹7,250</span></div>
-              <div class="fr"><span class="k" id="detTaxK">After 20% tax, you keep</span><span class="v pos" id="detTaxV">₹5,800</span></div>
-              <div class="fr"><span class="k">Matures on</span><span class="v">25 Jun 2026</span></div>
-            </div>
-            <div class="callout warn">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
-              <p><b>Doing nothing has a cost.</b> Without a choice this auto-renews at Unity's <b>7.25%</b> — but insured banks now pay up to <b id="detBest">8.10%</b>. <span id="detGapTxt">On ₹1,07,250 that's about ₹910/yr more, before tax.</span></p>
-            </div>
-            <div class="callout info">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l2 2"/></svg>
-              <p><b>What happens at maturity?</b> On 25 Jun your money lands in your linked bank account, not limbo. Reinvest before then and we move it directly into the new FD — <b>zero idle days</b>, no interest lost in the gap.</p>
-            </div>
-            <p class="reass">Shown 4 days early, so the decision is yours — not the clock's.</p>
-          </div>
-          <div class="foot"><button class="btn btn-pri" onclick="goA('a-choices')">See my options</button></div>
-          <span class="num h" style="top:360px;left:24px;">3</span>
-          <div class="anno h arr top" data-tag="H1 · visibility" style="top:388px;left:22px;">Quantifies inaction in rupees AND closes the "what happens in the gap" anxiety — the real-life leak point.</div>
-        </div>
-        <!-- CHOICES -->
-        <div class="view" data-view="a-choices">
-          <div class="ab"><div class="bk" onclick="goA('a-detail')">←</div><span class="ti">Your choices</span></div>
-          <div class="body">
-            <div class="chead">What would you like to do with ₹1,07,250?</div>
-            <div class="csub">Four honest options — each shows what it means for you. Pick what fits, not what we'd prefer.</div>
-            <div class="choice rec" data-c="reinvest" onclick="pickA(this,'reinvest')"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v4h4"/></svg></div><div class="tx"><div class="tp"><h4>Reinvest it</h4><span class="tag">compare banks</span></div><p>See which insured banks pay best <b>now</b>, then book in a tap.</p></div><div class="pk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div></div>
-            <div class="choice" data-c="partial" onclick="pickA(this,'partial')"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M3 8h18M3 16h18"/></svg></div><div class="tx"><div class="tp"><h4>Take some, reinvest the rest</h4><span class="tag">new</span></div><p>Withdraw what you need for an expense, keep the rest earning.</p></div><div class="pk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div></div>
-            <div class="choice" data-c="ladder" onclick="pickA(this,'ladder')"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 21V5M11 21V9M17 21V13M3 5h4M9 9h4M15 13h4"/></svg></div><div class="tx"><div class="tp"><h4>Ladder it</h4></div><p>Split across staggered dates so cash frees up regularly. Opens Flow 2.</p></div><div class="pk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div></div>
-            <div class="choice" data-c="withdraw" onclick="pickA(this,'withdraw')"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg></div><div class="tx"><div class="tp"><h4>Move it all to my bank</h4></div><p>Take the full ₹1,07,250 to your account. No penalty — it's matured.</p></div><div class="pk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div></div>
-            <p class="reass">Worried about needing cash early next time? <a onclick="goA('a-liquidity')">What breaking an FD really costs →</a></p>
-          </div>
-          <div class="foot"><button class="btn btn-pri" id="aCont" disabled onclick="routeA()">Choose an option to continue</button></div>
-          <span class="num l" style="top:128px;left:24px;">4</span>
-          <div class="anno l arr top" data-tag="Hick's Law" style="top:156px;left:22px;">Options kept to a tight set; partial-withdraw added because real investors rarely want all-or-nothing.</div>
-          <span class="num h" style="top:556px;left:24px;">5</span>
-          <div class="anno h arr top" data-tag="H3 · user control" style="top:584px;left:22px;">Withdraw is equal and frictionless — the exit is never hidden. Coaching, not commanding.</div>
-        </div>
-        <!-- PARTIAL SPLIT -->
-        <div class="view" data-view="a-partial">
-          <div class="ab"><div class="bk" onclick="goA('a-choices')">←</div><span class="ti">Take some, reinvest the rest</span></div>
-          <div class="body">
-            <div class="chead" style="margin-top:2px;">How much do you need right now?</div>
-            <div class="csub">Withdraw a slice to your bank, reinvest the remainder. You stay liquid without breaking the whole thing.</div>
-            <div class="card pad">
-              <div class="sl"><div class="lb"><span class="k">Withdraw to bank</span><span class="v wd" id="splitWdL">₹30,000</span></div>
-                <input type="range" id="splitS" min="0" max="107250" step="2500" value="30000" oninput="renderSplit()"></div>
-              <div class="splitctl" style="margin-top:12px;">
-                <div class="splitrow"><span class="k">↓ To your bank account</span><span class="v wd" id="splitWd">₹30,000</span></div>
-                <div class="splitrow"><span class="k">↻ Reinvested in new FD</span><span class="v re" id="splitRe">₹77,250</span></div>
+              <div class="alloc-leg">
+                <div class="row"><span class="sw" style="background:var(--pri)"></span><div class="tx"><h5>Top-safety bank</h5><p>Bulk, at the best insured rate</p><div class="amt num" id="legSafe">₹70,000</div></div></div>
+                <div class="row"><span class="sw" style="background:var(--neon-d)"></span><div class="tx"><h5>Laddered</h5><p>Staggered tenures, stays liquid</p><div class="amt num" id="legLad">₹30,000</div></div></div>
               </div>
             </div>
-            <div class="callout ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg><p>Because it's matured, the withdrawn part has <b>no penalty</b>. The reinvested part goes straight into your chosen FD — no idle days.</p></div>
-            <p class="reass">Next you'll pick where the reinvested <b id="splitReInline">₹77,250</b> goes.</p>
-          </div>
-          <div class="foot"><button class="btn btn-pri" onclick="goA('a-compare')">Choose a bank for the rest →</button></div>
-        </div>
-        <!-- LIQUIDITY -->
-        <div class="view" data-view="a-liquidity">
-          <div class="ab"><div class="bk" onclick="goA('a-choices')">←</div><span class="ti">What breaking an FD costs</span></div>
-          <div class="body">
-            <div class="chead" style="margin-top:2px;">Your principal is never at risk.</div>
-            <div class="csub">Half of people think breaking an FD eats their savings. Here's the truth on ₹1,00,000.</div>
-            <div class="card pad"><div class="fr"><span class="k">Your principal</span><span class="v" style="color:var(--ok)">Always 100% safe</span></div><div class="fr"><span class="k">If you break early</span><span class="v">Rate −1% for time held</span></div><div class="fr"><span class="k">Penalty on principal</span><span class="v" style="color:var(--ok)">₹0</span></div></div>
-            <div class="callout ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg><p><b>You have softer options too.</b> Use <b>Break FD</b> to withdraw part and keep the rest earning, or take a loan against your FD. We surface these the moment you need cash.</p></div>
-            <p class="reass">This is what the app should have told you at booking. Now you know.</p>
-          </div>
-          <div class="foot"><button class="btn btn-pri" onclick="goA('a-choices')">Got it — back to choices</button></div>
-        </div>
-        <!-- COMPARE -->
-        <div class="view" data-view="a-compare">
-          <div class="ab"><div class="bk" onclick="goA('a-choices')">←</div><span class="ti">Where to reinvest</span></div>
-          <div class="body">
-            <div class="cmp-head"><h3>Insured banks paying best right now</h3><p id="cmpSub">Live rates for a 1-year FD on ₹1,07,250. Your current bank is shown too, for honest comparison.</p></div>
-            <div class="ratechip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8M14 7h7v7"/></svg> <span id="rateChipTxt">Rates as of Jun 2026 · DICGC-insured up to ₹5L</span></div>
-            <div class="sortbar"><div class="sc on" data-s="rate" onclick="sortBanks('rate',this)">Highest rate</div><div class="sc" data-s="safety" onclick="sortBanks('safety',this)">Safest rating</div><div class="sc" data-s="aftertax" onclick="sortBanks('aftertax',this)">Most after tax</div></div>
-            <div id="bankList" style="display:flex;flex-direction:column;gap:10px;"></div>
-            <div class="disclose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><p><b>How Stable Money earns:</b> we get a commission from the bank when you book. It's paid by the bank and <b>never changes the rate you get</b> — the rates above are the same you'd get direct.</p></div>
-            <p class="reass">Sorted, not chosen for you. Tap a bank for its full safety profile, or <a onclick="openCalc()">model returns in the calculator →</a></p>
-          </div>
-          <span class="num h" style="top:300px;left:22px;">6</span>
-          <div class="anno h arr top" data-tag="H2 + H1" style="top:328px;left:20px;">Plain-language sorts incl. "most after tax"; commission disclosed openly to protect trust.</div>
-          <span class="num l" style="top:300px;right:22px;">7</span>
-          <div class="anno l arr top" data-tag="Goal-gradient" style="top:328px;right:20px;width:150px;">After-tax gain vs your bank on each row pulls toward the genuinely better choice.</div>
-        </div>
-        <!-- CONFIRM -->
-        <div class="view" data-view="a-confirm">
-          <div class="ab"><div class="bk" onclick="goA('a-compare')">←</div><span class="ti">Confirm reinvestment</span></div>
-          <div class="body">
-            <div class="hero-amt"><div class="l">New 1-year FD · <span id="confBank">Suryoday Small Finance</span></div><div class="b" id="confAmt">₹1,07,250</div><div class="grew" id="confRate">8.10% · ₹910/yr more than auto-renew</div></div>
-            <div class="seclbl">Because this is a larger amount</div>
-            <div class="card pad">
-              <div class="trust"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="t"><h5>Insured by DICGC</h5><p>Up to ₹5,00,000 per bank is government-insured. You're fully covered.</p></div></div>
-              <div class="trust"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="t"><h5 id="confSafety">Suryoday safety profile</h5><p id="confSafetyP">RBI-licensed small finance bank · ICRA A.</p></div></div>
-              <div class="trust"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="t"><h5>Break or switch anytime</h5><p>Principal stays safe. Use Break FD or Switch FD if plans change — no lock-in trap.</p></div></div>
+            <div class="field" style="margin-top:10px;">
+              <div class="lb"><span class="k">Adjust the split</span><span class="v"><span id="splitVal">70</span>% safe</span></div>
+              <input type="range" id="splitS" min="40" max="100" step="5" value="70" oninput="renderAlloc()">
             </div>
-            <div class="card pad">
-              <div class="fr"><span class="k">Amount</span><span class="v" id="confAmt2">₹1,07,250</span></div>
-              <div class="fr"><span class="k">Rate (1 year)</span><span class="v" id="confRate2" style="color:var(--ok)">8.10%</span></div>
-              <div class="fr"><span class="k">Interest (before tax)</span><span class="v" id="confEarn">₹8,687</span></div>
-              <div class="fr"><span class="k" id="confTaxK">Less ~20% tax on interest</span><span class="v" id="confTax">−₹1,737</span></div>
-              <div class="fr"><span class="k">You keep, after tax</span><span class="v pos" id="confKeep">₹6,950</span></div>
-              <div class="fr"><span class="k">Matures</span><span class="v">25 Jun 2027</span></div>
-            </div>
-            <p class="reass">You're choosing this. We just made every number — including the tax — easy to see.</p>
           </div>
-          <div class="foot"><button class="btn btn-pri" onclick="goA('a-success')">Confirm — this is my choice</button><button class="btn btn-gh" onclick="goA('a-compare')">Compare other banks</button></div>
-          <span class="num h" style="top:300px;left:22px;">8</span>
-          <div class="anno h arr top" data-tag="H6 + transparency" style="top:328px;left:20px;">Trust facts re-shown at commitment, and tax shown as a line item — no surprise shrinkage later.</div>
+          <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>The "split across tenures and safety" idea isn't ours — it's <b>standard FD laddering</b>, described by banks and the RBI alike. <span class="src" onclick="showSrc('ladder')">See the principle →</span> We just make it one tap instead of a spreadsheet.</p></div>
+          <p class="reass">You decide the numbers. The suggestion is only a starting point you can ignore.</p>
         </div>
-        <!-- SUCCESS -->
-        <div class="view" data-view="a-success">
-          <div class="succ">
-            <div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></div>
-            <h2>Done — your money's working again</h2>
-            <span class="youdid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px"><path d="M5 13l4 4L19 7"/></svg> A decision you made</span>
-            <p id="succMsg">₹1,07,250 moved to Suryoday at 8.10% until 25 Jun 2027 — about ₹910 more than letting it drift. We'll bring you the same clear comparison next time.</p>
-            <div class="card pad" style="width:100%;text-align:left;margin-top:8px;"><div class="fr"><span class="k">New FD</span><span class="v" id="succBank">Suryoday · 8.10%</span></div><div class="fr"><span class="k">Next reminder</span><span class="v">21 Jun 2027</span></div></div>
-            <button class="restart" onclick="resetA()">↺ Replay this flow</button>
-          </div>
-          <span class="num l" style="top:60px;left:50%;margin-left:-95px;">9</span>
-          <div class="anno l arr top" data-tag="Peak-End rule" style="top:88px;left:50%;margin-left:-86px;">Ends on the gain, on "you decided", AND on the next reminder being set — the loop visibly closes.</div>
-        </div>
-        <!-- CALCULATOR -->
-        <div class="view" data-view="a-calc">
-          <div class="ab"><div class="bk" onclick="goA('a-home')">←</div><span class="ti">FD maturity calculator</span></div>
-          <div class="body">
-            <div class="calc-result"><div class="l">Maturity value</div><div class="v" id="calcMat">₹1,15,937</div><div class="split"><div class="c"><div class="cl">You invest</div><div class="cv" id="calcAmt">₹1,07,250</div></div><div class="c gain"><div class="cl">Interest, after tax</div><div class="cv" id="calcInt">₹6,950</div></div></div></div>
-            <div class="card pad">
-              <div class="sl"><div class="lb"><span class="k">Amount</span><span class="v" id="calcAmtL">₹1,07,250</span></div><input type="range" id="calcAmtS" min="25000" max="500000" step="5000" value="107250" oninput="renderCalc()"></div>
-              <div class="sl" style="margin-top:14px;"><div class="lb"><span class="k">Tenure</span><span class="v" id="calcTenL">1 year</span></div>
-                <div class="tenpick" id="calcTen"><div class="tp" data-m="6" onclick="setTen(6,this)">6 mo</div><div class="tp on" data-m="12" onclick="setTen(12,this)">1 yr</div><div class="tp" data-m="24" onclick="setTen(24,this)">2 yr</div><div class="tp" data-m="36" onclick="setTen(36,this)">3 yr</div><div class="tp" data-m="60" onclick="setTen(60,this)">5 yr</div></div></div>
-              <div class="sl" style="margin-top:14px;"><div class="lb"><span class="k">Bank</span><span class="v" id="calcRateL">8.10%</span></div>
-                <div class="bankmini" id="calcBank"><div class="bm on" data-r="8.10" onclick="setCalcBank(8.10,this)">Suryoday<div class="r">8.10%</div></div><div class="bm" data-r="8.10" onclick="setCalcBank(8.10,this)">Utkarsh<div class="r">8.10%</div></div><div class="bm" data-r="7.50" onclick="setCalcBank(7.50,this)">Unity<div class="r">7.50%</div></div><div class="bm" data-r="7.40" onclick="setCalcBank(7.40,this)">Bajaj<div class="r">7.40%</div></div></div></div>
-              <div class="sl" style="margin-top:14px;"><div class="lb"><span class="k">Payout</span><span class="v" id="calcPayL">Cumulative</span></div>
-                <div class="paysel" id="calcPay"><div class="ps on" data-p="cum" onclick="setPay('cum',this)">Cumulative</div><div class="ps" data-p="mon" onclick="setPay('mon',this)">Monthly payout</div></div></div>
-            </div>
-            <div class="callout ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8M14 7h7v7"/></svg><p id="calcVsSavings">This earns ₹X more than the same money in a 3% savings account over the period.</p></div>
-            <div class="callout info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><p id="calcInsight">After your tax slab, your money grows by ₹6,950 this year.</p></div>
-            <p class="reass">Compounded annually · rates Jun 2026 · after-tax uses your selected slab.</p>
-          </div>
-          <div class="foot"><button class="btn btn-pri" onclick="goA('a-compare')">Use this to pick a bank</button></div>
-          <span class="num l" style="top:64px;left:22px;">10</span>
-          <div class="anno l arr top" data-tag="Doherty + framing" style="top:92px;left:20px;">Instant updates, after-tax result, payout type, and "beats savings by X" — the comparison users actually make.</div>
+        <div class="foot"><button class="btn btn-pri" onclick="go('compare')">See banks for this split</button></div>
+      </div>
+
+      <!-- COMPARE -->
+      <div class="view" data-view="compare">
+        <div class="sb"><span>9:41</span><span>5G 100%</span></div>
+        <div class="ab"><div class="bk" onclick="go('alloc')">←</div><span class="ti">Where to put it</span></div>
+        <div class="body">
+          <div class="pgt">Insured banks, compared honestly</div>
+          <div class="pgs" id="cmpSub">Live rates for the top-safety portion (₹70,000). Your current bank is shown too. You choose — we just lay out the facts.</div>
+          <div class="sortbar"><div class="sc on" data-s="rate" onclick="sortB('rate',this)">Highest rate</div><div class="sc" data-s="safety" onclick="sortB('safety',this)">Safest rating</div><div class="sc" data-s="aftertax" onclick="sortB('aftertax',this)">Most after tax</div></div>
+          <div id="bankList" style="display:flex;flex-direction:column;gap:10px;"></div>
+          <div class="disclose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><p><b>How we earn:</b> Stable Money gets a commission from the bank on any booking — the same on whichever you pick — so we've no reason to steer you. The rate you see is the rate you'd get direct.</p></div>
+          <p class="reass">Every rating links to its agency; every rate is checkable. Tap a bank to choose it.</p>
         </div>
       </div>
-    </div>
-  </div>
-  <!-- ===== PHONE B: LADDERING ===== -->
-  <div class="phone-col">
-    <div class="phone-label">Flow 2 <span>guided laddering → auto-return</span></div>
-    <div class="phone" id="phoneB">
-      <div class="notch"></div>
-      <div class="screen" id="screenB">
-        <div class="sb"><span>9:41</span><span class="r">5G 100%</span></div>
-        <div class="view active" data-view="b-intro">
-          <div class="ab"><div class="bk" onclick="document.getElementById('phoneA').scrollIntoView({behavior:'smooth'})">←</div><span class="ti">Build a ladder</span></div>
-          <div class="body">
-            <div style="text-align:center;padding:6px 0 0;"><div class="ladvis" style="height:80px;max-width:230px;margin:0 auto;"><div class="c"><div class="stk" style="height:30%"></div><div class="mo">3mo</div></div><div class="c"><div class="stk" style="height:52%"></div><div class="mo">6mo</div></div><div class="c"><div class="stk" style="height:74%"></div><div class="mo">9mo</div></div><div class="c"><div class="stk" style="height:96%"></div><div class="mo">12mo</div></div></div></div>
-            <div class="chead" style="text-align:center">One amount. Several maturity dates.</div>
-            <div class="csub" style="text-align:center">Instead of locking everything until one far-off date, a ladder staggers it — so a piece frees up regularly and you're never stuck.</div>
-            <div class="card pad">
-              <div class="trust" style="border:none;padding-top:2px"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="t"><h5>Liquidity without breaking anything</h5><p>Something matures every few months, so you rarely touch the rest.</p></div></div>
-              <div class="trust"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="t"><h5>Each rung auto-triggers your return</h5><p>When a rung matures, the same calm comparison from Flow 1 comes to you — automatically.</p></div></div>
-              <div class="trust"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="t"><h5>You set it, you stay in control</h5><p>We coach the structure; the amounts and dates are yours.</p></div></div>
-            </div>
-            <p class="reass">Stable Money already explains laddering in its blog — this builds it into the app, where you need it.</p>
+
+      <!-- CONFIRM -->
+      <div class="view" data-view="confirm">
+        <div class="sb"><span>9:41</span><span>5G 100%</span></div>
+        <div class="ab"><div class="bk" onclick="go('compare')">←</div><span class="ti">Confirm — and check the math</span></div>
+        <div class="body">
+          <div class="pgt" id="confTitle">New FD · Suryoday Small Finance</div>
+          <div class="pgs">Nothing hidden. Here's exactly what you'll earn and keep — numbers you can re-derive yourself.</div>
+          <div class="card pad">
+            <div class="fr"><span class="k">Amount</span><span class="v num" id="cAmt">₹70,000</span></div>
+            <div class="fr"><span class="k">Rate (1 year)</span><span class="v pos num" id="cRate">8.10%</span></div>
+            <div class="fr"><span class="k">Interest (before tax)</span><span class="v num" id="cInt">₹5,670</span></div>
+            <div class="fr"><span class="k" id="cTaxK">Less ~20% tax on interest</span><span class="v num" id="cTax">−₹1,134</span></div>
+            <div class="fr big"><span class="k">You keep, after tax</span><span class="v pos num" id="cKeep">₹4,536</span></div>
           </div>
-          <div class="foot"><button class="btn btn-pri" onclick="goB('b-build')">Build my ladder</button></div>
+          <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>It's just arithmetic: ₹70,000 × 8.10% = ₹5,670, taxed at your slab. <span class="src" onclick="showSrc('tax')">FD interest is taxed at your slab — source →</span> Redo it yourself any time.</p></div>
+          <div class="card pad">
+            <div class="trust"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="t"><h5>Insured by DICGC to ₹5,00,000</h5><p>A government guarantee, per bank. <span class="src" onclick="showSrc('dicgc')" style="color:var(--fact);font-weight:700;cursor:pointer;">Verify at dicgc.org.in →</span></p></div></div>
+            <div class="trust"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="t"><h5 id="cSafety">Suryoday · ICRA A (Adequate safety)</h5><p>RBI-licensed small finance bank. <span class="src" onclick="showSrc('rating')" style="color:var(--fact);font-weight:700;cursor:pointer;">Check the rating →</span></p></div></div>
+            <div class="trust"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="t"><h5>Break or switch anytime</h5><p>Principal stays safe; only a small rate trim if you exit early.</p></div></div>
+          </div>
+          <p class="reass">You're choosing this. We just made every number — and its source — easy to see.</p>
         </div>
-        <div class="view" data-view="b-build">
-          <div class="ab"><div class="bk" onclick="goB('b-intro')">←</div><span class="ti">Build my ladder</span></div>
-          <div class="body">
-            <div class="card pad"><div class="sl"><div class="lb"><span class="k">Amount to ladder</span><span class="v" id="ladTot">₹2,00,000</span></div><input type="range" id="amtS" min="50000" max="500000" step="10000" value="200000" oninput="renderLad()"></div><div class="sl" style="margin-top:14px"><div class="lb"><span class="k">Number of rungs</span><span class="v" id="rungN">4 rungs</span></div><input type="range" id="rungS" min="2" max="5" step="1" value="4" oninput="renderLad()"></div></div>
-            <div class="seclbl">Your ladder</div>
-            <div class="rungs" id="rungL"></div>
-            <div class="callout info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><p><b id="cad">Something matures every 3 months.</b> Equal slices keep it simple — adjust any time before you confirm.</p></div>
-            <p class="reass">Blended rate across rungs: <b id="bld">7.96%</b>. All issuers DICGC-insured.</p>
-          </div>
-          <div class="foot"><button class="btn btn-pri" onclick="goB('b-review')">Review my ladder</button></div>
-        </div>
-        <div class="view" data-view="b-review">
-          <div class="ab"><div class="bk" onclick="goB('b-build')">←</div><span class="ti">Review &amp; confirm</span></div>
-          <div class="body">
-            <div class="hero-amt"><div class="l">Laddered across <span id="rvN">4</span> deposits</div><div class="b" id="rvTot">₹2,00,000</div><div class="grew" id="rvCad">A maturity every 3 months</div></div>
-            <div class="ladvis" id="rvVis"></div>
-            <div class="seclbl">What you're confirming</div>
-            <div class="card pad" id="rvList"></div>
-            <div class="card pad"><div class="trust" style="border:none;padding-top:2px"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="t"><h5>Every rung is DICGC-insured</h5><p>Each deposit covered up to ₹5,00,000 per bank.</p></div></div><div class="trust"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="t"><h5>We'll meet you at each maturity</h5><p>The same calm comparison from Flow 1 — every time a rung comes due.</p></div></div></div>
-            <p class="reass">This is your structure. Confirm only when it feels right.</p>
-          </div>
-          <div class="foot"><button class="btn btn-pri" onclick="goB('b-success')">Confirm — build this ladder</button><button class="btn btn-gh" onclick="goB('b-build')">Adjust the amounts</button></div>
-        </div>
-        <div class="view" data-view="b-success">
-          <div class="succ" style="justify-content:flex-start;padding-top:30px;">
-            <div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></div>
-            <h2>Your ladder is live</h2>
-            <span class="youdid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px"><path d="M5 13l4 4L19 7"/></svg> Built by you</span>
-            <p id="bSucc">4 deposits booked. Your first rung matures in 3 months — we'll bring you the decision then.</p>
-            <div style="width:100%;margin-top:6px;"><div class="seclbl" style="margin-bottom:8px;">Your auto-return schedule</div><div class="rungs" id="bSuccList"></div></div>
-            <div class="callout info" style="text-align:left;margin-top:6px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/></svg><p>Each date above will trigger a push like the one on the left phone. Laddering doesn't just spread risk — it <b>manufactures the return moments</b> the whole strategy depends on.</p></div>
-            <button class="restart" onclick="goB('b-intro')">↺ Replay this flow</button>
-          </div>
+        <div class="foot"><button class="btn btn-pri" onclick="go('success')">Confirm — this is my choice</button><button class="btn btn-gh" onclick="go('compare')">Compare other banks</button></div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="view" data-view="success">
+        <div class="sb"><span>9:41</span><span>5G 100%</span></div>
+        <div class="succ">
+          <div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg></div>
+          <h2>Your second FD is booked</h2>
+          <span class="youdid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px"><path d="M5 13l4 4L19 7"/></svg> A decision you made</span>
+          <p id="succMsg">You moved money off a 3% savings account into an 8.10% insured FD — and you checked the facts yourself. That's the difference between being sold to and being informed.</p>
+          <div class="card pad"><div class="fr"><span class="k">New FD</span><span class="v" id="succBank">Suryoday · 8.10%</span></div><div class="fr"><span class="k">Laddered portion</span><span class="v">set up · frees up every 3 mo</span></div><div class="fr"><span class="k">Future decisions</span><span class="v" style="color:var(--pri)">we'll bring them to you</span></div></div>
+          <button class="restart" onclick="go('home')">↺ Back to home</button>
         </div>
       </div>
+
+      <!-- LIQUIDITY -->
+      <div class="view" data-view="liquidity">
+        <div class="sb"><span>9:41</span><span>5G 100%</span></div>
+        <div class="ab"><div class="bk" onclick="go('home')">←</div><span class="ti">Can I break an FD?</span></div>
+        <div class="body">
+          <div class="pgt">Yes — and your principal is never at risk</div>
+          <div class="pgs">Half of people think breaking an FD eats their savings. It doesn't. Here's the truth on ₹1,00,000.</div>
+          <div class="card pad"><div class="fr"><span class="k">Your principal</span><span class="v" style="color:var(--ok)">Always 100% safe</span></div><div class="fr"><span class="k">If you break early</span><span class="v">Rate trimmed ~0.5–1%</span></div><div class="fr"><span class="k">Penalty on principal</span><span class="v" style="color:var(--ok)">₹0</span></div></div>
+          <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>This follows the standard premature-withdrawal rule. <span class="src" onclick="showSrc('break')">How early-withdrawal penalties work →</span> Laddering avoids it almost entirely — something always matures soon.</p></div>
+          <p class="reass">This is what the app should tell you up front. Now you know.</p>
+        </div>
+        <div class="foot"><button class="btn btn-pri" onclick="go('alloc')">Okay — show me the split again</button></div>
+      </div>
+
+      <!-- CALCULATOR -->
+      <div class="view" data-view="calc">
+        <div class="sb"><span>9:41</span><span>5G 100%</span></div>
+        <div class="ab"><div class="bk" onclick="go('home')">←</div><span class="ti">Returns calculator</span></div>
+        <div class="body">
+          <div class="card pad" style="background:linear-gradient(150deg,var(--pri),var(--pri-d));color:#fff;">
+            <div style="font-size:12px;opacity:.85;">After-tax value at maturity</div>
+            <div class="num" id="calcMat" style="font-size:32px;font-weight:800;margin-top:3px;">₹1,06,480</div>
+            <div style="display:flex;margin-top:13px;border-top:1px solid rgba(255,255,255,.2);padding-top:12px;gap:10px;">
+              <div style="flex:1;"><div style="font-size:10.5px;opacity:.8;">You invest</div><div class="num" id="calcAmtL2" style="font-size:15px;font-weight:700;">₹1,00,000</div></div>
+              <div style="flex:1;"><div style="font-size:10.5px;opacity:.8;">Interest, after tax</div><div class="num" id="calcInt" style="font-size:15px;font-weight:700;color:var(--neon);">₹6,480</div></div>
+            </div>
+          </div>
+          <div class="card pad">
+            <div class="field"><div class="lb"><span class="k">Amount</span><span class="v num" id="calcAmtL">₹1,00,000</span></div><input type="range" id="calcAmtS" min="25000" max="500000" step="5000" value="100000" oninput="renderCalc()"></div>
+            <div class="field" style="margin-top:12px;"><div class="lb"><span class="k">Tenure</span><span class="v" id="calcTenL">1 year</span></div>
+              <div class="sortbar" id="calcTen"><div class="sc" data-m="6" onclick="setTen(6,this)">6 mo</div><div class="sc on" data-m="12" onclick="setTen(12,this)">1 yr</div><div class="sc" data-m="24" onclick="setTen(24,this)">2 yr</div><div class="sc" data-m="36" onclick="setTen(36,this)">3 yr</div></div></div>
+          </div>
+          <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p id="calcFact">Compounded annually at 8.10%, taxed at a 20% slab. Every input is yours to change; the math is shown so you can trust it.</p></div>
+        </div>
+        <div class="foot"><button class="btn btn-pri" onclick="go('compare')">Use this to pick a bank</button></div>
+      </div>
+
+      <!-- LADDER -->
+      <div class="view" data-view="ladder">
+        <div class="sb"><span>9:41</span><span>5G 100%</span></div>
+        <div class="ab"><div class="bk" onclick="go('home')">←</div><span class="ti">Build a ladder</span></div>
+        <div class="body">
+          <div class="pgt">Your first FD is rung one</div>
+          <div class="pgs">Spread money across staggered dates so a piece frees up regularly — and each rung brings the next decision to you, automatically. That's how the first FD becomes a plan.</div>
+          <div class="card pad">
+            <div class="ladvis" id="ladVis"></div>
+            <div class="field" style="margin-top:6px;"><div class="lb"><span class="k">Amount to ladder</span><span class="v num" id="ladTot">₹1,00,000</span></div><input type="range" id="ladS" min="50000" max="400000" step="10000" value="100000" oninput="renderLad()"></div>
+          </div>
+          <div class="seclbl">Your rungs</div>
+          <div id="rungL"></div>
+          <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>Each rung's maturity becomes a future prompt like the rate alert — laddering manufactures the return moments. <span class="src" onclick="showSrc('ladder')">The strategy, sourced →</span></p></div>
+        </div>
+        <div class="foot"><button class="btn btn-pri" onclick="go('success')">Confirm — build this ladder</button></div>
+      </div>
+
+      <!-- AI GUIDANCE (the value-add, its own screen) -->
+      <div class="view" data-view="aiguide">
+        <div class="sb dk"><span>9:41</span><span>5G 100%</span></div>
+        <div class="ai-hero">
+          <div class="ab" style="padding:4px 0 10px;"><div class="bk" onclick="go('home')" style="background:rgba(255,255,255,.16);border:none;color:#fff;">←</div><span class="ti" style="color:#fff;">AI Guidance</span></div>
+          <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg> AI-GENERATED · FACT-BACKED</div>
+          <h2>Guidance that explains, never commands</h2>
+          <p>Tell us the situation. The AI composes a plain-language plan with every number sourced — you keep the decision.</p>
+        </div>
+        <div class="body">
+          <div class="card pad">
+            <div class="ai-field"><div class="lb"><span>Amount to invest</span><span class="v num" id="aiAmtV">₹1,00,000</span></div>
+              <input type="range" id="aiAmt" min="25000" max="500000" step="5000" value="100000" oninput="document.getElementById('aiAmtV').textContent='₹'+(+this.value).toLocaleString('en-IN')"></div>
+            <div class="ai-field"><div class="lb"><span>Age band</span></div>
+              <div class="ai-seg" id="aiAge"><button class="on" data-a="young" onclick="aiSeg('aiAge','age','young',this)">Under 60</button><button data-a="senior" onclick="aiSeg('aiAge','age','senior',this)">Senior (60+)</button></div></div>
+            <div class="ai-field"><div class="lb"><span>Tax slab</span></div>
+              <div class="ai-seg" id="aiTax"><button data-t="0" onclick="aiSeg('aiTax','tax',0,this)">No tax</button><button class="on" data-t="0.2" onclick="aiSeg('aiTax','tax',0.2,this)">20%</button><button data-t="0.3" onclick="aiSeg('aiTax','tax',0.3,this)">30%</button></div></div>
+            <div class="ai-field"><div class="lb"><span>What matters most?</span></div>
+              <div class="ai-seg" id="aiGoal"><button class="on" data-g="balance" onclick="aiSeg('aiGoal','goal','balance',this)">Balance</button><button data-g="liquidity" onclick="aiSeg('aiGoal','goal','liquidity',this)">Liquidity</button><button data-g="returns" onclick="aiSeg('aiGoal','goal','returns',this)">Max returns</button></div></div>
+            <button class="btn btn-pri" style="margin-top:4px;" onclick="aiGenerate()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg> Generate guidance</button>
+          </div>
+          <div class="seclbl">Generated guidance</div>
+          <div class="ai-out" id="aiOut"><div class="ai-placeholder">Set the situation above and tap <b>Generate</b>.<br>The AI composes a sourced, plain-language plan — the way a good advisor frames a mutual-fund split, but for FDs, every number checkable.</div></div>
+          <div class="fact" style="margin-top:11px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>Every figure here is grounded in a named source, and the choice stays yours — we explain the logic, we don't make the call. <span class="src" onclick="showSrc('ladder')">How this works →</span></p></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
 
+<div class="hint">Every screen is real and clickable. <b>Start at the home dashboard</b> — the idle-cash prompt re-engages a first-timer in-window; the guided split gives a beginner a model; the comparison shows every fact and lets <b>you</b> pick; the confirm shows the math. Tap the green <b>fact chips</b> to see sources. The customer-first rate alert (bell, top-right) is the secondary entry.</div>
+
+<!-- floating production-sourcing tooltip (presenter cue on hover) -->
+<div id="tip"></div>
+
+<!-- source modal (looks like the live app's "verified source" panel) -->
+<div id="srcModal" style="display:none;position:fixed;inset:0;background:rgba(26,22,38,.5);z-index:200;align-items:center;justify-content:center;padding:24px;" onclick="closeSrc(event)">
+  <div style="background:#fff;border-radius:18px;max-width:380px;padding:24px;box-shadow:0 30px 70px rgba(0,0,0,.3);">
+    <div style="display:flex;gap:9px;align-items:center;margin-bottom:4px;"><span style="width:30px;height:30px;border-radius:8px;background:var(--fact-wash);color:var(--fact);display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></span><b style="font-size:14px;" id="srcTitle">Source</b></div>
+    <div style="display:flex;align-items:center;gap:6px;margin:6px 0 12px;"><span style="font-size:10.5px;font-weight:700;color:var(--fact);background:var(--fact-wash);padding:3px 8px;border-radius:6px;">✓ VERIFIED</span><span style="font-size:11px;color:var(--slate-l);" id="srcMeta">as of Jun 2026</span></div>
+    <p style="font-size:13px;line-height:1.6;color:var(--ink-2);" id="srcBody"></p>
+    <a id="srcLink" href="#" onclick="return false;" style="display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:13px;font-weight:700;color:var(--pri);text-decoration:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M10 6H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4M14 4h6v6M10 14L20 4"/></svg><span id="srcLinkLabel">Open source</span></a>
+    <button class="btn btn-pri" style="margin-top:16px;" onclick="closeSrc(event,true)">Close</button>
+  </div>
+</div>
 <script>
-  // ===== global state =====
-  var SLAB=0.2, AGE=0, DAY=361;
-  var PRINCIPAL=107250, INV=100000;
-  var reinvestAmt=107250; // can change via partial
+  // ===== state (seeded real Jun-2026 values) =====
+  var SLAB=0.2;              // typical 20% slab, from profile in live app
+  var TOTAL=100000;          // idle cash being deployed
+  var splitSafe=0.70;        // allocation to top-safety bank
   var inr=function(n){return '\u20b9'+Math.round(n).toLocaleString('en-IN');};
 
-  // banks (real Jun 2026 rates), base = under-60 rate
   var BANKS=[
-    {nm:'Suryoday Small Finance',ab:'SU',col:'#E8743B',base:8.10,rating:'ICRA A',mean:'Adequate safety. RBI-licensed, DICGC-insured.',safety:3,payout:'Monthly / cumulative',profile:'RBI-licensed small finance bank · ICRA A · among India\u2019s first SFBs.'},
-    {nm:'Utkarsh Small Finance',ab:'UT',col:'#5A31F4',base:8.10,rating:'CRISIL A+',mean:'Good safety, a notch above plain A.',safety:4,payout:'Quarterly / cumulative',profile:'RBI-licensed SFB · CRISIL A+ · strong capital adequacy.'},
-    {nm:'Shivalik Small Finance',ab:'SH',col:'#1F9D6B',base:7.80,rating:'CRISIL A',mean:'Adequate safety. DICGC-insured.',safety:3,payout:'Cumulative',profile:'India\u2019s first urban co-op bank turned SFB · CRISIL A.'},
-    {nm:'Unity Small Finance',ab:'UN',col:'#9A94A6',base:7.50,rating:'ICRA A',mean:'Your current bank. Adequate safety.',safety:3,payout:'Monthly / cumulative',profile:'Your current bank · RBI-licensed SFB · ICRA A (Stable).',current:true},
-    {nm:'Bajaj Finance',ab:'BJ',col:'#0B57D0',base:7.40,rating:'CRISIL AAA',mean:'Highest safety grade. NBFC — rated, not DICGC-insured.',safety:5,payout:'Flexible payouts',profile:'NBFC · AAA/Stable (CRISIL & ICRA) · highest safety grade. NBFC deposits are AAA-rated, not DICGC-covered.',nbfc:true},
-    {nm:'Shriram Finance',ab:'SR',col:'#C8413B',base:7.25,rating:'CRISIL AA+',mean:'High safety. NBFC — rated, not DICGC-insured.',safety:4,payout:'Monthly / cumulative',profile:'NBFC · AA+ rated · one of India\u2019s largest retail NBFCs. Rated, not DICGC-covered.',nbfc:true},
+    {nm:'Suryoday Small Finance',ab:'SU',col:'#E8743B',rate:8.10,rating:'ICRA A',mean:'Adequate safety · RBI-licensed SFB · DICGC-insured',safety:3,agency:'ICRA'},
+    {nm:'Utkarsh Small Finance',ab:'UT',col:'#5A31F4',rate:8.10,rating:'CRISIL A+',mean:'Good safety, a notch above A · DICGC-insured',safety:4,agency:'CRISIL'},
+    {nm:'Shivalik Small Finance',ab:'SH',col:'#1F9D6B',rate:7.80,rating:'CRISIL A',mean:'Adequate safety · DICGC-insured',safety:3,agency:'CRISIL'},
+    {nm:'Unity Small Finance',ab:'UN',col:'#9A94A6',rate:7.25,rating:'ICRA A',mean:'Your current bank · adequate safety',safety:3,agency:'ICRA',current:true}
   ];
-  function rateOf(b){return b.base + (AGE? 0.5:0);}   // senior +0.5%
-  function curRate(){var c=BANKS.find(function(b){return b.current;});return rateOf(c);}
-  function afterTax(interest){return interest*(1-SLAB);}
-
-  // ===== time machine =====
-  function setDay(d,el){DAY=d;document.querySelectorAll('#timeSeg button').forEach(function(x){x.classList.remove('on');});el.classList.add('on');
-    var tag=document.getElementById('rDayTag');
-    if(d===0){goR('r-day0');tag.textContent='Day 0 of 365';}
-    else if(d===361){goR('r-lock');tag.textContent='Day 361 of 365';document.getElementById('pushTitle').textContent='Your \u20b91,00,000 FD matures in 4 days \ud83d\udd14';document.getElementById('pushBody').textContent='Rates moved since you booked \u2014 some insured banks now pay more. Tap to see your options before it auto-renews.';document.getElementById('lockHint').textContent='This is the message that prevents the leak. Tap it.';document.getElementById('lockDate').textContent='Sat 21 June';}
-    else if(d===365){goR('r-lock');tag.textContent='Day 365 \u2014 maturity';document.getElementById('pushTitle').textContent='Your FD matured today \u2014 \u20b91,07,250 is ready \u2705';document.getElementById('pushBody').textContent='It\u2019s now in your linked account. Reinvest in a tap to keep it earning instead of sitting idle.';document.getElementById('lockHint').textContent='Even if they miss the early nudge, we catch them on maturity day.';document.getElementById('lockDate').textContent='Wed 25 June';}
-  }
-  function goR(v){var s=document.getElementById('screenR');s.querySelectorAll('.view').forEach(function(x){x.classList.remove('active');});s.querySelector('[data-view="'+v+'"]').classList.add('active');}
-  function openFromPush(){goR('r-handoff');document.getElementById('phoneA').scrollIntoView({behavior:'smooth'});goA('a-detail');}
-
-  // ===== tax profile =====
-  function setSlab(s,el){SLAB=s;document.querySelectorAll('#slabSeg button').forEach(function(x){x.classList.remove('on');});el.classList.add('on');refreshAll();}
-  function setAge(a,el){AGE=a;document.querySelectorAll('#ageSeg button').forEach(function(x){x.classList.remove('on');});el.classList.add('on');refreshAll();}
+  function afterTax(x){return x*(1-SLAB);}
   function taxPct(){return Math.round(SLAB*100);}
-  function refreshAll(){renderBanks();renderCalc();updateDetail();renderSplit();}
-
-  function updateDetail(){
-    var earned=7250;
-    var k=document.getElementById('detTaxK'), v=document.getElementById('detTaxV');
-    if(SLAB===0){k.textContent='Tax on this interest';v.textContent='\u20b90 (below your limit)';}
-    else{k.textContent='After '+taxPct()+'% tax, you keep';v.textContent=inr(afterTax(earned));}
-    var best=Math.max.apply(null,BANKS.filter(function(b){return !b.current;}).map(rateOf));
-    document.getElementById('detBest').textContent=best.toFixed(2)+'%';
-    var gapPre=Math.round((best-curRate())/100*PRINCIPAL);
-    var gapPost=Math.round(afterTax(gapPre));
-    document.getElementById('detGapTxt').textContent=SLAB===0? ('On \u20b91,07,250 that\u2019s about '+inr(gapPre)+'/yr more.') : ('On \u20b91,07,250 that\u2019s ~'+inr(gapPre)+'/yr before tax, '+inr(gapPost)+' after your slab.');
-  }
 
   // ===== nav =====
-  function showView(screen,v){var s=document.getElementById(screen);s.querySelectorAll('.view').forEach(function(x){x.classList.remove('active');});s.querySelector('[data-view="'+v+'"]').classList.add('active');s.querySelectorAll('.view').forEach(function(x){x.scrollTop=0;});}
-  function goA(v){showView('screenA',v);if(v==='a-compare')renderBanks();if(v==='a-detail')updateDetail();if(v==='a-calc')renderCalc();}
-  function goB(v){showView('screenB',v);if(v==='b-build')renderLad();if(v==='b-review')renderReview();if(v==='b-success')renderBSucc();}
-  function remindLater(){var n=document.querySelector('#screenA .nudge');n.innerHTML='<div class="fl" style="color:var(--ok)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><path d="M5 13l4 4L19 7"/></svg> Reminder set for 23 Jun</div><h3>No problem \u2014 we\u2019ll nudge you again in 2 days.</h3><p>Still well before the 25 Jun maturity, so you won\u2019t miss the window.</p>';}
+  function go(v){var s=document.getElementById('screen');s.querySelectorAll('.view').forEach(function(x){x.classList.remove('active');});s.querySelector('[data-view="'+v+'"]').classList.add('active');s.querySelectorAll('.view').forEach(function(x){x.scrollTop=0;});closeNotif();
+    if(v==='compare')renderBanks();if(v==='calc')renderCalc();if(v==='ladder')renderLad();if(v==='alloc')renderAlloc();}
+  function toggleNotif(){document.getElementById('notif').classList.toggle('show');}
+  function closeNotif(){var n=document.getElementById('notif');if(n)n.classList.remove('show');}
+  function openRateAlert(){closeNotif();go('ratealert');}
 
-  // ===== choices =====
-  var aChoice=null;
-  function pickA(el,c){document.querySelectorAll('#screenA .choice').forEach(function(x){x.classList.remove('sel');});el.classList.add('sel');aChoice=c;var b=document.getElementById('aCont');b.disabled=false;b.textContent=c==='reinvest'?'See where to reinvest':c==='partial'?'Set the split':c==='ladder'?'Continue to laddering':'Continue to withdraw';}
-  function routeA(){if(aChoice==='ladder'){document.getElementById('phoneB').scrollIntoView({behavior:'smooth'});goB('b-intro');return;}if(aChoice==='reinvest'){reinvestAmt=PRINCIPAL;goA('a-compare');return;}if(aChoice==='partial'){goA('a-partial');renderSplit();return;}if(aChoice==='withdraw'){reinvestAmt=0;goA('a-success');document.getElementById('succMsg').textContent='\u20b91,07,250 transferred to your bank account \u2014 it usually lands within 1 working day. Whenever you\u2019re ready for the next FD, we\u2019ll help you compare.';document.getElementById('succBank').textContent='Withdrawn to bank';return;}}
-  function resetA(){aChoice=null;reinvestAmt=PRINCIPAL;document.querySelectorAll('#screenA .choice').forEach(function(x){x.classList.remove('sel');});var b=document.getElementById('aCont');b.disabled=true;b.textContent='Choose an option to continue';goA('a-home');}
+  // ===== allocation =====
+  function renderAlloc(){
+    splitSafe=+document.getElementById('splitS').value/100;
+    var safe=TOTAL*splitSafe, lad=TOTAL-safe;
+    document.getElementById('splitVal').textContent=Math.round(splitSafe*100);
+    document.getElementById('dPct').textContent=Math.round(splitSafe*100)+'%';
+    document.getElementById('legSafe').textContent=inr(safe);
+    document.getElementById('legLad').textContent=inr(lad);
+    var C=2*Math.PI*48; var arc=splitSafe*C;
+    document.getElementById('donutArc').setAttribute('stroke-dasharray', arc+' '+(C-arc));
+  }
 
-  // ===== partial split =====
-  function renderSplit(){var wd=+document.getElementById('splitS').value;var re=PRINCIPAL-wd;reinvestAmt=re;
-    document.getElementById('splitWdL').textContent=inr(wd);document.getElementById('splitWd').textContent=inr(wd);document.getElementById('splitRe').textContent=inr(re);document.getElementById('splitReInline').textContent=inr(re);}
-
-  // ===== bank comparison =====
+  // ===== comparison =====
   var curSort='rate';
-  function sortBanks(s,el){curSort=s;document.querySelectorAll('#screenA .sortbar .sc').forEach(function(x){x.classList.remove('on');});el.classList.add('on');renderBanks();}
+  function sortB(s,el){curSort=s;document.querySelectorAll('#screen [data-view=compare] .sortbar .sc').forEach(function(x){x.classList.remove('on');});el.classList.add('on');renderBanks();}
   function renderBanks(){
-    var amt=reinvestAmt||PRINCIPAL;
-    var cur=curRate();
+    var amt=TOTAL*splitSafe; var cur=BANKS.find(function(b){return b.current;});
+    document.getElementById('cmpSub').textContent='Live rates for the top-safety portion ('+inr(amt)+'). Your current bank is shown too. You choose — we just lay out the facts.';
     var list=BANKS.filter(function(b){return !b.current;}).slice();
-    if(curSort==='rate')list.sort(function(a,b){return rateOf(b)-rateOf(a);});
-    if(curSort==='safety')list.sort(function(a,b){return b.safety-a.safety||rateOf(b)-rateOf(a);});
-    if(curSort==='aftertax')list.sort(function(a,b){return afterTax(rateOf(b))-afterTax(rateOf(a));});
-    var curBank=BANKS.find(function(b){return b.current;});
-    document.getElementById('cmpSub').textContent='Live rates for a 1-year FD on '+inr(amt)+'. Your current bank is shown too, for honest comparison.';
-    document.getElementById('rateChipTxt').textContent='Rates as of Jun 2026'+(AGE?' · incl. +0.50% senior rate':'')+' · DICGC-insured up to \u20b95L';
+    if(curSort==='rate')list.sort(function(a,b){return b.rate-a.rate;});
+    if(curSort==='safety')list.sort(function(a,b){return b.safety-a.safety||b.rate-a.rate;});
+    if(curSort==='aftertax')list.sort(function(a,b){return afterTax(b.rate)-afterTax(a.rate);});
     var html='';
     list.forEach(function(b,i){
-      var r=rateOf(b);var best=i===0;
-      var gainPre=(r-cur)/100*amt;var gainPost=afterTax(gainPre);
-      var gtxt = SLAB===0 ? ('+'+inr(gainPre)+'/yr') : ('+'+inr(gainPost)+'/yr after tax');
-      html+='<div class="bankrow '+(best?'best':'')+'" onclick="chooseBank(\''+b.nm+'\','+r+',\''+b.profile.replace(/'/g,"")+'\')">'+
+      var best=i===0; var gainPre=(b.rate-cur.rate)/100*amt; var gainPost=afterTax(gainPre);
+      html+='<div class="bankrow '+(best?'best':'')+'" onclick="chooseBank(\''+b.nm+'\','+b.rate+',\''+b.rating+'\',\''+b.mean.replace(/'/g,"")+'\')">'+
         '<div class="logo" style="background:'+b.col+'">'+b.ab+'</div>'+
-        '<div class="info"><div class="nm">'+b.nm+'</div><div class="meaning">'+b.rating+' \u2014 '+b.mean+'</div><div class="badges">'+
-        (best?'<span class="pill best"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>Top pick</span>':'')+
-        (b.nbfc?'<span class="pill rating">AAA-rated NBFC</span>':'<span class="pill dicgc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg>DICGC \u20b95L</span>')+
-        '</div></div>'+
-        '<div class="rate"><div class="pct up">'+r.toFixed(2)+'%</div><div class="mat">'+b.payout.split(' / ')[0]+'</div>'+(gainPre>0?'<div class="gain">'+gtxt+'</div>':'')+'</div></div>';
+        '<div class="info"><div class="nm">'+b.nm+(best?' <span class="pill best">Top pick</span>':'')+'</div>'+
+        '<div class="meaning">'+b.rating+' — '+b.mean+'</div>'+
+        '<div class="srcline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> ⌗ '+b.agency+' rating · DICGC ₹5L · rate Jun 2026</div></div>'+
+        '<div class="rate"><div class="pct num">'+b.rate.toFixed(2)+'%</div>'+(gainPre>0?'<div class="gain num">+'+inr(gainPost)+'/yr after tax</div>':'')+'</div></div>';
     });
-    html+='<div class="bankrow current" onclick="chooseBank(\''+curBank.nm+'\','+cur+',\''+curBank.profile.replace(/'/g,"")+'\')">'+
-      '<div class="logo" style="background:'+curBank.col+'">'+curBank.ab+'</div>'+
-      '<div class="info"><div class="nm">'+curBank.nm+'</div><div class="meaning">If you do nothing, it auto-renews here.</div><div class="badges"><span class="pill cur">Your current bank</span></div></div>'+
-      '<div class="rate"><div class="pct">'+cur.toFixed(2)+'%</div><div class="mat">auto-renew</div></div></div>';
+    html+='<div class="bankrow current" onclick="chooseBank(\''+cur.nm+'\','+cur.rate+',\''+cur.rating+'\',\''+cur.mean.replace(/'/g,"")+'\')">'+
+      '<div class="logo" style="background:'+cur.col+'">'+cur.ab+'</div>'+
+      '<div class="info"><div class="nm">'+cur.nm+' <span class="pill cur">your bank</span></div><div class="meaning">Shown honestly for comparison — it pays less here.</div></div>'+
+      '<div class="rate"><div class="pct num" style="color:var(--slate)">'+cur.rate.toFixed(2)+'%</div></div></div>';
     document.getElementById('bankList').innerHTML=html;
   }
-  function chooseBank(nm,rate,profile){
-    var amt=reinvestAmt||PRINCIPAL;var cur=curRate();
-    var gainPre=(rate-cur)/100*amt;var gainPost=afterTax(gainPre);
-    var earnPre=amt*rate/100;var tax=earnPre*SLAB;var keep=earnPre-tax;
-    document.getElementById('confBank').textContent=nm;
-    document.getElementById('confAmt').textContent=inr(amt);
-    document.getElementById('confAmt2').textContent=inr(amt);
-    document.getElementById('confRate').textContent=gainPre>0?(rate.toFixed(2)+'% · '+inr(SLAB===0?gainPre:gainPost)+'/yr more'+(SLAB===0?'':' after tax')):(rate.toFixed(2)+'% · your current rate');
-    document.getElementById('confRate2').textContent=rate.toFixed(2)+'%';
-    document.getElementById('confEarn').textContent=inr(earnPre);
-    var ctk=document.getElementById('confTaxK'),ct=document.getElementById('confTax'),ck=document.getElementById('confKeep');
-    if(SLAB===0){ctk.textContent='Tax on interest (below your limit)';ct.textContent='\u20b90';ck.textContent=inr(earnPre);}
-    else{ctk.textContent='Less ~'+taxPct()+'% tax on interest';ct.textContent='\u2212'+inr(tax);ck.textContent=inr(keep);}
-    document.getElementById('confSafety').textContent=nm.split(' ')[0]+' safety profile';
-    document.getElementById('confSafetyP').textContent=profile;
+  function chooseBank(nm,rate,rating,mean){
+    var amt=TOTAL*splitSafe; var earn=amt*rate/100; var tax=earn*SLAB; var keep=earn-tax;
+    document.getElementById('confTitle').textContent='New FD · '+nm;
+    document.getElementById('cAmt').textContent=inr(amt);
+    document.getElementById('cRate').textContent=rate.toFixed(2)+'%';
+    document.getElementById('cInt').textContent=inr(earn);
+    document.getElementById('cTaxK').textContent='Less ~'+taxPct()+'% tax on interest';
+    document.getElementById('cTax').textContent='\u2212'+inr(tax);
+    document.getElementById('cKeep').textContent=inr(keep);
+    document.getElementById('cSafety').textContent=nm.split(' ')[0]+' · '+rating+' ('+mean.split(' · ')[0]+')';
     document.getElementById('succBank').textContent=nm.split(' ')[0]+' · '+rate.toFixed(2)+'%';
-    document.getElementById('succMsg').textContent=inr(amt)+' moved to '+nm+' at '+rate.toFixed(2)+'% until 25 Jun 2027'+(gainPre>0?(' \u2014 about '+inr(SLAB===0?gainPre:gainPost)+' more than letting it drift'+(SLAB===0?'':' after tax')):'')+'. We\u2019ll bring you the same clear comparison next time.';
-    goA('a-confirm');
+    document.getElementById('succMsg').textContent='You moved money off a 3% savings account into a '+rate.toFixed(2)+'% insured FD — and you checked the facts yourself. That\u2019s the difference between being sold to and being informed.';
+    go('confirm');
   }
 
   // ===== calculator =====
-  var calcTen=12,calcRate=8.10,calcPay='cum';
-  function openCalc(){goA('a-calc');renderCalc();}
-  function setTen(m,el){calcTen=m;document.querySelectorAll('#calcTen .tp').forEach(function(x){x.classList.remove('on');});el.classList.add('on');renderCalc();}
-  function setCalcBank(r,el){calcRate=r;document.querySelectorAll('#calcBank .bm').forEach(function(x){x.classList.remove('on');});el.classList.add('on');renderCalc();}
-  function setPay(p,el){calcPay=p;document.querySelectorAll('#calcPay .ps').forEach(function(x){x.classList.remove('on');});el.classList.add('on');renderCalc();}
+  var calcTen=12;
+  function openCalc(){go('calc');renderCalc();}
+  function setTen(m,el){calcTen=m;document.querySelectorAll('#screen [data-view=calc] #calcTen .sc').forEach(function(x){x.classList.remove('on');});el.classList.add('on');renderCalc();}
   function renderCalc(){
-    var amt=+document.getElementById('calcAmtS').value;var yrs=calcTen/12;var eff=calcRate+(AGE?0.5:0);
-    var grossInt = calcPay==='cum' ? amt*(Math.pow(1+eff/100,yrs)-1) : amt*eff/100*yrs; // simple for monthly payout
-    var tax=grossInt*SLAB;var netInt=grossInt-tax;var mat=amt+netInt;
+    var amt=+document.getElementById('calcAmtS').value, yrs=calcTen/12, rate=8.10;
+    var gross=amt*(Math.pow(1+rate/100,yrs)-1), net=gross*(1-SLAB), mat=amt+net;
     document.getElementById('calcMat').textContent=inr(mat);
-    document.getElementById('calcAmt').textContent=inr(amt);
-    document.getElementById('calcInt').textContent=inr(netInt);
+    document.getElementById('calcAmtL2').textContent=inr(amt);
+    document.getElementById('calcInt').textContent=inr(net);
     document.getElementById('calcAmtL').textContent=inr(amt);
-    document.getElementById('calcRateL').textContent=eff.toFixed(2)+'%';
-    document.getElementById('calcTenL').textContent=calcTen<12?(calcTen+' months'):((calcTen/12)+(calcTen===12?' year':' years'));
-    var sav = amt*(Math.pow(1+0.03,yrs)-1)*(1-SLAB);
-    document.getElementById('calcVsSavings').textContent='This earns about '+inr(netInt-sav)+' more than the same money in a 3% savings account over '+(calcTen<12?(calcTen+' months'):((calcTen/12)+(calcTen===12?' year':' years'))+'')+' (both after your tax).';
-    document.getElementById('calcInsight').textContent=(SLAB===0?'With no tax, ':'After your '+taxPct()+'% slab, ')+'your '+inr(amt)+' earns '+inr(netInt)+' over '+(calcTen<12?(calcTen+' months'):((calcTen/12)+(calcTen===12?' year':' years')))+(calcPay==='mon'?', paid out monthly.':' at maturity.');
+    var tenTxt=calcTen<12?(calcTen+' months'):((calcTen/12)+(calcTen===12?' year':' years'));
+    document.getElementById('calcTenL').textContent=tenTxt;
+    document.getElementById('calcFact').textContent='Compounded annually at '+rate.toFixed(2)+'%, taxed at a '+taxPct()+'% slab, over '+tenTxt+'. Every input is yours to change; the math is shown so you can trust it.';
   }
 
-  // ===== laddering =====
-  var RATES=[7.4,7.7,7.96,8.1,8.25];
-  var DATES=['25 Sep 2026','25 Dec 2026','25 Mar 2027','25 Jun 2027','25 Sep 2027'];
-  function ladState(){var total=+document.getElementById('amtS').value,n=+document.getElementById('rungS').value;var per=Math.round(total/n/1000)*1000;var rungs=[];var used=0;var months=n===2?[6,12]:n===3?[4,8,12]:n===4?[3,6,9,12]:[3,6,9,12,15];for(var i=0;i<n;i++){var amt=i===n-1?total-used:per;used+=amt;rungs.push({i:i+1,amt:amt,m:months[i],rate:RATES[Math.min(i,4)]});}var bld=(rungs.reduce(function(s,r){return s+r.rate*r.amt;},0)/total).toFixed(2);var cad=n===2?6:n===3?4:3;return{total:total,n:n,rungs:rungs,bld:bld,cad:cad};}
-  function renderLad(){var st=ladState();document.getElementById('ladTot').textContent=inr(st.total);document.getElementById('rungN').textContent=st.n+' rungs';document.getElementById('bld').textContent=st.bld+'%';document.getElementById('cad').textContent='Something matures every '+st.cad+' months.';var mx=Math.max.apply(null,st.rungs.map(function(r){return r.amt;}));document.getElementById('rungL').innerHTML=st.rungs.map(function(r){return '<div class="rung"><div class="st">'+r.i+'</div><div class="br"><div class="t">'+r.m+'-month FD \u00b7 '+r.rate+'%</div><div class="tr"><div class="fl" style="width:'+Math.round(r.amt/mx*100)+'%"></div></div></div><div><div class="am">'+inr(r.amt)+'</div><div class="wn">+'+r.m+'mo</div></div></div>';}).join('');}
-  function renderReview(){var st=ladState();document.getElementById('rvN').textContent=st.n;document.getElementById('rvTot').textContent=inr(st.total);document.getElementById('rvCad').textContent='A maturity every '+st.cad+' months';document.getElementById('rvList').innerHTML=st.rungs.map(function(r){return '<div class="fr"><span class="k">Rung '+r.i+' \u00b7 '+r.m+'mo \u00b7 '+r.rate+'%</span><span class="v">'+inr(r.amt)+'</span></div>';}).join('');var mx=Math.max.apply(null,st.rungs.map(function(r){return r.amt;}));document.getElementById('rvVis').innerHTML=st.rungs.map(function(r){return '<div class="c"><div class="stk" style="height:'+Math.round(30+r.amt/mx*66)+'%"></div><div class="mo">'+r.m+'mo</div></div>';}).join('');}
-  function renderBSucc(){var st=ladState();document.getElementById('bSucc').textContent=st.n+' deposits booked. Your first rung matures in '+st.cad+' months \u2014 we\u2019ll bring you the decision then.';document.getElementById('bSuccList').innerHTML=st.rungs.map(function(r,idx){return '<div class="rung'+(idx===0?' fire':'')+'"><div class="st">'+(idx===0?'\ud83d\udd14':r.i)+'</div><div class="br"><div class="t">Return nudge \u00b7 '+DATES[r.m===3?0:r.m===6?1:r.m===9?2:r.m===12?3:4]+'</div><div class="wn" style="text-align:left;margin-top:2px;">'+inr(r.amt)+' rung matures</div></div><div class="wn">+'+r.m+'mo</div></div>';}).join('');}
+  // ===== ladder =====
+  var RATES=[7.4,7.7,7.96,8.1];
+  var DATES=['25 Sep','25 Dec','25 Mar','25 Jun'];
+  function renderLad(){
+    var total=+document.getElementById('ladS').value, n=4, per=Math.round(total/n/1000)*1000, used=0, rungs=[];
+    var months=[3,6,9,12];
+    for(var i=0;i<n;i++){var a=i===n-1?total-used:per;used+=a;rungs.push({i:i+1,amt:a,m:months[i],rate:RATES[i]});}
+    document.getElementById('ladTot').textContent=inr(total);
+    var mx=Math.max.apply(null,rungs.map(function(r){return r.amt;}));
+    document.getElementById('ladVis').innerHTML=rungs.map(function(r){return '<div class="c"><div class="stk" style="height:'+Math.round(28+r.amt/mx*70)+'%"></div><div class="mo">'+r.m+'mo</div></div>';}).join('');
+    document.getElementById('rungL').innerHTML=rungs.map(function(r,idx){return '<div class="rung'+(idx===0?' fire':'')+'"><div class="st">'+(idx===0?'\u2605':r.i)+'</div><div class="br"><div class="t">'+r.m+'-month FD · '+r.rate+'%</div><div class="wn">'+(idx===0?'rung one — your first FD':'matures '+DATES[idx]+' → next prompt')+'</div></div><div class="am num">'+inr(r.amt)+'</div></div>';}).join('');
+  }
+
+  // ===== source modal =====
+  // each: [title, body, meta(as-of/publisher), linkLabel] — presented as the live app would
+  var SRC={
+    rate:['Partner bank FD rates','Live 1-year FD rates across Stable Money\u2019s 200+ partner banks. Top insured rate currently 8.10%; a typical savings account pays ~3%.','Partner data · updated daily','View all partner rates'],
+    rbi:['RBI Monetary Policy statement','The repo rate is set by the RBI\u2019s Monetary Policy Committee and published after each meeting. FD rates typically follow repo moves within weeks.','Reserve Bank of India · Jun 2026','Read the RBI statement'],
+    ladder:['FD laddering strategy','Splitting a sum across staggered maturities balances liquidity and rate-averaging \u2014 a standard approach documented by major banks and the RBI. Stable Money structures it for you in one tap.','Industry standard practice','How laddering works'],
+    tax:['FD interest taxation','Interest on a fixed deposit is taxed at your income-tax slab. TDS applies above \u20b950,000 interest per bank per year (\u20b91,00,000 for seniors). Figures here use your profile slab.','Income Tax rules · FY25-26','See the tax rule'],
+    dicgc:['DICGC deposit insurance','Your deposits are insured up to \u20b95,00,000 per depositor per bank by the Deposit Insurance and Credit Guarantee Corporation, an RBI subsidiary.','dicgc.org.in · Govt. of India','Verify at dicgc.org.in'],
+    rating:['Credit rating','This bank\u2019s safety grade from the rating agency (e.g. ICRA / CRISIL \u201cA\u201d = adequate safety, \u201cAAA\u201d = highest). Ratings are public on the agency\u2019s site.','ICRA / CRISIL','Check the rating'],
+    break:['Premature-withdrawal rules','Breaking an FD early trims the interest rate by ~0.5\u20131% for the period held; your principal is never touched. Set by the issuing bank under RBI guidelines.','RBI guidelines · bank policy','See the rules']
+  };
+  function showSrc(k){var s=SRC[k];if(!s)return;
+    document.getElementById('srcTitle').textContent=s[0];
+    document.getElementById('srcBody').textContent=s[1];
+    document.getElementById('srcMeta').textContent=s[2];
+    document.getElementById('srcLinkLabel').textContent=s[3];
+    document.getElementById('srcModal').style.display='flex';}
+  function closeSrc(e,force){if(force||e.target.id==='srcModal')document.getElementById('srcModal').style.display='none';}
 
   // init
-  renderBanks();renderCalc();renderLad();updateDetail();renderSplit();setDay(361,document.querySelector('#timeSeg [data-day="361"]'));
+  // ===== AI guidance (the value-add component) =====
+  var aiSel={age:'young',tax:0.2,goal:'balance'};
+  function openAI(){go('aiguide');}
+  function aiSeg(grp,key,val,el){document.querySelectorAll('#'+grp+' button').forEach(function(b){b.classList.remove('on');});el.classList.add('on');aiSel[key]=val;}
+  var aiTimer=null;
+  function aiGenerate(){
+    if(aiTimer){clearInterval(aiTimer);aiTimer=null;}
+    var amount=+document.getElementById('aiAmt').value;
+    var goal=aiSel.goal, age=aiSel.age, tax=aiSel.tax;
+    var safePct = goal==='liquidity'?50 : goal==='returns'?85 : 70;
+    var safeAmt=Math.round(amount*safePct/100), ladAmt=amount-safeAmt;
+    var uplift=age==='senior'?0.5:0, topRate=8.10+uplift;
+    var interest=safeAmt*topRate/100, net=interest*(1-tax);
+    var goalLine = goal==='liquidity'
+      ? "Because staying liquid matters most, we lean toward the laddered half \u2014 more of the money frees up at staggered dates."
+      : goal==='returns'
+      ? "Because you want to maximise returns and are comfortable locking in, we lean most into the top-safety bank at the best insured rate."
+      : "A balanced split \u2014 the bulk in a top-safety bank for the best insured rate, a portion laddered so cash frees up regularly.";
+    var seniorLine = age==='senior' ? " As a senior citizen, you qualify for the +0.50% rate uplift, already reflected." : "";
+    var taxLine = tax===0 ? "At your income level no tax applies, so the full interest is yours."
+      : "Shown after your "+Math.round(tax*100)+"% slab \u2014 FD interest is taxed at slab, so we never quote a pre-tax number as take-home.";
+    var C=2*Math.PI*30, arc=safePct/100*C;
+    var head=''+
+      '<div class="ai-alloc">'+
+      '<div class="ai-donut"><svg width="74" height="74" viewBox="0 0 74 74"><circle cx="37" cy="37" r="30" fill="none" stroke="var(--neon)" stroke-width="12"/><circle cx="37" cy="37" r="30" fill="none" stroke="var(--pri)" stroke-width="12" stroke-dasharray="'+arc+' '+(C-arc)+'"/></svg><div class="c"><div class="a">'+safePct+'%</div><div class="b">safe</div></div></div>'+
+      '<div style="flex:1"><div class="ai-legrow"><span class="sw" style="background:var(--pri)"></span>Top-safety bank<span class="amt num">'+inr(safeAmt)+'</span></div><div class="ai-legrow"><span class="sw" style="background:var(--neon-d)"></span>Laddered<span class="amt num">'+inr(ladAmt)+'</span></div></div></div>'+
+      '<div class="ai-typed" id="aiTyped"></div>';
+    document.getElementById('aiOut').innerHTML=head;
+    var script=goalLine+seniorLine+'\n\n'+
+      'On the top-safety portion of '+inr(safeAmt)+' at '+topRate.toFixed(2)+'%, that\u2019s about '+inr(interest)+' interest \u2014 you keep \u2248'+inr(net)+' after tax. '+taxLine+'\n\n'+
+      'Suggested issuers (you choose \u2014 we never pick for you): Suryoday '+(8.10+uplift).toFixed(2)+'% [ICRA A], Utkarsh '+(8.10+uplift).toFixed(2)+'% [CRISIL A+], Shivalik '+(7.80+uplift).toFixed(2)+'% [CRISIL A].\n\n'+
+      'This is a starting point, not an instruction \u2014 adjust the split freely.';
+    var el=document.getElementById('aiTyped'); var cur=document.createElement('span'); cur.className='ai-cursor'; el.appendChild(cur);
+    var i=0;
+    aiTimer=setInterval(function(){
+      if(i>=script.length){clearInterval(aiTimer);aiTimer=null;cur.remove();aiFacts(el);return;}
+      cur.insertAdjacentText('beforebegin',script[i]);i++;
+    },10);
+  }
+  function aiFacts(el){
+    var d=document.createElement('div');
+    d.innerHTML=''+
+      '<div class="fact" style="margin-top:10px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>Split principle = <b>standard FD laddering</b> (banks &amp; RBI). <span class="src" onclick="showSrc(\'ladder\')">source</span></p></div>'+
+      '<div class="fact" style="margin-top:7px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>Every issuer <b>DICGC-insured to \u20b95L</b>. <span class="src" onclick="showSrc(\'dicgc\')">verify</span> · ratings: <span class="src" onclick="showSrc(\'rating\')">ICRA/CRISIL</span></p></div>';
+    el.appendChild(d);
+  }
+
+  // ===== production-sourcing hover tooltips (presenter cue) =====
+  var TIP={
+    rate:'In production: pulled <b>live from partner-bank feeds</b>, refreshed daily across 200+ banks.',
+    rbi:'In production: triggered by the <b>RBI MPC announcement</b> feed and linked to the official statement.',
+    ladder:'In production: links to <b>published laddering guidance</b> from major banks &amp; the RBI.',
+    tax:'In production: computed from the user\u2019s <b>tax profile</b> using current Income-Tax rules.',
+    dicgc:'In production: links straight to <b>dicgc.org.in</b> so the user verifies the cover themselves.',
+    rating:'In production: pulled from the <b>rating agency</b> (ICRA/CRISIL) and linked to their public page.',
+    break:'In production: reflects the <b>issuing bank\u2019s premature-withdrawal policy</b> under RBI norms.'
+  };
+  function tipFor(el){
+    // find a showSrc('key') in this element or its descendants
+    var oc=el.getAttribute&&el.getAttribute('onclick');
+    if(oc){var m=oc.match(/showSrc\('([^']+)'\)/);if(m)return TIP[m[1]];}
+    var inner=el.querySelector&&el.querySelector('[onclick*="showSrc"]');
+    if(inner){var m2=inner.getAttribute('onclick').match(/showSrc\('([^']+)'\)/);if(m2)return TIP[m2[1]];}
+    // generic fact chip with no explicit source
+    if(el.classList&&el.classList.contains('fact'))return 'In production: every figure shown here is <b>pulled from its named source</b> and linked for the user to verify.';
+    return null;
+  }
+  (function(){
+    var tip=document.getElementById('tip');
+    function show(e,t){tip.innerHTML=t;tip.style.display='block';
+      var r=tip.getBoundingClientRect();
+      var x=e.clientX-r.width/2; if(x<8)x=8; if(x+r.width>window.innerWidth-8)x=window.innerWidth-r.width-8;
+      var y=e.clientY-r.height-14; if(y<8)y=e.clientY+18;
+      tip.style.left=x+'px';tip.style.top=y+'px';requestAnimationFrame(function(){tip.style.opacity='1';});}
+    function hide(){tip.style.opacity='0';setTimeout(function(){tip.style.display='none';},120);}
+    document.addEventListener('mouseover',function(e){
+      var el=e.target.closest('.src,.fact'); if(!el)return;
+      var t=tipFor(el); if(t)show(e,t);
+    });
+    document.addEventListener('mousemove',function(e){
+      if(tip.style.display!=='block')return;
+      var el=e.target.closest('.src,.fact'); if(!el){hide();return;}
+      var r=tip.getBoundingClientRect();
+      var x=e.clientX-r.width/2; if(x<8)x=8; if(x+r.width>window.innerWidth-8)x=window.innerWidth-r.width-8;
+      var y=e.clientY-r.height-14; if(y<8)y=e.clientY+18;
+      tip.style.left=x+'px';tip.style.top=y+'px';
+    });
+    document.addEventListener('mouseout',function(e){
+      var el=e.target.closest('.src,.fact'); if(el&&!el.contains(e.relatedTarget))hide();
+    });
+  })();
+
+  renderAlloc();renderBanks();renderCalc();renderLad();
 </script>
 </body>
 </html>

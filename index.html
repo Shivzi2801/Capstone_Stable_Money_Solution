@@ -11,7 +11,7 @@
     --pri:#5A31F4;--pri-d:#4422C8;--pri-wash:#F0ECFE;--pri-wash2:#E7E0FD;
     --neon:#C8F560;--neon-d:#9BD317;
     --ink:#1A1626;--ink-2:#4A4458;--slate:#6B6577;--slate-l:#9A94A6;
-    --bg:#F6F5FB;--surface:#FFFFFF;--line:#ECEAF3;--line-2:#0e013d;
+    --bg:#F6F5FB;--surface:#FFFFFF;--line:#ECEAF3;--line-2:#DEDAEC;
     --ok:#1F9D6B;--ok-wash:#E6F6EF;--warn:#C8841F;--warn-wash:#FCF3E2;--warn-line:#F0DDB0;
     --fact:#0F6E56;--fact-wash:#E6F6EF;
     --r:16px;--r-sm:11px;
@@ -124,6 +124,9 @@
   #tip b{color:var(--neon);font-weight:700;}
   #tip::after{content:"";position:absolute;bottom:-5px;left:14px;width:10px;height:10px;background:#15101F;transform:rotate(45deg);}
   .src,.fact{cursor:pointer;}
+  #toast{position:fixed;left:50%;bottom:42px;transform:translateX(-50%) translateY(20px);background:#15101F;color:#fff;font-size:12.5px;font-weight:600;padding:11px 18px;border-radius:11px;box-shadow:0 12px 34px rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:300;max-width:320px;text-align:center;line-height:1.4;}
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  #toast b{color:var(--neon);}
   .pb{display:flex;align-items:center;gap:12px;padding:14px 15px;}
   .pb .ic{width:40px;height:40px;border-radius:11px;background:var(--pri-wash);color:var(--pri-d);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12.5px;flex:0 0 40px;}
   .pb .m{flex:1;}.pb .m .n{font-size:13.5px;font-weight:700;}.pb .m .s{font-size:11.5px;color:var(--slate);margin-top:2px;}
@@ -294,10 +297,10 @@
           </div>
         </div>
         <div class="tb">
-          <div class="t on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</div>
-          <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v4H4zM4 10h16v10H4z"/></svg>Passbook</div>
-          <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>Explore</div>
-          <div class="t"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Profile</div>
+          <div class="t on" onclick="tabGo('home',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</div>
+          <div class="t" onclick="tabGo('passbook',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v4H4zM4 10h16v10H4z"/></svg>Passbook</div>
+          <div class="t" onclick="tabGo('explore',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>Explore</div>
+          <div class="t" onclick="tabGo('profile',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Profile</div>
         </div>
       </div>
 
@@ -480,7 +483,90 @@
           </div>
           <div class="seclbl">Generated guidance</div>
           <div class="ai-out" id="aiOut"><div class="ai-placeholder">Set the situation above and tap <b>Generate</b>.<br>The AI composes a sourced, plain-language plan — the way a good advisor frames a mutual-fund split, but for FDs, every number checkable.</div></div>
-          <div class="fact" style="margin-top:11px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>Every figure here is grounded in a named source you can open. <span class="src" onclick="showSrc('ladder')">How this works →</span></p></div></div>
+          <div class="fact" style="margin-top:11px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>Every figure here is grounded in a named source you can open. <span class="src" onclick="showSrc('ladder')">How this works →</span></p></div>
+        </div>
+      </div>
+
+      <!-- PASSBOOK -->
+      <div class="view" data-view="passbook">
+        <div class="sb dk"><span>9:41</span><span>5G 100%</span></div>
+        <div class="sm-hero" style="padding-bottom:18px;">
+          <div class="sm-port" style="margin-top:2px;"><div class="l">Total invested</div><div class="v num">₹26,750</div><div class="l" style="margin-top:4px;">across 1 active deposit · earning ₹1,750/yr</div></div>
+        </div>
+        <div class="body" style="padding-top:16px;">
+          <div class="seclbl">Active deposits</div>
+          <div class="card"><div class="pb"><div class="ic">UN</div><div class="m"><div class="n">Unity Small Finance</div><div class="s">7.25% · 1 year · matures 24 Jun 2027</div></div><div class="a"><div class="v num">₹25,000</div><div class="d">your first FD</div></div></div></div>
+          <div class="card" style="margin-top:2px;"><div class="pb"><div class="ic" style="background:var(--ok-wash);color:var(--ok);">★</div><div class="m"><div class="n">Your next step</div><div class="s">Idle savings still earning ~3%</div></div><div class="a"><div class="v num" style="color:var(--pri);cursor:pointer;" onclick="tabGo('home',document.querySelectorAll('#screen .tb .t')[0]);go('alloc')">Invest →</div></div></div></div>
+          <div class="seclbl">Maturity timeline</div>
+          <div class="card pad">
+            <div class="fr"><span class="k">24 Jun 2027</span><span class="v">Unity FD matures · ₹26,750</span></div>
+            <div class="fr"><span class="k">After maturity</span><span class="v" style="color:var(--slate-l);">no plan yet</span></div>
+            <div class="fact" style="margin-top:12px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>A single deposit maturing in 2027 leaves long gaps. <span class="src" onclick="go('ladder')">Build a ladder →</span> so money frees up regularly.</p></div>
+          </div>
+        </div>
+        <div class="tb">
+          <div class="t" onclick="tabGo('home',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</div>
+          <div class="t on" onclick="tabGo('passbook',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v4H4zM4 10h16v10H4z"/></svg>Passbook</div>
+          <div class="t" onclick="tabGo('explore',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>Explore</div>
+          <div class="t" onclick="tabGo('profile',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Profile</div>
+        </div>
+      </div>
+
+      <!-- EXPLORE -->
+      <div class="view" data-view="explore">
+        <div class="sb"><span>9:41</span><span>5G 100%</span></div>
+        <div class="ab"><span class="ti" style="padding-left:4px;">Explore</span></div>
+        <div class="body">
+          <div class="seclbl">Top insured FD rates today</div>
+          <div class="card pad" style="padding-bottom:6px;">
+            <div class="fr" style="padding-top:4px;"><span class="k">Suryoday Small Finance · ICRA A</span><span class="v pos">8.10%</span></div>
+            <div class="fr"><span class="k">Utkarsh Small Finance · CRISIL A+</span><span class="v pos">8.10%</span></div>
+            <div class="fr"><span class="k">Shivalik Small Finance · CRISIL A</span><span class="v pos">7.80%</span></div>
+            <div class="fr"><span class="k">Unity Small Finance · ICRA A</span><span class="v">7.25%</span></div>
+          </div>
+          <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>Live rates across 200+ partner banks, every one DICGC-insured to ₹5L. <span class="src" onclick="showSrc('rate')">Source →</span></p></div>
+          <div class="seclbl">Learn</div>
+          <div class="card"><div class="pb" style="cursor:pointer;" onclick="go('liquidity')"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg></div><div class="m"><div class="n">Can I break an FD early?</div><div class="s">The truth about liquidity</div></div><div class="a"><div class="v" style="color:var(--pri);">→</div></div></div></div>
+          <div class="card" style="margin-top:2px;"><div class="pb" style="cursor:pointer;" onclick="go('ladder')"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><path d="M5 21V5M11 21V9M17 21V13"/></svg></div><div class="m"><div class="n">What is FD laddering?</div><div class="s">Make your money free up regularly</div></div><div class="a"><div class="v" style="color:var(--pri);">→</div></div></div></div>
+          <div class="card" style="margin-top:2px;"><div class="pb" style="cursor:pointer;" onclick="openCalc()"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 12h2M8 16h2"/></svg></div><div class="m"><div class="n">Returns calculator</div><div class="s">See your after-tax maturity value</div></div><div class="a"><div class="v" style="color:var(--pri);">→</div></div></div></div>
+        </div>
+        <div class="tb">
+          <div class="t" onclick="tabGo('home',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</div>
+          <div class="t" onclick="tabGo('passbook',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v4H4zM4 10h16v10H4z"/></svg>Passbook</div>
+          <div class="t on" onclick="tabGo('explore',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>Explore</div>
+          <div class="t" onclick="tabGo('profile',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Profile</div>
+        </div>
+      </div>
+
+      <!-- PROFILE -->
+      <div class="view" data-view="profile">
+        <div class="sb dk"><span>9:41</span><span>5G 100%</span></div>
+        <div class="sm-hero" style="padding-bottom:20px;">
+          <div style="display:flex;align-items:center;gap:13px;margin-top:4px;">
+            <div class="sm-av" style="width:52px;height:52px;font-size:20px;">P</div>
+            <div><div style="color:#fff;font-size:18px;font-weight:800;">Priya Sharma</div><div style="color:#CFC8E8;font-size:12px;margin-top:2px;">KYC verified · since Mar 2026</div></div>
+          </div>
+        </div>
+        <div class="body" style="padding-top:16px;">
+          <div class="seclbl">Your tax profile</div>
+          <div class="card pad">
+            <div class="fr" style="padding-top:2px;"><span class="k">Income-tax slab</span><span class="v">20%</span></div>
+            <div class="fr"><span class="k">Age band</span><span class="v">Under 60</span></div>
+            <div class="fact" style="margin-top:12px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>We use this to show every return <b>after tax</b> — never a pre-tax headline. <span class="src" onclick="showSrc('tax')">How FD tax works →</span></p></div>
+          </div>
+          <div class="seclbl">Preferences</div>
+          <div class="card">
+            <div class="pb"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><div class="m"><div class="n">Rate Radar alerts</div><div class="s">Notify me when RBI moves rates</div></div><div class="a"><div class="v" style="color:var(--ok);">On</div></div></div>
+          </div>
+          <div class="card" style="margin-top:2px;">
+            <div class="pb"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg></div><div class="m"><div class="n">DICGC insurance</div><div class="s">All deposits insured to ₹5L</div></div><div class="a"><div class="v src" style="color:var(--fact);" onclick="showSrc('dicgc')">Verify</div></div></div>
+          </div>
+        </div>
+        <div class="tb">
+          <div class="t" onclick="tabGo('home',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</div>
+          <div class="t" onclick="tabGo('passbook',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v4H4zM4 10h16v10H4z"/></svg>Passbook</div>
+          <div class="t" onclick="tabGo('explore',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>Explore</div>
+          <div class="t on" onclick="tabGo('profile',this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Profile</div>
         </div>
       </div>
 
@@ -492,6 +578,7 @@
 
 <!-- floating production-sourcing tooltip (presenter cue on hover) -->
 <div id="tip"></div>
+<div id="toast"></div>
 
 <!-- source modal (looks like the live app's "verified source" panel) -->
 <div id="srcModal" style="display:none;position:fixed;inset:0;background:rgba(26,22,38,.5);z-index:200;align-items:center;justify-content:center;padding:24px;" onclick="closeSrc(event)">
@@ -524,6 +611,8 @@
     if(v==='compare')renderBanks();if(v==='calc')renderCalc();if(v==='ladder')renderLad();if(v==='alloc')renderAlloc();}
   function toggleNotif(){document.getElementById('notif').classList.toggle('show');}
   function closeNotif(){var n=document.getElementById('notif');if(n)n.classList.remove('show');}
+  // bottom tab bar — real navigation
+  function tabGo(v,el){go(v);}
   function openRateAlert(){closeNotif();go('ratealert');}
 
   // ===== allocation =====

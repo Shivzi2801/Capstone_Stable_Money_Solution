@@ -119,6 +119,39 @@
   .ai-legrow{display:flex;align-items:center;gap:7px;font-size:11.5px;margin:3px 0;}
   .ai-legrow .sw{width:10px;height:10px;border-radius:3px;flex:0 0 10px;}
   .ai-legrow .amt{margin-left:auto;font-weight:800;}
+  /* linked savings accounts strip */
+  .insight{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--pri);border-radius:var(--r);padding:14px 16px;box-shadow:var(--sh-lg);cursor:pointer;}
+  .insight-tx{flex:1;}
+  .insight-tx h3{font-size:14.5px;font-weight:700;color:var(--ink);line-height:1.3;}
+  .insight-tx p{font-size:12.5px;color:var(--slate);margin-top:4px;}
+  .insight-tx p b{color:var(--ok);font-weight:800;}
+  .insight-go{width:30px;height:30px;border-radius:50%;background:var(--pri-wash);color:var(--pri-d);display:flex;align-items:center;justify-content:center;font-weight:700;flex:0 0 30px;}
+  .linked{display:flex;gap:9px;padding:2px 2px 4px;align-items:stretch;}
+  .acct{flex:1 1 0;min-width:0;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:12px;box-shadow:var(--sh);cursor:pointer;}
+  .acct .top{display:flex;align-items:center;gap:7px;margin-bottom:8px;}
+  .acct .bk{width:24px;height:24px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:9.5px;font-weight:800;color:#fff;flex:0 0 24px;}
+  .acct .nm{font-size:11.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .acct .bal{font-size:16px;font-weight:800;letter-spacing:-.01em;}
+  .acct .sub{font-size:9.5px;color:var(--slate-l);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .acct .gap{display:flex;align-items:center;gap:6px;margin-top:9px;padding-top:9px;border-top:1px solid var(--line);}
+  .acct .gap-col{display:flex;flex-direction:column;min-width:0;}
+  .acct .gap-col .gl{font-size:8.5px;color:var(--slate-l);font-weight:600;white-space:nowrap;}
+  .acct .gap-col .gv{font-size:13px;font-weight:800;color:var(--slate);white-space:nowrap;}
+  .acct .gap-col .gv.up{color:var(--ok);}
+  .acct .gap-arrow{color:var(--slate-l);font-weight:700;font-size:11px;}
+  .acct .acct-cta{margin-top:auto;font-size:10.5px;font-weight:700;color:var(--pri-d);background:var(--pri-wash);border-radius:8px;padding:8px 4px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .acct.addcard{flex:0 0 64px;justify-content:center;align-items:center;border-style:dashed;}
+  .reinvest-bar{display:flex;align-items:center;gap:9px;margin:0 16px 14px;padding:11px 12px;background:var(--ok-wash);border:1px solid #C2E8D5;border-radius:11px;cursor:pointer;}
+  .reinvest-bar svg{width:16px;height:16px;flex:0 0 16px;color:var(--ok);}
+  .reinvest-bar span{font-size:11.5px;font-weight:600;color:#0E5A47;line-height:1.35;}
+  .reinvest-bar .ri-go{margin-left:auto;color:var(--ok);font-weight:800;flex:0 0 auto;}
+  .bankfd-opt{display:flex;align-items:center;gap:12px;padding:14px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);box-shadow:var(--sh);cursor:pointer;}
+  /* bank-type filter chips on compare */
+  .bankfilter{display:flex;gap:7px;padding:2px 2px 0;overflow-x:auto;}
+  .bankfilter::-webkit-scrollbar{height:0;}
+  .bankfilter .bf{flex:0 0 auto;font-size:11px;font-weight:700;color:var(--slate);background:var(--surface);border:1px solid var(--line-2);border-radius:999px;padding:7px 13px;cursor:pointer;white-space:nowrap;}
+  .bankfilter .bf.on{background:var(--pri-wash);color:var(--pri-d);border-color:var(--pri);}
+  .yourbank-tag{font-size:9.5px;font-weight:700;background:#FCF3E2;color:#9A6612;padding:2px 7px;border-radius:6px;}
   /* demo hover tooltip — explains production sourcing on hover (presenter cue) */
   #tip{position:fixed;z-index:300;max-width:250px;background:#15101F;color:#fff;font-size:11px;line-height:1.45;padding:9px 11px;border-radius:9px;box-shadow:0 10px 30px rgba(0,0,0,.3);pointer-events:none;opacity:0;transition:opacity .12s;display:none;}
   #tip b{color:var(--neon);font-weight:700;}
@@ -263,29 +296,48 @@
           </div>
         </div>
         <div class="lift">
-          <div class="idle">
-            <div class="fl"><span>●</span> Your money that isn't working yet</div>
-            <h3>You have about ₹1,00,000 in savings earning ~3%. The same amount in an insured FD earns far more.</h3>
-            <div class="barwrap">
-              <div class="barrow"><span class="lab">Savings a/c</span><span class="bar"><span class="fillb" style="width:33%;background:var(--slate-l)"></span></span><span class="pct">3.0%</span></div>
-              <div class="barrow"><span class="lab">Insured FD</span><span class="bar"><span class="fillb" style="width:89%;background:var(--ok)"></span></span><span class="pct" style="color:var(--ok)">8.1%</span></div>
+          <div class="insight" onclick="resetFlow();go('alloc')">
+            <div class="insight-tx">
+              <h3>₹3,20,000 in savings is earning just ~3%</h3>
+              <p>An insured FD could earn up to <b>8.1%</b>. See where it could go →</p>
             </div>
-            <div class="fact" style="margin-top:4px;">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>
-              <p>Both rates are real and checkable: savings ~3% (your bank), top insured FD 8.10% (<span class="src" onclick="showSrc('rate')">partner rate, Jun 2026</span>). We don't set either.</p>
-            </div>
-            <div class="go" onclick="go('alloc')"><span>Put it to work — see how</span><span>→</span></div>
+            <div class="insight-go">→</div>
           </div>
         </div>
         <div class="body" style="padding-top:16px;">
-          <div class="seclbl">Your passbook</div>
-          <div class="card"><div class="pb"><div class="ic">UN</div><div class="m"><div class="n">Unity Small Finance</div><div class="s">7.25% · ₹25,000 · your first FD</div></div><div class="a"><div class="v num">₹26,750</div><div class="d">on track</div></div></div></div>
+          <div class="seclbl">Your linked savings accounts</div>
+          <div class="linked">
+            <div class="acct" onclick="openBankFD('HDFC Bank',7.00,1.85)">
+              <div class="top"><span class="bk" style="background:#004C8F">HD</span><span class="nm">HDFC Bank</span></div>
+              <div class="bal num">₹1,85,000</div><div class="sub">Savings · ••4821</div>
+              <div class="gap">
+                <div class="gap-col"><span class="gl">Savings</span><span class="gv">3.0%</span></div>
+                <span class="gap-arrow">→</span>
+                <div class="gap-col"><span class="gl">HDFC FD</span><span class="gv up">7.0%</span></div>
+              </div>
+              <div class="acct-cta">Move to FD →</div>
+            </div>
+            <div class="acct" onclick="openBankFD('Axis Bank',7.10,1.35)">
+              <div class="top"><span class="bk" style="background:#97144D">AX</span><span class="nm">Axis Bank</span></div>
+              <div class="bal num">₹1,35,000</div><div class="sub">Savings · ••7390</div>
+              <div class="gap">
+                <div class="gap-col"><span class="gl">Savings</span><span class="gv">3.0%</span></div>
+                <span class="gap-arrow">→</span>
+                <div class="gap-col"><span class="gl">Axis FD</span><span class="gv up">7.1%</span></div>
+              </div>
+              <div class="acct-cta">Move to FD →</div>
+            </div>
+          </div>
+          <div class="seclbl">Your deposits</div>
+          <div class="card"><div class="pb"><div class="ic">UN</div><div class="m"><div class="n">Unity Small Finance</div><div class="s">7.25% · ₹25,000 · matures 24 Jun 2027</div></div><div class="a"><div class="v num">₹26,750</div><div class="d">on track</div></div></div>
+            <div class="reinvest-bar" onclick="openReinvest()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9 9 0 0 0-9 9zM3 3v6h6"/></svg><span>Reinvest in Unity in one tap, or compare other banks</span><span class="ri-go">→</span></div>
+          </div>
           <div class="seclbl row"><span>Smart help</span><span class="aibadge">⚡ AI</span></div>
           <div class="aientry" onclick="openAI()">
             <div class="aientry-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.7 1.8L21.5 17l-1.8.7L19 19.5l-.7-1.8L16.5 17l1.8-.5z"/></svg></div>
             <div class="aientry-tx">
               <h4>Get fact-backed guidance</h4>
-              <p>Tell us your situation — our AI explains a sensible split in plain language, with every number sourced. You decide.</p>
+              <p>Tell us your situation — our AI explains a sensible split in plain language, with every number sourced.</p>
             </div>
             <div class="aientry-go">→</div>
           </div>
@@ -359,8 +411,13 @@
         <div class="ab"><div class="bk" onclick="go('alloc')">←</div><span class="ti">Where to put it</span></div>
         <div class="body">
           <div class="pgt">Insured banks, compared honestly</div>
-          <div class="pgs" id="cmpSub">Live rates for the top-safety portion (₹70,000), sorted. Your current bank is shown for comparison.</div>
-          <div class="sortbar"><div class="sc on" data-s="rate" onclick="sortB('rate',this)">Highest rate</div><div class="sc" data-s="safety" onclick="sortB('safety',this)">Safest rating</div><div class="sc" data-s="aftertax" onclick="sortB('aftertax',this)">Most after tax</div></div>
+          <div class="pgs" id="cmpSub">Live rates for the top-safety portion (₹70,000), sorted. Your savings banks are shown for comparison.</div>
+          <div class="bankfilter">
+            <div class="bf on" data-c="all" onclick="filterCat('all',this)">All banks</div>
+            <div class="bf" data-c="inst" onclick="filterCat('inst',this)">Top institutional</div>
+            <div class="bf" data-c="sfb" onclick="filterCat('sfb',this)">Small finance</div>
+          </div>
+          <div class="sortbar" style="margin-top:8px;"><div class="sc on" data-s="rate" onclick="sortB('rate',this)">Highest rate</div><div class="sc" data-s="safety" onclick="sortB('safety',this)">Safest rating</div><div class="sc" data-s="aftertax" onclick="sortB('aftertax',this)">Most after tax</div></div>
           <div id="bankList" style="display:flex;flex-direction:column;gap:10px;"></div>
           <div class="disclose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><p><b>How we earn:</b> Stable Money receives a commission from the bank on any booking. The rate you see is the same you'd get directly.</p></div>
           <p class="reass">Every rating links to its agency; every rate is checkable. Tap a bank to choose it.</p>
@@ -598,11 +655,14 @@
   var inr=function(n){return '\u20b9'+Math.round(n).toLocaleString('en-IN');};
 
   var BANKS=[
-    {nm:'Suryoday Small Finance',ab:'SU',col:'#E8743B',rate:8.10,rating:'ICRA A',mean:'Adequate safety · RBI-licensed SFB · DICGC-insured',safety:3,agency:'ICRA'},
-    {nm:'Utkarsh Small Finance',ab:'UT',col:'#5A31F4',rate:8.10,rating:'CRISIL A+',mean:'Good safety, a notch above A · DICGC-insured',safety:4,agency:'CRISIL'},
-    {nm:'Shivalik Small Finance',ab:'SH',col:'#1F9D6B',rate:7.80,rating:'CRISIL A',mean:'Adequate safety · DICGC-insured',safety:3,agency:'CRISIL'},
-    {nm:'Unity Small Finance',ab:'UN',col:'#9A94A6',rate:7.25,rating:'ICRA A',mean:'Your current bank · adequate safety',safety:3,agency:'ICRA',current:true}
+    {nm:'Suryoday Small Finance',ab:'SU',col:'#E8743B',rate:8.10,rating:'ICRA A',mean:'Adequate safety · RBI-licensed SFB · DICGC-insured',safety:3,agency:'ICRA',cat:'sfb'},
+    {nm:'Utkarsh Small Finance',ab:'UT',col:'#5A31F4',rate:8.10,rating:'CRISIL A+',mean:'Good safety, a notch above A · DICGC-insured',safety:4,agency:'CRISIL',cat:'sfb'},
+    {nm:'Shivalik Small Finance',ab:'SH',col:'#1F9D6B',rate:7.80,rating:'CRISIL A',mean:'Adequate safety · DICGC-insured',safety:3,agency:'CRISIL',cat:'sfb'},
+    {nm:'HDFC Bank',ab:'HD',col:'#004C8F',rate:7.00,rating:'CRISIL AAA',mean:'Highest safety · your savings bank · DICGC-insured',safety:6,agency:'CRISIL',cat:'inst',yourbank:true},
+    {nm:'Axis Bank',ab:'AX',col:'#97144D',rate:7.10,rating:'CRISIL AAA',mean:'Highest safety · your savings bank · DICGC-insured',safety:6,agency:'CRISIL',cat:'inst',yourbank:true},
+    {nm:'Unity Small Finance',ab:'UN',col:'#9A94A6',rate:7.25,rating:'ICRA A',mean:'Your current FD bank · adequate safety',safety:3,agency:'ICRA',cat:'sfb',current:true}
   ];
+  var bankCat='all'; // all | inst | sfb
   function afterTax(x){return x*(1-SLAB);}
   function taxPct(){return Math.round(SLAB*100);}
 
@@ -613,6 +673,21 @@
   function closeNotif(){var n=document.getElementById('notif');if(n)n.classList.remove('show');}
   // bottom tab bar — real navigation
   function tabGo(v,el){go(v);}
+  function resetFlow(){TOTAL=100000;splitSafe=0.70;var s=document.getElementById('splitS');if(s)s.value=70;renderAlloc();}
+  // move savings -> that bank's own FD (opens comparison on institutional tier, amount = balance)
+  function openBankFD(bank,rate,lakhs){
+    TOTAL=lakhs*100000; splitSafe=1; // whole balance, single FD
+    go('compare');
+    setTimeout(function(){var el=document.querySelector('#screen [data-view=compare] .bf[data-c=inst]');if(el)filterCat('inst',el);
+      document.getElementById('cmpSub').textContent='Your '+bank+' savings ('+inr(lakhs*100000)+') could move to '+bank+'\u2019s FD at '+rate.toFixed(2)+'% — or compare other insured banks below. You choose.';},60);
+  }
+  // reinvest the current FD — same bank one-tap, or compare out
+  function openReinvest(){
+    TOTAL=26750; splitSafe=1;
+    go('compare');
+    setTimeout(function(){var el=document.querySelector('#screen [data-view=compare] .bf[data-c=all]');if(el)filterCat('all',el);
+      document.getElementById('cmpSub').textContent='Reinvest your matured Unity FD (\u20b926,750): book again with Unity at 7.25%, or compare better insured rates below.';},60);
+  }
   function openRateAlert(){closeNotif();go('ratealert');}
 
   // ===== allocation =====
@@ -630,26 +705,32 @@
   // ===== comparison =====
   var curSort='rate';
   function sortB(s,el){curSort=s;document.querySelectorAll('#screen [data-view=compare] .sortbar .sc').forEach(function(x){x.classList.remove('on');});el.classList.add('on');renderBanks();}
+  function filterCat(c,el){bankCat=c;document.querySelectorAll('#screen [data-view=compare] .bankfilter .bf').forEach(function(x){x.classList.remove('on');});el.classList.add('on');renderBanks();}
   function renderBanks(){
     var amt=TOTAL*splitSafe; var cur=BANKS.find(function(b){return b.current;});
-    document.getElementById('cmpSub').textContent='Live rates for the top-safety portion ('+inr(amt)+'), sorted. Your current bank is shown for comparison.';
-    var list=BANKS.filter(function(b){return !b.current;}).slice();
+    var catLabel=bankCat==='inst'?'Top institutional banks':bankCat==='sfb'?'Small finance banks':'all banks';
+    document.getElementById('cmpSub').textContent='Live FD rates for '+inr(amt)+' across '+catLabel+'. Your savings banks (HDFC, Axis) are included.';
+    var list=BANKS.filter(function(b){return !b.current;});
+    if(bankCat!=='all')list=list.filter(function(b){return b.cat===bankCat;});
+    list=list.slice();
     if(curSort==='rate')list.sort(function(a,b){return b.rate-a.rate;});
     if(curSort==='safety')list.sort(function(a,b){return b.safety-a.safety||b.rate-a.rate;});
     if(curSort==='aftertax')list.sort(function(a,b){return afterTax(b.rate)-afterTax(a.rate);});
     var html='';
+    if(list.length===0){html='<div style="text-align:center;color:var(--slate-l);font-size:13px;padding:20px;">No banks in this category.</div>';}
     list.forEach(function(b,i){
-      var best=i===0; var gainPre=(b.rate-cur.rate)/100*amt; var gainPost=afterTax(gainPre);
+      var best=i===0&&curSort==='rate'; var gainPre=(b.rate-cur.rate)/100*amt; var gainPost=afterTax(gainPre);
+      var tag=b.yourbank?' <span class="yourbank-tag">your bank</span>':(best?' <span class="pill best">Top pick</span>':'');
       html+='<div class="bankrow '+(best?'best':'')+'" onclick="chooseBank(\''+b.nm+'\','+b.rate+',\''+b.rating+'\',\''+b.mean.replace(/'/g,"")+'\')">'+
         '<div class="logo" style="background:'+b.col+'">'+b.ab+'</div>'+
-        '<div class="info"><div class="nm">'+b.nm+(best?' <span class="pill best">Top pick</span>':'')+'</div>'+
+        '<div class="info"><div class="nm">'+b.nm+tag+'</div>'+
         '<div class="meaning">'+b.rating+' — '+b.mean+'</div>'+
         '<div class="srcline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg> ⌗ '+b.agency+' rating · DICGC ₹5L · rate Jun 2026</div></div>'+
         '<div class="rate"><div class="pct num">'+b.rate.toFixed(2)+'%</div>'+(gainPre>0?'<div class="gain num">+'+inr(gainPost)+'/yr after tax</div>':'')+'</div></div>';
     });
     html+='<div class="bankrow current" onclick="chooseBank(\''+cur.nm+'\','+cur.rate+',\''+cur.rating+'\',\''+cur.mean.replace(/'/g,"")+'\')">'+
       '<div class="logo" style="background:'+cur.col+'">'+cur.ab+'</div>'+
-      '<div class="info"><div class="nm">'+cur.nm+' <span class="pill cur">your bank</span></div><div class="meaning">Shown honestly for comparison — it pays less here.</div></div>'+
+      '<div class="info"><div class="nm">'+cur.nm+' <span class="pill cur">current FD</span></div><div class="meaning">Your existing FD bank, shown for comparison.</div></div>'+
       '<div class="rate"><div class="pct num" style="color:var(--slate)">'+cur.rate.toFixed(2)+'%</div></div></div>';
     document.getElementById('bankList').innerHTML=html;
   }
@@ -748,6 +829,7 @@
     var script=goalLine+seniorLine+'\n\n'+
       'On the top-safety portion of '+inr(safeAmt)+' at '+topRate.toFixed(2)+'%, that\u2019s about '+inr(interest)+' interest \u2014 you keep \u2248'+inr(net)+' after tax. '+taxLine+'\n\n'+
       'Suggested issuers to compare: Suryoday '+(8.10+uplift).toFixed(2)+'% [ICRA A], Utkarsh '+(8.10+uplift).toFixed(2)+'% [CRISIL A+], Shivalik '+(7.80+uplift).toFixed(2)+'% [CRISIL A].\n\n'+
+      'Your savings banks also offer FDs: HDFC '+(7.00+uplift).toFixed(2)+'% and Axis '+(7.10+uplift).toFixed(2)+'% — both AAA-rated. They\u2019re safer-rated but pay less; the small finance banks pay more at a slightly lower rating. Both are DICGC-insured to \u20b95L, so the gap is rating, not insurance.\n\n'+
       'Adjust the split anytime to fit your plan.';
     var el=document.getElementById('aiTyped'); var cur=document.createElement('span'); cur.className='ai-cursor'; el.appendChild(cur);
     var i=0;

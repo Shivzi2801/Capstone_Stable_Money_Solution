@@ -168,7 +168,7 @@
   .tool{flex:1;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-sm);padding:12px 10px;text-align:center;cursor:pointer;box-shadow:var(--sh);}
   .tool .ic{width:34px;height:34px;border-radius:10px;background:var(--pri-wash);color:var(--pri-d);display:flex;align-items:center;justify-content:center;margin:0 auto 7px;}
   .tool .ic svg{width:18px;height:18px;}.tool .t{font-size:11px;font-weight:700;line-height:1.3;}
-  .tb{flex:0 0 60px;display:flex;border-top:1px solid var(--line);background:var(--surface);}
+  .tb{flex:0 0 60px;display:flex;border-top:1px solid var(--line);background:var(--surface);position:sticky;bottom:0;margin-top:auto;z-index:20;box-shadow:0 -6px 16px -10px rgba(40,20,90,.18);}
   .tb .t{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:10px;color:var(--slate-l);font-weight:600;}
   .tb .t svg{width:20px;height:20px;}.tb .t.on{color:var(--pri);}
   /* page title in flows */
@@ -223,6 +223,18 @@
   .trust .ck svg{width:13px;height:13px;}
   .trust .t h5{font-size:13px;font-weight:700;}.trust .t p{font-size:11.5px;color:var(--slate);line-height:1.5;margin-top:2px;}
   .reass{font-size:11.5px;color:var(--slate);text-align:center;line-height:1.5;padding:2px 6px;}
+  .disclaimer{font-size:10px;color:var(--slate-l);line-height:1.45;padding:8px 10px;margin:6px 2px 0;border-top:1px solid var(--line);}
+  .detect-note{font-size:10.5px;color:var(--slate-l);line-height:1.4;margin:-2px 2px 8px;}
+  .stalebox{text-align:center;padding:24px 16px;background:var(--warn-wash);border:1px solid var(--warn-line);border-radius:14px;}
+  .stalebox .stale-ic{width:34px;height:34px;border-radius:50%;background:var(--warn);color:#fff;font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center;margin:0 auto 10px;}
+  .stalebox h5{font-size:14px;font-weight:800;color:#946011;}
+  .stalebox p{font-size:12px;color:var(--ink-2);line-height:1.5;margin-top:6px;}
+  .stale-toggle{font-size:10px;color:var(--slate-l);text-align:center;margin-top:10px;cursor:pointer;text-decoration:underline;}
+  .bufsplit{margin-top:12px;display:flex;flex-direction:column;gap:10px;}
+  .bufrow{display:flex;align-items:center;gap:10px;}
+  .bufrow .bw{width:10px;height:10px;border-radius:3px;flex:0 0 10px;}
+  .bufrow .bx{flex:1;}.bufrow .bx h5{font-size:13px;font-weight:700;}.bufrow .bx p{font-size:11px;color:var(--slate);line-height:1.4;margin-top:1px;}
+  .bufrow .bv{font-size:14px;font-weight:800;color:var(--ink);}
   .reass a{color:var(--pri);font-weight:700;cursor:pointer;}
   .foot{padding:11px 18px 16px;background:linear-gradient(180deg,rgba(246,245,251,0),var(--bg) 28%);}
   .btn{width:100%;border:none;border-radius:13px;font-family:inherit;font-size:14.5px;font-weight:700;padding:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;}
@@ -296,7 +308,7 @@
           </div>
         </div>
         <div class="lift">
-          <div class="insight" onclick="resetFlow();go('alloc')">
+          <div class="insight" onclick="resetFlow();go('buffer')">
             <div class="insight-tx">
               <h3>₹3,20,000 in savings is earning just ~3%</h3>
               <p>An insured FD could earn up to <b>8.1%</b>. See where it could go →</p>
@@ -306,6 +318,7 @@
         </div>
         <div class="body" style="padding-top:16px;">
           <div class="seclbl">Your linked savings accounts</div>
+          <p class="detect-note">Balances shown with your consent via Account Aggregator. Not linked an account? You can enter an amount yourself &mdash; we never guess.</p>
           <div class="linked">
             <div class="acct" onclick="openBankFD('HDFC Bank',7.00,1.85)">
               <div class="top"><span class="bk" style="background:#004C8F">HD</span><span class="nm">HDFC Bank</span></div>
@@ -374,11 +387,36 @@
       </div>
 
       <!-- ALLOCATION -->
+      <!-- BUFFER (emergency-fund / keep-accessible step — FR-1b) -->
+      <div class="view" data-view="buffer">
+        <div class="sb"><span>9:41</span><span>5G 100%</span></div>
+        <div class="ab"><div class="bk" onclick="go('home')">←</div><span class="ti">First, what to keep handy</span></div>
+        <div class="body">
+          <div class="pgt">Before anything, let's set aside what you might need</div>
+          <div class="pgs">You've got <b id="bufTotal">₹3,20,000</b> earning ~3%. We won't suggest moving all of it — some should stay within reach. How many months of expenses do you want to keep liquid?</div>
+          <div class="card pad">
+            <div class="field">
+              <div class="lb"><span class="k">Keep accessible</span><span class="v"><span id="bufMonths">3</span> months · <span id="bufAmtLbl" class="num">₹1,50,000</span></span></div>
+              <input type="range" id="bufS" min="0" max="6" step="1" value="3" oninput="renderBuffer()">
+              <div class="lb" style="margin-top:6px;color:var(--slate-l);font-size:11px;"><span>None</span><span>6 months</span></div>
+            </div>
+            <div class="bufsplit">
+              <div class="bufrow"><span class="bw" style="background:var(--ok)"></span><div class="bx"><h5>Stays accessible</h5><p>In savings, or a liquid FD that still earns ~6&ndash;7%</p></div><div class="bv num" id="bufKeep">₹1,50,000</div></div>
+              <div class="bufrow"><span class="bw" style="background:var(--pri)"></span><div class="bx"><h5>Free to put to work</h5><p>This is what we'll help you place in an FD</p></div><div class="bv num" id="bufDeploy">₹1,70,000</div></div>
+            </div>
+          </div>
+          <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>Keeping <b>3&ndash;6 months of expenses</b> within reach is the standard emergency-fund guidance. <span class="src" onclick="showSrc('buffer')">Why this rule →</span> You can keep that buffer in a <b>liquid FD</b> — it stays withdrawable on demand and still earns far more than savings.</p></div>
+          <p class="reass">We ask this <i>before</i> suggesting any amount — your safety net comes first, always.</p>
+        </div>
+        <div class="foot"><button class="btn btn-pri" onclick="go('alloc')">Continue with <span id="bufCtaAmt" class="num">₹1,70,000</span></button></div>
+      </div>
+
+      <!-- ALLOC -->
       <div class="view" data-view="alloc">
         <div class="sb"><span>9:41</span><span>5G 100%</span></div>
-        <div class="ab"><div class="bk" onclick="go('home')">←</div><span class="ti">A suggested split</span></div>
+        <div class="ab"><div class="bk" onclick="go('buffer')">←</div><span class="ti">A suggested split</span></div>
         <div class="body">
-          <div class="pgt">For ₹1,00,000, a balanced way to start</div>
+          <div class="pgt">For <span id="allocAmt" class="num">₹1,70,000</span>, a balanced way to start</div>
           <div class="pgs">This is how many cautious investors structure it — most in a top-safety bank, a portion laddered so cash frees up. Drag to change it.</div>
           <div class="card pad">
             <div class="alloc-wrap">
@@ -421,6 +459,7 @@
           <div id="bankList" style="display:flex;flex-direction:column;gap:10px;"></div>
           <div class="disclose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg><p><b>How we earn:</b> Stable Money receives a commission from the bank on any booking. The rate you see is the same you'd get directly.</p></div>
           <p class="reass">Every rating links to its agency; every rate is checkable. Tap a bank to choose it.</p>
+          <div class="stale-toggle" onclick="toggleStale()">Demo: simulate a rate-feed outage</div>
         </div>
       </div>
 
@@ -445,6 +484,7 @@
             <div class="trust"><div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div><div class="t"><h5>Break or switch anytime</h5><p>Principal stays safe; only a small rate trim if you exit early.</p></div></div>
           </div>
           <p class="reass">Every number above, and its source, is shown before you commit.</p>
+          <p class="disclaimer">Stable Money is a deposit distributor, not an investment adviser. This is general information to help you choose, not personalised investment advice &mdash; the decision is yours. FDs are subject to the issuing bank&rsquo;s terms; insurance cover is provided by DICGC up to &#8377;5,00,000 per bank.</p>
         </div>
         <div class="foot"><button class="btn btn-pri" onclick="go('success')">Confirm — this is my choice</button><button class="btn btn-gh" onclick="go('compare')">Compare other banks</button></div>
       </div>
@@ -650,7 +690,9 @@
 <script>
   // ===== state (seeded real Jun-2026 values) =====
   var SLAB=0.2;              // typical 20% slab, from profile in live app
-  var TOTAL=100000;          // idle cash being deployed
+  var IDLE=320000;           // total idle cash detected/entered across linked accounts
+  var BUFFER=150000;         // emergency-fund buffer the user keeps accessible
+  var TOTAL=100000;          // amount actually being deployed (IDLE - BUFFER), set on buffer screen
   var splitSafe=0.70;        // allocation to top-safety bank
   var inr=function(n){return '\u20b9'+Math.round(n).toLocaleString('en-IN');};
 
@@ -668,12 +710,28 @@
 
   // ===== nav =====
   function go(v){var s=document.getElementById('screen');s.querySelectorAll('.view').forEach(function(x){x.classList.remove('active');});s.querySelector('[data-view="'+v+'"]').classList.add('active');s.querySelectorAll('.view').forEach(function(x){x.scrollTop=0;});closeNotif();
-    if(v==='compare')renderBanks();if(v==='calc')renderCalc();if(v==='ladder')renderLad();if(v==='alloc')renderAlloc();}
+    if(v==='compare')renderBanks();if(v==='calc')renderCalc();if(v==='ladder')renderLad();if(v==='alloc')renderAlloc();if(v==='buffer')renderBuffer();}
   function toggleNotif(){document.getElementById('notif').classList.toggle('show');}
   function closeNotif(){var n=document.getElementById('notif');if(n)n.classList.remove('show');}
   // bottom tab bar — real navigation
   function tabGo(v,el){go(v);}
-  function resetFlow(){TOTAL=100000;splitSafe=0.70;var s=document.getElementById('splitS');if(s)s.value=70;renderAlloc();}
+  function resetFlow(){IDLE=320000;BUFFER=150000;TOTAL=IDLE-BUFFER;splitSafe=0.70;var s=document.getElementById('splitS');if(s)s.value=70;var b=document.getElementById('bufS');if(b)b.value=3;}
+  // ===== buffer (emergency-fund) =====
+  // monthly expense proxy: buffer months map to amounts; assume ~₹50,000/month for the seeded persona
+  var MONTHLY=50000;
+  function renderBuffer(){
+    var months=+document.getElementById('bufS').value;
+    BUFFER=Math.min(months*MONTHLY, IDLE);
+    TOTAL=Math.max(IDLE-BUFFER, 0);
+    document.getElementById('bufMonths').textContent=months;
+    document.getElementById('bufTotal').textContent=inr(IDLE);
+    document.getElementById('bufAmtLbl').textContent=inr(BUFFER);
+    document.getElementById('bufKeep').textContent=inr(BUFFER);
+    document.getElementById('bufDeploy').textContent=inr(TOTAL);
+    var cta=document.getElementById('bufCtaAmt'); if(cta)cta.textContent=inr(TOTAL);
+    // keep alloc slider in sync downstream
+    var s=document.getElementById('splitS'); if(s){splitSafe=+s.value/100;}
+  }
   // move savings -> that bank's own FD (opens comparison on institutional tier, amount = balance)
   function openBankFD(bank,rate,lakhs){
     TOTAL=lakhs*100000; splitSafe=1; // whole balance, single FD
@@ -693,6 +751,7 @@
   // ===== allocation =====
   function renderAlloc(){
     splitSafe=+document.getElementById('splitS').value/100;
+    var aa=document.getElementById('allocAmt'); if(aa)aa.textContent=inr(TOTAL);
     var safe=TOTAL*splitSafe, lad=TOTAL-safe;
     document.getElementById('splitVal').textContent=Math.round(splitSafe*100);
     document.getElementById('dPct').textContent=Math.round(splitSafe*100)+'%';
@@ -706,9 +765,19 @@
   var curSort='rate';
   function sortB(s,el){curSort=s;document.querySelectorAll('#screen [data-view=compare] .sortbar .sc').forEach(function(x){x.classList.remove('on');});el.classList.add('on');renderBanks();}
   function filterCat(c,el){bankCat=c;document.querySelectorAll('#screen [data-view=compare] .bankfilter .bf').forEach(function(x){x.classList.remove('on');});el.classList.add('on');renderBanks();}
+  var RATES_STALE=false; // simulates a live-feed failure to show the honest fallback
+  function toggleStale(){RATES_STALE=!RATES_STALE;renderBanks();}
   function renderBanks(){
     var amt=TOTAL*splitSafe; var cur=BANKS.find(function(b){return b.current;});
     var catLabel=bankCat==='inst'?'Top institutional banks':bankCat==='sfb'?'Small finance banks':'all banks';
+    if(RATES_STALE){
+      document.getElementById('cmpSub').textContent='We can\u2019t confirm live rates right now.';
+      document.getElementById('bankList').innerHTML='<div class="stalebox"><div class="stale-ic">!</div>'+
+        '<h5>Rates couldn\u2019t be confirmed just now</h5>'+
+        '<p>A few of our rate sources didn\u2019t respond. We\u2019d rather show you nothing than a number we can\u2019t stand behind \u2014 please try again in a moment. Your existing FDs are unaffected.</p>'+
+        '<button class="btn btn-gh" style="margin-top:10px;" onclick="toggleStale()">Retry</button></div>';
+      return;
+    }
     document.getElementById('cmpSub').textContent='Live FD rates for '+inr(amt)+' across '+catLabel+'. Your savings banks (HDFC, Axis) are included.';
     var list=BANKS.filter(function(b){return !b.current;});
     if(bankCat!=='all')list=list.filter(function(b){return b.cat===bankCat;});
@@ -787,8 +856,8 @@
     tax:['FD interest taxation','Interest on a fixed deposit is taxed at your income-tax slab. TDS applies above \u20b950,000 interest per bank per year (\u20b91,00,000 for seniors). Figures here use your profile slab.','Income Tax rules · FY25-26','See the tax rule'],
     dicgc:['DICGC deposit insurance','Your deposits are insured up to \u20b95,00,000 per depositor per bank by the Deposit Insurance and Credit Guarantee Corporation, an RBI subsidiary.','dicgc.org.in · Govt. of India','Verify at dicgc.org.in'],
     rating:['Credit rating','This bank\u2019s safety grade from the rating agency (e.g. ICRA / CRISIL \u201cA\u201d = adequate safety, \u201cAAA\u201d = highest). Ratings are public on the agency\u2019s site.','ICRA / CRISIL','Check the rating'],
-    break:['Premature-withdrawal rules','Breaking an FD early trims the interest rate by ~0.5\u20131% for the period held; your principal is never touched. Set by the issuing bank under RBI guidelines.','RBI guidelines · bank policy','See the rules']
-  };
+    break:['Premature-withdrawal rules','Breaking an FD early trims the interest rate by ~0.5\u20131% for the period held; your principal is never touched. Set by the issuing bank under RBI guidelines.','RBI guidelines · bank policy','See the rules'],
+    buffer:['Emergency-fund guidance','Standard personal-finance guidance is to keep 3\u20136 months of essential expenses easily accessible before locking money into longer-term products. A liquid or sweep-in FD lets that buffer earn FD-level interest while staying withdrawable on demand.','Widely-cited personal-finance norm','Why an emergency fund']  };
   function showSrc(k){var s=SRC[k];if(!s)return;
     document.getElementById('srcTitle').textContent=s[0];
     document.getElementById('srcBody').textContent=s[1];

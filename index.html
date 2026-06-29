@@ -372,7 +372,7 @@
       <!-- RATE ALERT -->
       <div class="view" data-view="ratealert">
         <div class="sb"><span>9:41</span><span>5G 100%</span></div>
-        <div class="ab"><div class="bk" onclick="go('home')">←</div><span class="ti">Why we're telling you this</span></div>
+        <div class="ab"><div class="bk" onclick="goBack()">←</div><span class="ti">Why we're telling you this</span></div>
         <div class="body">
           <div class="pgt">FD rates just got more attractive</div>
           <div class="pgs">The RBI raised the repo rate. When that happens, banks usually raise FD rates within a few weeks to attract deposits.</div>
@@ -390,7 +390,7 @@
       <!-- BUFFER (emergency-fund / keep-accessible step — FR-1b) -->
       <div class="view" data-view="buffer">
         <div class="sb"><span>9:41</span><span>5G 100%</span></div>
-        <div class="ab"><div class="bk" onclick="go('home')">←</div><span class="ti">First, what to keep handy</span></div>
+        <div class="ab"><div class="bk" onclick="goBack()">←</div><span class="ti">First, what to keep handy</span></div>
         <div class="body">
           <div class="pgt">Before anything, let's set aside what you might need</div>
           <div class="pgs">You've got <b id="bufTotal">₹3,20,000</b> earning ~3%. We won't suggest moving all of it — some should stay within reach. How many months of expenses do you want to keep liquid?</div>
@@ -414,7 +414,7 @@
       <!-- ALLOC -->
       <div class="view" data-view="alloc">
         <div class="sb"><span>9:41</span><span>5G 100%</span></div>
-        <div class="ab"><div class="bk" onclick="go('buffer')">←</div><span class="ti">A suggested split</span></div>
+        <div class="ab"><div class="bk" onclick="goBack()">←</div><span class="ti">A suggested split</span></div>
         <div class="body">
           <div class="pgt">For <span id="allocAmt" class="num">₹1,70,000</span>, a balanced way to start</div>
           <div class="pgs">This is how many cautious investors structure it — most in a top-safety bank, a portion laddered so cash frees up. Drag to change it.</div>
@@ -446,7 +446,7 @@
       <!-- COMPARE -->
       <div class="view" data-view="compare">
         <div class="sb"><span>9:41</span><span>5G 100%</span></div>
-        <div class="ab"><div class="bk" onclick="go('alloc')">←</div><span class="ti">Where to put it</span></div>
+        <div class="ab"><div class="bk" onclick="goBack()">←</div><span class="ti">Where to put it</span></div>
         <div class="body">
           <div class="pgt">Insured banks, compared honestly</div>
           <div class="pgs" id="cmpSub">Live rates for the top-safety portion (₹70,000), sorted. Your savings banks are shown for comparison.</div>
@@ -466,7 +466,7 @@
       <!-- CONFIRM -->
       <div class="view" data-view="confirm">
         <div class="sb"><span>9:41</span><span>5G 100%</span></div>
-        <div class="ab"><div class="bk" onclick="go('compare')">←</div><span class="ti">Confirm — and check the math</span></div>
+        <div class="ab"><div class="bk" onclick="goBack()">←</div><span class="ti">Confirm — and check the math</span></div>
         <div class="body">
           <div class="pgt" id="confTitle">New FD · Suryoday Small Finance</div>
           <div class="pgs">Here's exactly what you'll earn and keep, after tax.</div>
@@ -498,14 +498,14 @@
           <span class="youdid"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:14px;height:14px"><path d="M5 13l4 4L19 7"/></svg> Booked</span>
           <p id="succMsg">Your ₹70,000 is now in an 8.10% insured FD, up from 3% in savings. The laddered portion frees up every 3 months.</p>
           <div class="card pad"><div class="fr"><span class="k">New FD</span><span class="v" id="succBank">Suryoday · 8.10%</span></div><div class="fr"><span class="k">Laddered portion</span><span class="v">set up · frees up every 3 mo</span></div><div class="fr"><span class="k">Future decisions</span><span class="v" style="color:var(--pri)">we'll bring them to you</span></div></div>
-          <button class="restart" onclick="go('home')">↺ Back to home</button>
+          <button class="restart" onclick="tabGo('home')">↺ Back to home</button>
         </div>
       </div>
 
       <!-- LIQUIDITY -->
       <div class="view" data-view="liquidity">
         <div class="sb"><span>9:41</span><span>5G 100%</span></div>
-        <div class="ab"><div class="bk" onclick="go('home')">←</div><span class="ti">Can I break an FD?</span></div>
+        <div class="ab"><div class="bk" onclick="goBack()">←</div><span class="ti">Can I break an FD?</span></div>
         <div class="body">
           <div class="pgt">Yes — and your principal is never at risk</div>
           <div class="pgs">Half of people think breaking an FD eats their savings. It doesn't. Here's the truth on ₹1,00,000.</div>
@@ -519,7 +519,7 @@
       <!-- CALCULATOR -->
       <div class="view" data-view="calc">
         <div class="sb"><span>9:41</span><span>5G 100%</span></div>
-        <div class="ab"><div class="bk" onclick="go('home')">←</div><span class="ti">Returns calculator</span></div>
+        <div class="ab"><div class="bk" onclick="goBack()">←</div><span class="ti">Returns calculator</span></div>
         <div class="body">
           <div class="card pad" style="background:linear-gradient(150deg,var(--pri),var(--pri-d));color:#fff;">
             <div style="font-size:12px;opacity:.85;">After-tax value at maturity</div>
@@ -542,7 +542,7 @@
       <!-- LADDER -->
       <div class="view" data-view="ladder">
         <div class="sb"><span>9:41</span><span>5G 100%</span></div>
-        <div class="ab"><div class="bk" onclick="go('home')">←</div><span class="ti">Build a ladder</span></div>
+        <div class="ab"><div class="bk" onclick="goBack()">←</div><span class="ti">Build a ladder</span></div>
         <div class="body">
           <div class="pgt">Your first FD is rung one</div>
           <div class="pgs">Spread money across staggered dates so a piece frees up regularly — and each rung brings the next decision to you, automatically. That's how the first FD becomes a plan.</div>
@@ -561,7 +561,7 @@
       <div class="view" data-view="aiguide">
         <div class="sb dk"><span>9:41</span><span>5G 100%</span></div>
         <div class="ai-hero">
-          <div class="ab" style="padding:4px 0 10px;"><div class="bk" onclick="go('home')" style="background:rgba(255,255,255,.16);border:none;color:#fff;">←</div><span class="ti" style="color:#fff;">AI Guidance</span></div>
+          <div class="ab" style="padding:4px 0 10px;"><div class="bk" onclick="goBack()" style="background:rgba(255,255,255,.16);border:none;color:#fff;">←</div><span class="ti" style="color:#fff;">AI Guidance</span></div>
           <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg> AI-GENERATED · FACT-BACKED</div>
           <h2>A plain-language plan for your money</h2>
           <p>Tell us the situation. We'll suggest a sensible split, with every number sourced.</p>
@@ -709,12 +709,21 @@
   function taxPct(){return Math.round(SLAB*100);}
 
   // ===== nav =====
-  function go(v){var s=document.getElementById('screen');s.querySelectorAll('.view').forEach(function(x){x.classList.remove('active');});s.querySelector('[data-view="'+v+'"]').classList.add('active');s.querySelectorAll('.view').forEach(function(x){x.scrollTop=0;});closeNotif();
-    if(v==='compare')renderBanks();if(v==='calc')renderCalc();if(v==='ladder')renderLad();if(v==='alloc')renderAlloc();if(v==='buffer')renderBuffer();}
+  // ===== navigation with a real history stack =====
+  // navStack records the actual path taken, so the back arrow returns to
+  // wherever the user truly came from (not a hardcoded screen).
+  var navStack=[]; var curView='home';
+  function showView(v){var s=document.getElementById('screen');s.querySelectorAll('.view').forEach(function(x){x.classList.remove('active');});s.querySelector('[data-view="'+v+'"]').classList.add('active');s.querySelectorAll('.view').forEach(function(x){x.scrollTop=0;});closeNotif();
+    if(v==='compare')renderBanks();if(v==='calc')renderCalc();if(v==='ladder')renderLad();if(v==='alloc')renderAlloc();if(v==='buffer')renderBuffer();
+    curView=v;}
+  // forward navigation: remember where we were, then show the new screen
+  function go(v){ if(v!==curView) navStack.push(curView); showView(v); }
+  // back navigation: pop the real previous screen (fall back to home)
+  function goBack(){ var prev=navStack.pop(); showView(prev||'home'); }
   function toggleNotif(){document.getElementById('notif').classList.toggle('show');}
   function closeNotif(){var n=document.getElementById('notif');if(n)n.classList.remove('show');}
-  // bottom tab bar — real navigation
-  function tabGo(v,el){go(v);}
+  // bottom tab bar — top-level navigation, resets the back history
+  function tabGo(v,el){navStack=[];showView(v);}
   function resetFlow(){IDLE=320000;BUFFER=150000;TOTAL=IDLE-BUFFER;splitSafe=0.70;var s=document.getElementById('splitS');if(s)s.value=70;var b=document.getElementById('bufS');if(b)b.value=3;}
   // ===== buffer (emergency-fund) =====
   // monthly expense proxy: buffer months map to amounts; assume ~₹50,000/month for the seeded persona

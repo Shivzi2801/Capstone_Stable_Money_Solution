@@ -250,7 +250,52 @@
   .succ .card{width:100%;margin-top:10px;text-align:left;}
   .restart{margin:14px auto 0;background:var(--surface);border:1px solid var(--line-2);color:var(--ink);font-size:12.5px;font-weight:700;padding:9px 18px;border-radius:10px;cursor:pointer;}
   /* notif dropdown */
-  .notif{position:absolute;top:84px;right:16px;width:300px;background:var(--surface);border:1px solid var(--line-2);border-radius:14px;box-shadow:var(--sh-lg);padding:8px;z-index:60;display:none;}
+  .notif{position:absolute;top:84px;right:16px;width:308px;max-height:560px;overflow-y:auto;background:var(--surface);border:1px solid var(--line-2);border-radius:14px;box-shadow:var(--sh-lg);padding:8px;z-index:60;display:none;}
+  .notif-hd{font-size:11px;font-weight:800;color:var(--ink);padding:8px 10px 6px;letter-spacing:.01em;}
+  .notif-hd span{font-weight:500;color:var(--slate-l);font-size:10px;}
+  .ntag{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;color:var(--pri-d);background:var(--pri-wash);border-radius:5px;padding:2px 6px;margin-bottom:4px;}
+  .ntag.warn{color:var(--warn);background:var(--warn-wash);}
+  .notif-ft{font-size:10px;line-height:1.5;color:var(--slate);background:var(--bg);border-radius:9px;padding:9px 11px;margin:4px 4px 2px;}
+  /* ===== lock screen ===== */
+  .view[data-view="lockscreen"]{padding:0!important;}
+  .launcher{max-width:760px;margin:0 auto 14px;display:flex;gap:8px;justify-content:center;}
+  .lbtn{background:var(--surface);border:1px solid var(--line-2);border-radius:11px;padding:9px 16px;font-size:13px;font-weight:700;color:var(--slate);cursor:pointer;transition:all .14s;font-family:inherit;}
+  .lbtn:hover{border-color:var(--pri);color:var(--pri-d);}
+  .lbtn.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .lockwrap{position:absolute;inset:0;border-radius:37px;overflow:hidden;display:flex;flex-direction:column;
+    background:linear-gradient(165deg,#241a52 0%,#3a2a7a 42%,#5A31F4 100%);color:#fff;padding:54px 18px 20px;}
+  .lockwrap::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 60% at 80% 0%,rgba(200,245,96,.16),transparent 55%);pointer-events:none;}
+  .lock-top{text-align:center;margin-bottom:22px;position:relative;}
+  .lock-time{font-size:62px;font-weight:300;line-height:1;letter-spacing:-.02em;}
+  .lock-date{font-size:14px;font-weight:500;opacity:.85;margin-top:6px;}
+  .lock-note-hd{font-size:11px;font-weight:700;opacity:.7;letter-spacing:.04em;text-transform:uppercase;padding:0 4px 8px;position:relative;}
+  .lock-notes{display:flex;flex-direction:column;gap:9px;position:relative;}
+  .lock-foot{position:relative;text-align:center;padding-top:14px;margin-top:auto;}
+  .lnote{background:rgba(255,255,255,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:12px 14px;cursor:pointer;transition:transform .12s,background .12s;}
+  .lnote:hover{transform:scale(1.015);background:rgba(255,255,255,.22);}
+  .lnote-app{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;opacity:.9;margin-bottom:5px;}
+  .lnote-ic{color:var(--neon);font-size:11px;}
+  .lnote-t{margin-left:auto;font-weight:500;opacity:.7;font-size:10.5px;}
+  .lnote-title{font-size:14px;font-weight:700;line-height:1.25;margin-bottom:3px;}
+  .lnote-body{font-size:12.5px;line-height:1.4;opacity:.92;}
+  .lock-privacy{margin-top:auto;font-size:10.5px;line-height:1.55;background:rgba(0,0,0,.22);border-radius:11px;padding:11px 13px;position:relative;}
+  .lock-foot{position:relative;text-align:center;padding-top:14px;}
+  .lock-unlock{background:rgba(255,255,255,.92);color:var(--pri-d);border:none;border-radius:12px;font-size:13.5px;font-weight:700;padding:12px 18px;width:100%;cursor:pointer;transition:transform .12s;}
+  .lock-unlock:hover{transform:translateY(-1px);}
+  .lock-bar{width:120px;height:4px;border-radius:3px;background:rgba(255,255,255,.5);margin:14px auto 2px;}
+  /* feedback bar — outside the phone, a clear research ask */
+  .fbbar{max-width:540px;margin:18px auto 8px;display:flex;align-items:center;gap:15px;
+    background:linear-gradient(135deg,#2A1D5E,#5A31F4);border-radius:16px;padding:16px 20px;
+    text-decoration:none;cursor:pointer;transition:transform .14s,box-shadow .14s;box-shadow:0 14px 30px -16px rgba(90,49,244,.6);}
+  .fbbar:hover{transform:translateY(-2px);box-shadow:0 20px 40px -18px rgba(90,49,244,.7);}
+  .fbbar-stars{color:#F5B301;font-size:17px;letter-spacing:2px;flex:0 0 auto;}
+  .fbbar-tx{flex:1;display:flex;flex-direction:column;gap:2px;}
+  .fbbar-tx b{color:#fff;font-size:14.5px;font-weight:800;}
+  .fbbar-tx span{color:#D8CFF6;font-size:12px;line-height:1.4;}
+  .fbbar-btn{flex:0 0 auto;background:#fff;color:var(--pri-d);font-size:13px;font-weight:800;
+    border-radius:10px;padding:10px 16px;white-space:nowrap;}
+  @media(max-width:560px){.fbbar{flex-wrap:wrap;}.fbbar-btn{width:100%;text-align:center;}}
   .notif.show{display:block;}
   .notif .item{display:flex;gap:9px;padding:11px 10px;border-radius:10px;cursor:pointer;}
   .notif .item:hover{background:var(--bg);}
@@ -281,7 +326,12 @@
 
 <div class="howto">
   <span class="ic">▶</span>
-  <p>This is the Stable Money app. It opens on the home dashboard, where idle savings earning ~3% are shown against insured FD rates. Follow it through: <b>guided split → compare banks (you pick) → see the math → done</b>. <b>Hover any green fact chip</b> to see how that data is sourced in production.</p>
+  <p>This is the Stable Money app. A re-engagement journey often <b>starts on the lock screen</b> — tap a notification to enter the app. Then follow it through: <b>guided split → compare banks (you pick) → see the math → done</b>. <b>Hover any green fact chip</b> to see how that data is sourced in production.</p>
+</div>
+
+<div class="launcher">
+  <button class="lbtn on" id="lbtn-lock" onclick="showLock();setLbtn('lock')">🔒 Lock screen</button>
+  <button class="lbtn" id="lbtn-home" onclick="unlockTo('home');setLbtn('home')">📱 In-app (home)</button>
 </div>
 
 <div class="stage">
@@ -290,7 +340,7 @@
     <div class="screen" id="screen">
 
       <!-- HOME -->
-      <div class="view active" data-view="home">
+      <div class="view" data-view="home">
         <div class="sb dk"><span>9:41</span><span>5G 100%</span></div>
         <div class="sm-hero">
           <div class="sm-top">
@@ -302,10 +352,28 @@
           <div class="sm-port"><div class="l">Invested with Stable Money</div><div class="v num">₹26,750</div><div class="l" style="margin-top:4px;">1 fixed deposit · your first</div></div>
         </div>
         <div class="notif" id="notif">
+          <div class="notif-hd">Notifications <span>&middot; how they'd arrive on your lock screen</span></div>
           <div class="item" onclick="openRateAlert()">
             <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l6-6 4 4 8-8M14 7h7v7"/></svg></div>
-            <div><h5>RBI raised the repo rate by 0.25%</h5><p>Banks usually lift FD rates within weeks. Here's what it means for you.</p><div class="src">⌗ Source: RBI MPC statement →</div></div>
+            <div><div class="ntag">Bank rate rise</div><h5>Suryoday raised its 1-yr FD to 8.10%</h5><p>A new high among insured banks. Tap to see where it fits for you.</p><div class="src">&#8999; Public bank rate &mdash; verifiable</div></div>
           </div>
+          <div class="item" onclick="resetFlow();go('buffer')">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+            <div><div class="ntag">Idle savings</div><h5>Your savings could be working harder</h5><p>See what an insured FD could earn &mdash; you choose how much.</p><div class="src">&#8999; No amount shown &mdash; opens after unlock</div></div>
+          </div>
+          <div class="item" onclick="go('passbook')">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+            <div><div class="ntag">Maturity soon</div><h5>An FD of yours matures in 7 days</h5><p>See your reinvest options at today's rates.</p><div class="src">&#8999; No bank or amount on the lock screen</div></div>
+          </div>
+          <div class="item" onclick="go('ladder')">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16M7 16h10M9 12h6M11 8h2"/></svg></div>
+            <div><div class="ntag">Ladder freed</div><h5>Some of your laddered money is now liquid</h5><p>Redeploy at the latest rates, or withdraw &mdash; your call.</p><div class="src">&#8999; Amount revealed only inside the app</div></div>
+          </div>
+          <div class="item" onclick="openRateAlert()">
+            <div class="ic" style="background:var(--warn-wash);color:var(--warn)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7l6 6 4-4 8 8M21 17v-4h-4"/></svg></div>
+            <div><div class="ntag warn">Rate drop &middot; no sell</div><h5>Rates on banks you follow dipped this week</h5><p>No action needed &mdash; just so you're never the last to know.</p><div class="src">&#8999; We contact you even when there's nothing to sell</div></div>
+          </div>
+          <div class="notif-ft">&#9919; Public facts (a bank's rate, a maturity date) can appear here. Your balances never do &mdash; they're shown only after you unlock. <a onclick="showLock()" style="color:var(--pri-d);font-weight:700;cursor:pointer;display:inline-block;margin-top:5px;">See these on the lock screen &rarr;</a></div>
         </div>
         <div class="lift">
           <div class="insight" onclick="resetFlow();go('buffer')">
@@ -369,19 +437,50 @@
         </div>
       </div>
 
+      <!-- LOCK SCREEN — how notifications arrive when the app is closed -->
+      <div class="view active" data-view="lockscreen">
+        <div class="lockwrap">
+          <div class="lock-top">
+            <div class="lock-time">9:41</div>
+            <div class="lock-date">Monday, 30 June</div>
+          </div>
+          <div class="lock-note-hd">Earlier today &middot; Stable Money</div>
+          <div class="lock-notes">
+            <div class="lnote" onclick="unlockTo('ratealert')">
+              <div class="lnote-app"><span class="lnote-ic">&#9670;</span> Stable Money<span class="lnote-t">now</span></div>
+              <div class="lnote-title">Suryoday raised its 1-yr FD to 8.10%</div>
+              <div class="lnote-body">A new high among insured banks. Tap to see where it fits.</div>
+            </div>
+            <div class="lnote" onclick="unlockTo('passbook')">
+              <div class="lnote-app"><span class="lnote-ic">&#9670;</span> Stable Money<span class="lnote-t">2h ago</span></div>
+              <div class="lnote-title">An FD of yours matures in 7 days</div>
+              <div class="lnote-body">See your reinvest options at today&#x2019;s rates.</div>
+            </div>
+            <div class="lnote" onclick="unlockTo('buffer')">
+              <div class="lnote-app"><span class="lnote-ic">&#9670;</span> Stable Money<span class="lnote-t">9h ago</span></div>
+              <div class="lnote-title">Your savings could be working harder</div>
+              <div class="lnote-body">See what an insured FD could earn &mdash; you choose how much.</div>
+            </div>
+          </div>
+          <div class="lock-foot">
+            <div class="lock-bar"></div>
+          </div>
+        </div>
+      </div>
+
       <!-- RATE ALERT -->
       <div class="view" data-view="ratealert">
         <div class="sb"><span>9:41</span><span>5G 100%</span></div>
         <div class="ab"><div class="bk" onclick="goBack()">←</div><span class="ti">Why we're telling you this</span></div>
         <div class="body">
-          <div class="pgt">FD rates just got more attractive</div>
-          <div class="pgs">The RBI raised the repo rate. When that happens, banks usually raise FD rates within a few weeks to attract deposits.</div>
-          <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>This is a public event you can verify: <span class="src" onclick="showSrc('rbi')">RBI Monetary Policy statement, Jun 2026 →</span>. We're relaying a fact, not making a forecast.</p></div>
+          <div class="pgt">A bank you can use just raised its FD rate</div>
+          <div class="pgs">Insured banks on Stable Money revise their FD card rates often &mdash; for their own deposit needs, not only when the RBI moves. We watch all of them and tell you when a rate you could use changes.</div>
+          <div class="fact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg><p>Both are public facts you can verify: <span class="src" onclick="showSrc('rbi')">bank card rates + RBI MPC statement, Jun 2026 &rarr;</span>. We're relaying facts, not making a forecast.</p></div>
           <div class="card pad">
-            <div class="fr"><span class="k">Repo rate</span><span class="v">↑ +0.25%</span></div>
-            <div class="fr"><span class="k">Top insured FD (then vs now)</span><span class="v">7.85% → <span style="color:var(--ok)">8.10%</span></span></div>
+            <div class="fr"><span class="k">Top insured FD (then vs now)</span><span class="v">7.85% &rarr; <span style="color:var(--ok)">8.10%</span></span></div>
+            <div class="fr"><span class="k">Repo rate (the backdrop)</span><span class="v">&uarr; +0.25%</span></div>
           </div>
-          <div class="fact" style="background:var(--warn-wash);border-color:var(--warn-line);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--warn)"><path d="M12 8v5M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg><p style="color:#946011">When rates fall, this alert says so too — usually with no action needed.</p></div>
+          <div class="fact" style="background:var(--warn-wash);border-color:var(--warn-line);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--warn)"><path d="M12 8v5M12 16h.01"/><circle cx="12" cy="12" r="9"/></svg><p style="color:#946011">When a rate <i>falls</i>, this alert says so too &mdash; usually with no action needed. News, not a sell.</p></div>
         </div>
         <div class="foot"><button class="btn btn-pri" onclick="go('alloc')">Show me where to put more</button></div>
       </div>
@@ -653,7 +752,7 @@
           </div>
           <div class="seclbl">Preferences</div>
           <div class="card">
-            <div class="pb"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><div class="m"><div class="n">Rate Radar alerts</div><div class="s">Notify me when RBI moves rates</div></div><div class="a"><div class="v" style="color:var(--ok);">On</div></div></div>
+            <div class="pb"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><div class="m"><div class="n">Rate Radar alerts</div><div class="s">When a bank changes its FD rate</div></div><div class="a"><div class="v" style="color:var(--ok);">On</div></div></div>
           </div>
           <div class="card" style="margin-top:2px;">
             <div class="pb"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg></div><div class="m"><div class="n">DICGC insurance</div><div class="s">All deposits insured to ₹5L</div></div><div class="a"><div class="v src" style="color:var(--fact);" onclick="showSrc('dicgc')">Verify</div></div></div>
@@ -671,7 +770,13 @@
   </div>
 </div>
 
-<div class="hint">Every screen is real and clickable. <b>Start at the home dashboard</b> — the idle-cash prompt re-engages a first-timer in-window; the guided split gives a beginner a model; the comparison shows every fact and lets <b>you</b> pick; the confirm shows the math. Tap the green <b>fact chips</b> to see sources. The customer-first rate alert (bell, top-right) is the secondary entry.</div>
+<div class="hint">Every screen is real and clickable. <b>It starts on the lock screen</b> — tap any notification (or "Tap to open") to enter the app. Notice the lock screen shows <b>public facts only — never your balance</b>. Inside: the idle-cash prompt re-engages a first-timer in-window; the guided split gives a beginner a model; the comparison shows every fact and lets <b>you</b> pick; the confirm shows the math. Tap the green <b>fact chips</b> to see sources.</div>
+
+<a class="fbbar" href="https://tally.so/r/81W5Yo" target="_blank" rel="noopener">
+  <span class="fbbar-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+  <span class="fbbar-tx"><b>Tried the prototype? Share your feedback</b><span>2 minutes — rate it &amp; tell us what to fix. Your input shapes the next version.</span></span>
+  <span class="fbbar-btn">Give feedback &rarr;</span>
+</a>
 
 <!-- floating production-sourcing tooltip (presenter cue on hover) -->
 <div id="tip"></div>
@@ -756,6 +861,13 @@
       document.getElementById('cmpSub').textContent='Reinvest your matured Unity FD (\u20b926,750): book again with Unity at 7.25%, or compare better insured rates below.';},60);
   }
   function openRateAlert(){closeNotif();go('ratealert');}
+  // lock screen: tapping a notification "unlocks" into the app at that screen
+  function unlockTo(v){navStack=[];closeNotif();showView(v);setLbtn('home');}
+  function showLock(){closeNotif();showView('lockscreen');setLbtn('lock');}
+  function setLbtn(which){
+    var l=document.getElementById('lbtn-lock'), hm=document.getElementById('lbtn-home');
+    if(l&&hm){l.classList.toggle('on',which==='lock');hm.classList.toggle('on',which!=='lock');}
+  }
 
   // ===== allocation =====
   function renderAlloc(){
@@ -860,7 +972,7 @@
   // each: [title, body, meta(as-of/publisher), linkLabel] — presented as the live app would
   var SRC={
     rate:['Partner bank FD rates','Live 1-year FD rates across Stable Money\u2019s 200+ partner banks. Top insured rate currently 8.10%; a typical savings account pays ~3%.','Partner data · updated daily','View all partner rates'],
-    rbi:['RBI Monetary Policy statement','The repo rate is set by the RBI\u2019s Monetary Policy Committee and published after each meeting. FD rates typically follow repo moves within weeks.','Reserve Bank of India · Jun 2026','Read the RBI statement'],
+    rbi:['Bank FD card rates + RBI repo','Partner banks publish their FD card rates and revise them through the year for their own deposit needs; Stable Money tracks all of them. The RBI repo rate, set by the MPC, is the policy backdrop that influences the broader trend.','Bank rate cards + RBI · Jun 2026','Read the sources'],
     ladder:['FD laddering strategy','Splitting a sum across staggered maturities balances liquidity and rate-averaging \u2014 a standard approach documented by major banks and the RBI. Stable Money structures it for you in one tap.','Industry standard practice','How laddering works'],
     tax:['FD interest taxation','Interest on a fixed deposit is taxed at your income-tax slab. TDS applies above \u20b950,000 interest per bank per year (\u20b91,00,000 for seniors). Figures here use your profile slab.','Income Tax rules · FY25-26','See the tax rule'],
     dicgc:['DICGC deposit insurance','Your deposits are insured up to \u20b95,00,000 per depositor per bank by the Deposit Insurance and Credit Guarantee Corporation, an RBI subsidiary.','dicgc.org.in · Govt. of India','Verify at dicgc.org.in'],
@@ -927,7 +1039,7 @@
   // ===== production-sourcing hover tooltips (presenter cue) =====
   var TIP={
     rate:'In production: pulled <b>live from partner-bank feeds</b>, refreshed daily across 200+ banks.',
-    rbi:'In production: triggered by the <b>RBI MPC announcement</b> feed and linked to the official statement.',
+    rbi:'In production: triggered by the <b>partner-bank rate-card feed</b> (primary), with the <b>RBI MPC announcement</b> feed layered in as context.',
     ladder:'In production: links to <b>published laddering guidance</b> from major banks &amp; the RBI.',
     tax:'In production: computed from the user\u2019s <b>tax profile</b> using current Income-Tax rules.',
     dicgc:'In production: links straight to <b>dicgc.org.in</b> so the user verifies the cover themselves.',

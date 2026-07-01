@@ -295,6 +295,11 @@
   .fbbar-tx span{color:#D8CFF6;font-size:12px;line-height:1.4;}
   .fbbar-btn{flex:0 0 auto;background:#fff;color:var(--pri-d);font-size:13px;font-weight:800;
     border-radius:10px;padding:10px 16px;white-space:nowrap;}
+  /* toggle switch */
+  .toggle{width:44px;height:26px;border-radius:14px;border:none;background:#D8D2E8;position:relative;cursor:pointer;padding:0;transition:background .18s;flex:0 0 auto;}
+  .toggle .knob{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .18s;}
+  .toggle.on{background:var(--ok);}
+  .toggle.on .knob{left:21px;}
   @media(max-width:560px){.fbbar{flex-wrap:wrap;}.fbbar-btn{width:100%;text-align:center;}}
   .notif.show{display:block;}
   .notif .item{display:flex;gap:9px;padding:11px 10px;border-radius:10px;cursor:pointer;}
@@ -752,7 +757,7 @@
           </div>
           <div class="seclbl">Preferences</div>
           <div class="card">
-            <div class="pb"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><div class="m"><div class="n">Rate Radar alerts</div><div class="s">When a bank changes its FD rate</div></div><div class="a"><div class="v" style="color:var(--ok);">On</div></div></div>
+            <div class="pb"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div><div class="m"><div class="n">Rate Radar alerts</div><div class="s" id="rr-sub">When a bank changes its FD rate</div></div><div class="a"><button class="toggle on" id="rr-toggle" role="switch" aria-checked="true" onclick="toggleRadar()"><span class="knob"></span></button></div></div>
           </div>
           <div class="card" style="margin-top:2px;">
             <div class="pb"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/></svg></div><div class="m"><div class="n">DICGC insurance</div><div class="s">All deposits insured to ₹5L</div></div><div class="a"><div class="v src" style="color:var(--fact);" onclick="showSrc('dicgc')">Verify</div></div></div>
@@ -867,6 +872,21 @@
   function setLbtn(which){
     var l=document.getElementById('lbtn-lock'), hm=document.getElementById('lbtn-home');
     if(l&&hm){l.classList.toggle('on',which==='lock');hm.classList.toggle('on',which!=='lock');}
+  }
+
+  // ===== Rate Radar preference toggle =====
+  var _toastTimer;
+  function showToast(html){
+    var t=document.getElementById('toast'); if(!t)return;
+    t.innerHTML=html; t.classList.add('show');
+    clearTimeout(_toastTimer); _toastTimer=setTimeout(function(){t.classList.remove('show');},2400);
+  }
+  function toggleRadar(){
+    var btn=document.getElementById('rr-toggle'), sub=document.getElementById('rr-sub');
+    var on=btn.classList.toggle('on');
+    btn.setAttribute('aria-checked', on?'true':'false');
+    if(sub) sub.textContent = on ? 'When a bank changes its FD rate' : 'Turned off — you won\u2019t be notified';
+    showToast(on ? 'Rate Radar alerts <b>on</b>' : 'Rate Radar alerts <b>off</b>');
   }
 
   // ===== allocation =====
